@@ -37,6 +37,31 @@
 		5206608C29601F1600D65347 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5206608B29601F1600D65347 /* AppDelegate.swift */; };
 		5206608E29601F2F00D65347 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5206608D29601F2F00D65347 /* SceneDelegate.swift */; };
 		5206609129601FF800D65347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5206609029601FF800D65347 /* LaunchScreen.storyboard */; };
+		528B5915296531140076A88A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5914296531140076A88A /* LoginScreen.swift */; };
+		528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59172965352E0076A88A /* LoginFieldsOuterView.swift */; };
+		528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B591A2965367F0076A88A /* MaxWidthButton.swift */; };
+		528B591E2965367F0076A88A /* MinWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B591B2965367F0076A88A /* MinWidthButton.swift */; };
+		528B591F2965367F0076A88A /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B591C2965367F0076A88A /* IconButton.swift */; };
+		528B59242965377E0076A88A /* KingfisherImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59212965377E0076A88A /* KingfisherImageView.swift */; };
+		528B59252965377E0076A88A /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59222965377E0076A88A /* ImageView.swift */; };
+		528B5928296539250076A88A /* OTPVerifyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5927296539250076A88A /* OTPVerifyScreen.swift */; };
+		528B592A29653BF60076A88A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B592929653BF60076A88A /* LoginViewModel.swift */; };
+		528B592C29653C810076A88A /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B592B29653C810076A88A /* LoginResponse.swift */; };
+		528B592E29653E5F0076A88A /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B592D29653E5F0076A88A /* BaseResponse.swift */; };
+		528B5933296542F30076A88A /* OTPTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5930296542F30076A88A /* OTPTextFieldViewModel.swift */; };
+		528B5934296542F30076A88A /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5931296542F30076A88A /* OTPTextField.swift */; };
+		528B5935296542F30076A88A /* DisabledActionsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5932296542F30076A88A /* DisabledActionsTextField.swift */; };
+		528B5938296548A10076A88A /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5937296548A10076A88A /* Loader.swift */; };
+		528B593A296549160076A88A /* LargeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5939296549160076A88A /* LargeProgressView.swift */; };
+		528B593C296549300076A88A /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B593B296549300076A88A /* BlurView.swift */; };
+		528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B593D29654BFC0076A88A /* FillUserDetailsScreen.swift */; };
+		528B594029654C9E0076A88A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B593F29654C9E0076A88A /* ProfileViewModel.swift */; };
+		528B594429654F920076A88A /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594329654F920076A88A /* HomeScreen.swift */; };
+		528B5946296558860076A88A /* SelectBankScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5945296558860076A88A /* SelectBankScreen.swift */; };
+		528B594829655F6D0076A88A /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594729655F6D0076A88A /* AvatarView.swift */; };
+		528B594A296563C30076A88A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5949296563C30076A88A /* SearchTextField.swift */; };
+		528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594B29656B290076A88A /* FillBankDetailsScreen.swift */; };
+		528B595029658BDB0076A88A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594F29658BDB0076A88A /* CardView.swift */; };
 		57B41F48C9503B4D7DE7C333 /* Pods_payment_appTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4AE33AD5A47ED016AB8DF8 /* Pods_payment_appTests.framework */; };
 		9025BFBBCE62600E4943594B /* Pods_payment_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D0E642187D6B6AE77B558F /* Pods_payment_app.framework */; };
 		AC5309F4505D6C55F2768288 /* Pods_payment_app_payment_appUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6543E50FFFF5479488B8A765 /* Pods_payment_app_payment_appUITests.framework */; };
@@ -94,6 +119,31 @@
 		5206608D29601F2F00D65347 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5206609029601FF800D65347 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		520660922960205800D65347 /* payment-app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "payment-app-Info.plist"; sourceTree = SOURCE_ROOT; };
+		528B5914296531140076A88A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		528B59172965352E0076A88A /* LoginFieldsOuterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFieldsOuterView.swift; sourceTree = "<group>"; };
+		528B591A2965367F0076A88A /* MaxWidthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxWidthButton.swift; sourceTree = "<group>"; };
+		528B591B2965367F0076A88A /* MinWidthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinWidthButton.swift; sourceTree = "<group>"; };
+		528B591C2965367F0076A88A /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		528B59212965377E0076A88A /* KingfisherImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingfisherImageView.swift; sourceTree = "<group>"; };
+		528B59222965377E0076A88A /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		528B5927296539250076A88A /* OTPVerifyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerifyScreen.swift; sourceTree = "<group>"; };
+		528B592929653BF60076A88A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		528B592B29653C810076A88A /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		528B592D29653E5F0076A88A /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		528B5930296542F30076A88A /* OTPTextFieldViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPTextFieldViewModel.swift; sourceTree = "<group>"; };
+		528B5931296542F30076A88A /* OTPTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
+		528B5932296542F30076A88A /* DisabledActionsTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledActionsTextField.swift; sourceTree = "<group>"; };
+		528B5937296548A10076A88A /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		528B5939296549160076A88A /* LargeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeProgressView.swift; sourceTree = "<group>"; };
+		528B593B296549300076A88A /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		528B593D29654BFC0076A88A /* FillUserDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillUserDetailsScreen.swift; sourceTree = "<group>"; };
+		528B593F29654C9E0076A88A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		528B594329654F920076A88A /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		528B5945296558860076A88A /* SelectBankScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBankScreen.swift; sourceTree = "<group>"; };
+		528B594729655F6D0076A88A /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		528B5949296563C30076A88A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		528B594B29656B290076A88A /* FillBankDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBankDetailsScreen.swift; sourceTree = "<group>"; };
+		528B594F29658BDB0076A88A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		6543E50FFFF5479488B8A765 /* Pods_payment_app_payment_appUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payment_app_payment_appUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C7BBEA17A316D728F8C40D8 /* Pods-payment_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payment_app.release.xcconfig"; path = "Target Support Files/Pods-payment_app/Pods-payment_app.release.xcconfig"; sourceTree = "<group>"; };
 		72D0E642187D6B6AE77B558F /* Pods_payment_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payment_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +308,7 @@
 		5206605829600EAC00D65347 /* Screens and Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				528B5913296531000076A88A /* Screens */,
 				5206608F29601FE900D65347 /* Storyboard */,
 				520660752960193100D65347 /* Widgets */,
 			);
@@ -277,6 +328,8 @@
 		5206606029600F8700D65347 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				528B592929653BF60076A88A /* LoginViewModel.swift */,
+				528B593F29654C9E0076A88A /* ProfileViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -284,6 +337,8 @@
 		5206606129600F9100D65347 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				528B592B29653C810076A88A /* LoginResponse.swift */,
+				528B592D29653E5F0076A88A /* BaseResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -299,7 +354,14 @@
 		520660752960193100D65347 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				528B59162965351E0076A88A /* App Reusable Widgets */,
+				528B59192965367F0076A88A /* Buttons */,
+				528B59202965377E0076A88A /* Image and Sliders */,
+				528B59362965489B0076A88A /* Loader */,
+				528B592F296542F30076A88A /* OTP TextField */,
 				52066076296019D200D65347 /* TextFields */,
+				528B593B296549300076A88A /* BlurView.swift */,
+				528B594F29658BDB0076A88A /* CardView.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -309,6 +371,7 @@
 			children = (
 				52066077296019E400D65347 /* MySecureField.swift */,
 				52066079296019F900D65347 /* MyTextField.swift */,
+				528B5949296563C30076A88A /* SearchTextField.swift */,
 				5206607B29601A1B00D65347 /* MyTextView.swift */,
 			);
 			path = TextFields;
@@ -332,6 +395,82 @@
 				5206609029601FF800D65347 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		528B5913296531000076A88A /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				528B594229654F810076A88A /* Dashboard */,
+				528B594129654F760076A88A /* Login */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		528B59162965351E0076A88A /* App Reusable Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				528B59172965352E0076A88A /* LoginFieldsOuterView.swift */,
+				528B594729655F6D0076A88A /* AvatarView.swift */,
+			);
+			path = "App Reusable Widgets";
+			sourceTree = "<group>";
+		};
+		528B59192965367F0076A88A /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				528B591A2965367F0076A88A /* MaxWidthButton.swift */,
+				528B591B2965367F0076A88A /* MinWidthButton.swift */,
+				528B591C2965367F0076A88A /* IconButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		528B59202965377E0076A88A /* Image and Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				528B59212965377E0076A88A /* KingfisherImageView.swift */,
+				528B59222965377E0076A88A /* ImageView.swift */,
+			);
+			path = "Image and Sliders";
+			sourceTree = "<group>";
+		};
+		528B592F296542F30076A88A /* OTP TextField */ = {
+			isa = PBXGroup;
+			children = (
+				528B5930296542F30076A88A /* OTPTextFieldViewModel.swift */,
+				528B5931296542F30076A88A /* OTPTextField.swift */,
+				528B5932296542F30076A88A /* DisabledActionsTextField.swift */,
+			);
+			path = "OTP TextField";
+			sourceTree = "<group>";
+		};
+		528B59362965489B0076A88A /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				528B5937296548A10076A88A /* Loader.swift */,
+				528B5939296549160076A88A /* LargeProgressView.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		528B594129654F760076A88A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				528B5914296531140076A88A /* LoginScreen.swift */,
+				528B5927296539250076A88A /* OTPVerifyScreen.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		528B594229654F810076A88A /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				528B593D29654BFC0076A88A /* FillUserDetailsScreen.swift */,
+				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
+				528B5945296558860076A88A /* SelectBankScreen.swift */,
+				528B594329654F920076A88A /* HomeScreen.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,23 +718,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				528B5928296539250076A88A /* OTPVerifyScreen.swift in Sources */,
+				528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */,
+				528B59252965377E0076A88A /* ImageView.swift in Sources */,
+				528B5946296558860076A88A /* SelectBankScreen.swift in Sources */,
+				528B5933296542F30076A88A /* OTPTextFieldViewModel.swift in Sources */,
 				5206607A296019F900D65347 /* MyTextField.swift in Sources */,
+				528B595029658BDB0076A88A /* CardView.swift in Sources */,
 				5206607C29601A1B00D65347 /* MyTextView.swift in Sources */,
 				520660642960101800D65347 /* AppEnvironmentObject.swift in Sources */,
 				52066078296019E400D65347 /* MySecureField.swift in Sources */,
+				528B592C29653C810076A88A /* LoginResponse.swift in Sources */,
+				528B5938296548A10076A88A /* Loader.swift in Sources */,
 				5206605B29600EEC00D65347 /* ApiServices.swift in Sources */,
 				5206606C2960111600D65347 /* AppTexts.swift in Sources */,
+				528B592A29653BF60076A88A /* LoginViewModel.swift in Sources */,
+				528B594829655F6D0076A88A /* AvatarView.swift in Sources */,
+				528B5935296542F30076A88A /* DisabledActionsTextField.swift in Sources */,
 				5206602D2960088D00D65347 /* ContentView.swift in Sources */,
+				528B592E29653E5F0076A88A /* BaseResponse.swift in Sources */,
+				528B591E2965367F0076A88A /* MinWidthButton.swift in Sources */,
+				528B5934296542F30076A88A /* OTPTextField.swift in Sources */,
+				528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */,
+				528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */,
 				5206606A296010B700D65347 /* AppConstants.swift in Sources */,
 				5206605D29600F2300D65347 /* Endpoints.swift in Sources */,
+				528B59242965377E0076A88A /* KingfisherImageView.swift in Sources */,
+				528B593C296549300076A88A /* BlurView.swift in Sources */,
 				520660702960118200D65347 /* Singleton.swift in Sources */,
 				52066072296011AF00D65347 /* Extensions.swift in Sources */,
 				5206608E29601F2F00D65347 /* SceneDelegate.swift in Sources */,
+				528B594029654C9E0076A88A /* ProfileViewModel.swift in Sources */,
+				528B591F2965367F0076A88A /* IconButton.swift in Sources */,
+				528B594429654F920076A88A /* HomeScreen.swift in Sources */,
 				5206606E2960115300D65347 /* GeneralFunctions.swift in Sources */,
 				520660742960132B00D65347 /* FileModel.swift in Sources */,
+				528B594A296563C30076A88A /* SearchTextField.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
+				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
 				520660682960107B00D65347 /* Alerts.swift in Sources */,
 				5206608C29601F1600D65347 /* AppDelegate.swift in Sources */,
+				528B593A296549160076A88A /* LargeProgressView.swift in Sources */,
+				528B5915296531140076A88A /* LoginScreen.swift in Sources */,
 				5206605F29600F5800D65347 /* InternetConnectivityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

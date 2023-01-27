@@ -9,6 +9,10 @@ import Foundation
 import Network
 import Combine
 
+protocol ViewModel: ObservableObject {
+    func cancelAllCancellables()
+}
+
 class ApiServices {
     
     func getQueryItems(forURLString urlString: String, andParamters parameters: JSONKeyPair) -> URLComponents? {
@@ -29,7 +33,7 @@ class ApiServices {
     
     func getURL(ofHTTPMethod httpMethod: HTTPMethod,
                 forAppEndpoint appEndpoint: AppEndpoints,
-                withQueryParameters queryParameters: JSONKeyPair?) -> URLRequest? {
+                withQueryParameters queryParameters: JSONKeyPair? = nil) -> URLRequest? {
         return getURL(ofHTTPMethod: httpMethod, forString: appEndpoint.getURLString(), withQueryParameters: queryParameters)
     }
     
@@ -90,8 +94,10 @@ class ApiServices {
                         case 200...299:
                             #if DEBUG
                             do {
-                                let _ = try Singleton.sharedInstance.jsonDecoder.decode(decodingStruct.self, from: data)
-                                print("")
+                                try Singleton.sharedInstance.jsonDecoder.decode(decodingStruct.self, from: data)
+                            } catch let DecodingError.typeMismatch(type, context)  {
+                                print("Type '\(type)' mismatch:", context.debugDescription)
+                                print("codingPath:", context.codingPath)
                             } catch {
                                 print(error.localizedDescription)
                             }

@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        NavigationView {
+            Group {
+                if Singleton.sharedInstance.generalFunctions.isUserLoggedIn() {
+                    HomeScreen()
+                } else {
+                    LoginScreen()
+                }
+            }.navigationBarTitle("", displayMode: .inline)
+        }.onAppear {
+                UIApplication.shared.addTapGestureRecognizer()
+            }
     }
 }
 

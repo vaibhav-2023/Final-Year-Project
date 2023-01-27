@@ -24,7 +24,7 @@ struct MyTextField: View {
          text: Binding<String> = .constant(""),
          fontEnum: FontEnum = .Regular,
          textSize: CGFloat = 15,
-         textColor: Color = .blackColorForAllModes,
+         textColor: Color = .blackColor,
          maxLength: Int? = nil,
          keyboardType: UIKeyboardType = UIKeyboardType.default,
          autoCapitalization: UITextAutocapitalizationType = UITextAutocapitalizationType.none

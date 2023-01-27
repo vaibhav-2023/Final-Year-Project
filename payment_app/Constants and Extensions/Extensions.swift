@@ -32,12 +32,33 @@ extension UIApplication: UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: - UIDevice
+extension UIDevice {
+    static var getDeviceModel: String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let modelCode = withUnsafePointer(to: &systemInfo.machine) {
+            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
+                ptr in String.init(validatingUTF8: ptr)
+            }
+        }
+        return modelCode ?? ""
+    }
+}
+
 //MARK: - View
 extension View {
     @ViewBuilder
     func `if`<Transform: View>(_ condition: Bool, transform: (Self) -> Transform) -> some View {
         if condition { transform(self) }
         else { self }
+    }
+    
+    func showLoader(isPresenting: Binding<Bool>) -> some View {
+        ZStack {
+            self.disabled(isPresenting.wrappedValue)
+            Loader(isPresenting: isPresenting)
+        }
     }
 }
 

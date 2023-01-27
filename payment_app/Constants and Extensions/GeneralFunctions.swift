@@ -173,4 +173,37 @@ class GeneralFunctions {
         }
         return getLocale().currencyCode ?? ""
     }
+    
+    func saveUserModel(_ userModel: UserModel?) {
+        if let userModel = userModel, let jsonUserModel = structToData(userModel) {
+            UserDefaults.standard.set(jsonUserModel, forKey: UserDefaultKeys.userModel)
+            UserDefaults.standard.set(userModel.id, forKey: UserDefaultKeys.userModelUserID)
+        }
+    }
+    
+    func isUserLoggedIn() -> Bool{
+        return UserDefaults.standard.data(forKey: UserDefaultKeys.userModel) != nil
+    }
+    
+    func deinitilseAllVariables() {
+        var apnDeviceToken = ""
+        if let myToken = UserDefaults.standard.value(forKey: UserDefaultKeys.apnDeviceToken) as? String  {
+            apnDeviceToken = myToken
+        }
+        var firebaseToken = ""
+        if let tokenValue = UserDefaults.standard.value(forKey: UserDefaultKeys.firebaseToken) as? String  {
+            firebaseToken = tokenValue
+        }
+        
+        //remove all user default values
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
+        UserDefaults.standard.set(apnDeviceToken, forKey: UserDefaultKeys.apnDeviceToken)
+        UserDefaults.standard.set(firebaseToken, forKey: UserDefaultKeys.firebaseToken)
+        UserDefaults.standard.synchronize()
+        
+        Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
+    }
 }

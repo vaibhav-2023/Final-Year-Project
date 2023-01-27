@@ -91,8 +91,16 @@ enum ApiStatus {
     case NotHitOnce, IsBeingHit, ApiHit, ApiHitWithError
 }
 
+enum LoginApiStatus {
+    case NotHitOnce, IsBeingHit, OTPSent, FillDetails, LoggedIn, ApiHitWithError
+}
+
 enum FontEnum {
     case Light, Regular, Medium, SemiBold, Bold
+}
+
+enum NavigationEnum: Int {
+    case Login, OTPVerify, FillDetails, HomeScreen
 }
 
 //MARK: - App Colors
@@ -101,9 +109,12 @@ extension Color {
     static let blackColor = Color(.blackColor)
     static let blackColorForAllModes = Color(.blackColorForAllModes)
     
+    static let darkGrayColor = Color(.darkGrayColor)
     static let defaultLightGray = Color(.defaultLightGray)
     static let greenColor = Color(.greenColor)
+    static let lightBluishGrayColor = Color(.lightBluishGrayColor)
     static let lightGray = Color(.lightGray)
+    static let lightPrimaryColor = Color(.lightPrimaryColor)
     static let placeHolderColor = Color(.placeHolderColor)
     static let primaryColor = Color(.primaryColor)
     static let redColor = Color(.redColor)
@@ -117,8 +128,11 @@ extension UIColor {
     static let blackColor = UIColor(named: "blackColor") ?? UIColor.clear
     static let blackColorForAllModes = UIColor(named: "blackColorForAllModes") ?? UIColor.clear
     
+    static let darkGrayColor = UIColor(named: "darkGrayColor") ?? UIColor.clear
     static let defaultLightGray = UIColor(named: "defaultLightGray") ?? UIColor.clear
     static let greenColor = UIColor(named: "greenColor") ?? UIColor.clear
+    static let lightBluishGrayColor = UIColor(named: "lightBluishGrayColor") ?? UIColor.clear
+    static let lightPrimaryColor = UIColor(named: "lightPrimaryColor") ?? UIColor.clear
     static let lightGray = UIColor(named: "lightGray") ?? UIColor.clear
     static let placeHolderColor = UIColor(named: "placeHolderColor") ?? UIColor.clear
     static let primaryColor = UIColor(named: "primaryColor") ?? UIColor.clear
