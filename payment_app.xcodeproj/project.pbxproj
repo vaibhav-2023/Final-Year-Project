@@ -62,6 +62,13 @@
 		528B594A296563C30076A88A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5949296563C30076A88A /* SearchTextField.swift */; };
 		528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594B29656B290076A88A /* FillBankDetailsScreen.swift */; };
 		528B595029658BDB0076A88A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594F29658BDB0076A88A /* CardView.swift */; };
+		52BB13772966939400ADB832 /* WalletTransactionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13762966939400ADB832 /* WalletTransactionsScreen.swift */; };
+		52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB137829669BDB00ADB832 /* ProfileScreen.swift */; };
+		52BB137B2966A34400ADB832 /* BankAccountsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB137A2966A34400ADB832 /* BankAccountsScreen.swift */; };
+		52BB137E2966A3A500ADB832 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB137D2966A3A500ADB832 /* BankAccountCell.swift */; };
+		52BB13802966ABE200ADB832 /* PayToNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB137F2966ABE200ADB832 /* PayToNumber.swift */; };
+		52BB13822966E87500ADB832 /* PayToScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13812966E87500ADB832 /* PayToScreen.swift */; };
+		52BB13842966EEFC00ADB832 /* PaymentDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */; };
 		57B41F48C9503B4D7DE7C333 /* Pods_payment_appTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4AE33AD5A47ED016AB8DF8 /* Pods_payment_appTests.framework */; };
 		9025BFBBCE62600E4943594B /* Pods_payment_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D0E642187D6B6AE77B558F /* Pods_payment_app.framework */; };
 		AC5309F4505D6C55F2768288 /* Pods_payment_app_payment_appUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6543E50FFFF5479488B8A765 /* Pods_payment_app_payment_appUITests.framework */; };
@@ -144,6 +151,13 @@
 		528B5949296563C30076A88A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		528B594B29656B290076A88A /* FillBankDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBankDetailsScreen.swift; sourceTree = "<group>"; };
 		528B594F29658BDB0076A88A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		52BB13762966939400ADB832 /* WalletTransactionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransactionsScreen.swift; sourceTree = "<group>"; };
+		52BB137829669BDB00ADB832 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
+		52BB137A2966A34400ADB832 /* BankAccountsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsScreen.swift; sourceTree = "<group>"; };
+		52BB137D2966A3A500ADB832 /* BankAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
+		52BB137F2966ABE200ADB832 /* PayToNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToNumber.swift; sourceTree = "<group>"; };
+		52BB13812966E87500ADB832 /* PayToScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToScreen.swift; sourceTree = "<group>"; };
+		52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailsScreen.swift; sourceTree = "<group>"; };
 		6543E50FFFF5479488B8A765 /* Pods_payment_app_payment_appUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payment_app_payment_appUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C7BBEA17A316D728F8C40D8 /* Pods-payment_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payment_app.release.xcconfig"; path = "Target Support Files/Pods-payment_app/Pods-payment_app.release.xcconfig"; sourceTree = "<group>"; };
 		72D0E642187D6B6AE77B558F /* Pods_payment_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payment_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -469,8 +483,23 @@
 				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
 				528B5945296558860076A88A /* SelectBankScreen.swift */,
 				528B594329654F920076A88A /* HomeScreen.swift */,
+				52BB137F2966ABE200ADB832 /* PayToNumber.swift */,
+				52BB137829669BDB00ADB832 /* ProfileScreen.swift */,
+				52BB13812966E87500ADB832 /* PayToScreen.swift */,
+				52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */,
+				52BB137C2966A38400ADB832 /* Bank Account Screen */,
+				52BB13762966939400ADB832 /* WalletTransactionsScreen.swift */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		52BB137C2966A38400ADB832 /* Bank Account Screen */ = {
+			isa = PBXGroup;
+			children = (
+				52BB137A2966A34400ADB832 /* BankAccountsScreen.swift */,
+				52BB137D2966A3A500ADB832 /* BankAccountCell.swift */,
+			);
+			path = "Bank Account Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -722,6 +751,7 @@
 				528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */,
 				528B59252965377E0076A88A /* ImageView.swift in Sources */,
 				528B5946296558860076A88A /* SelectBankScreen.swift in Sources */,
+				52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */,
 				528B5933296542F30076A88A /* OTPTextFieldViewModel.swift in Sources */,
 				5206607A296019F900D65347 /* MyTextField.swift in Sources */,
 				528B595029658BDB0076A88A /* CardView.swift in Sources */,
@@ -735,23 +765,29 @@
 				528B592A29653BF60076A88A /* LoginViewModel.swift in Sources */,
 				528B594829655F6D0076A88A /* AvatarView.swift in Sources */,
 				528B5935296542F30076A88A /* DisabledActionsTextField.swift in Sources */,
+				52BB13772966939400ADB832 /* WalletTransactionsScreen.swift in Sources */,
 				5206602D2960088D00D65347 /* ContentView.swift in Sources */,
 				528B592E29653E5F0076A88A /* BaseResponse.swift in Sources */,
+				52BB137E2966A3A500ADB832 /* BankAccountCell.swift in Sources */,
 				528B591E2965367F0076A88A /* MinWidthButton.swift in Sources */,
 				528B5934296542F30076A88A /* OTPTextField.swift in Sources */,
 				528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */,
 				528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */,
 				5206606A296010B700D65347 /* AppConstants.swift in Sources */,
 				5206605D29600F2300D65347 /* Endpoints.swift in Sources */,
+				52BB137B2966A34400ADB832 /* BankAccountsScreen.swift in Sources */,
 				528B59242965377E0076A88A /* KingfisherImageView.swift in Sources */,
 				528B593C296549300076A88A /* BlurView.swift in Sources */,
 				520660702960118200D65347 /* Singleton.swift in Sources */,
 				52066072296011AF00D65347 /* Extensions.swift in Sources */,
+				52BB13842966EEFC00ADB832 /* PaymentDetailsScreen.swift in Sources */,
 				5206608E29601F2F00D65347 /* SceneDelegate.swift in Sources */,
+				52BB13802966ABE200ADB832 /* PayToNumber.swift in Sources */,
 				528B594029654C9E0076A88A /* ProfileViewModel.swift in Sources */,
 				528B591F2965367F0076A88A /* IconButton.swift in Sources */,
 				528B594429654F920076A88A /* HomeScreen.swift in Sources */,
 				5206606E2960115300D65347 /* GeneralFunctions.swift in Sources */,
+				52BB13822966E87500ADB832 /* PayToScreen.swift in Sources */,
 				520660742960132B00D65347 /* FileModel.swift in Sources */,
 				528B594A296563C30076A88A /* SearchTextField.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,

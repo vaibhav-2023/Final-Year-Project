@@ -1,13 +1,13 @@
 //
-//  SelectBankScreen.swift
+//  PayToNumber.swift
 //  payment_app
 //
-//  Created by MacBook PRO on 04/01/23.
+//  Created by MacBook PRO on 05/01/23.
 //
 
 import SwiftUI
 
-struct SelectBankScreen: View {
+struct PayToNumber: View {
     
     @State private var searchText: String = ""
     
@@ -15,7 +15,6 @@ struct SelectBankScreen: View {
     private let padding: CGFloat = 16
     
     var body: some View {
-        
         ZStack {
             let searchString = Binding<String>(get: {
                 self.searchText
@@ -33,7 +32,7 @@ struct SelectBankScreen: View {
                 SearchTextField(searchText: searchString)
                 
                 List {
-                    bankDetail(bankName: "DUMMY BANK")
+                    contactDetail(contactName: "DUMMY CONTACT")
                         .buttonStyle(PlainButtonStyle())
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         .listRowBackground(Color.clear)
@@ -50,15 +49,21 @@ struct SelectBankScreen: View {
     }
     
     @ViewBuilder
-    private func bankDetail(bankName: String) -> some View {
+    private func contactDetail(contactName: String) -> some View {
         let size = DeviceDimensions.width * 0.12
         VStack(spacing: spacing) {
             HStack(spacing: spacing) {
-                AvatarView(character: String(bankName.capitalized.first ?? " "), size: size)
+                AvatarView(character: String(contactName.capitalized.first ?? " "), size: size)
                 
-                Text(bankName)
-                    .fontCustom(.Medium, size: 16)
-                    .foregroundColor(.blackColor)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(contactName)
+                        .fontCustom(.Medium, size: 16)
+                        .foregroundColor(.blackColor)
+                    
+                    Text("9876543210")
+                        .foregroundColor(.darkGrayColor)
+                        .fontCustom(.Regular, size: 13)
+                }
                 
                 Spacer()
             }.padding(.horizontal, padding)
@@ -71,8 +76,8 @@ struct SelectBankScreen: View {
     }
 }
 
-struct SelectBankScreen_Previews: PreviewProvider {
+struct PayToNumber_Previews: PreviewProvider {
     static var previews: some View {
-        SelectBankScreen()
+        PayToNumber()
     }
 }

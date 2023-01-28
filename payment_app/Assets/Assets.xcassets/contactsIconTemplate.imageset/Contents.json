@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Vector-7.png",
+      "filename" : "Contacts.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Vector-8.png",
+      "filename" : "Contacts-2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Vector-9.png",
+      "filename" : "Contacts-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -19,5 +19,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

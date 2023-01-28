@@ -18,6 +18,7 @@ struct MyTextField: View {
     private let maxLength: Int?
     private let keyboardType: UIKeyboardType
     private let autoCapitalization: UITextAutocapitalizationType
+    private let fixedSize: Bool
     //let onCommit:
     
     init(_ placeHolder: String = "",
@@ -27,7 +28,8 @@ struct MyTextField: View {
          textColor: Color = .blackColor,
          maxLength: Int? = nil,
          keyboardType: UIKeyboardType = UIKeyboardType.default,
-         autoCapitalization: UITextAutocapitalizationType = UITextAutocapitalizationType.none
+         autoCapitalization: UITextAutocapitalizationType = UITextAutocapitalizationType.none,
+         fixedSize: Bool = false
 //         onCommit: {
 //            // Called when the user tap the return button
 //            // see `onCommit` oncha TextField initializer.
@@ -48,6 +50,7 @@ struct MyTextField: View {
         }
         self.keyboardType = keyboardType
         self.autoCapitalization = autoCapitalization
+        self.fixedSize = fixedSize
     }
     
     var body: some View {
@@ -77,6 +80,7 @@ struct MyTextField: View {
                 .font(.bitterRegular(size: textSize))
                 .foregroundColor(textColor)
                 .accentColor(.primaryColor)
+                .if (fixedSize) { $0.fixedSize() }
         }
     }
 }

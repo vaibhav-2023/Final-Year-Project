@@ -43,8 +43,39 @@ class AppTexts {
     static let bankAccount = "Bank Account"
     static let ifsc = "IFSC"
     
+    //home
     static let greetings = "Greetings"
     static let upiID = "UPI ID"
+    static let payTo = "Pay to"
+    static let scan = "Scan"
+    static let qr = "QR"
+    static let contact = "Contact"
+    static let transfer = "Transfer"
+    static let selfString = "Self"
+    static let number = "Number"
+    static let walletTransactions = "Wallet Transactions"
+    static let checkBalance = "Check Balance"
+    
+    //wallet transaction
+    static let failed = "FAILED"
+    
+    //profile
+    static let profile = "Profile"
+    static let qrCode = "QR Code"
+    static let bankAccounts = "Bank Accounts"
+    static let privacyPolicy = "Privacy Policy"
+    static let termsAndConditions = "Terms & Conditions"
+    
+    //pay to screen
+    static let payFrom = "Pay from"
+    static let pay = "Pay"
+    
+    //payment details
+    static let to = "To"
+    static let from = "From"
+    static let received = "Received"
+    static let sent = "Sent"
+    static let transactionID = "Transaction ID"
     
     class AlertMessages {
         //common

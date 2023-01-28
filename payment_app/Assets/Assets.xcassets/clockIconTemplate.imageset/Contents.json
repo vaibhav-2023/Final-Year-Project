@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Qr code scanner.png",
+      "filename" : "Vector-19.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Qr code scanner-2.png",
+      "filename" : "Vector-20.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Qr code scanner-3.png",
+      "filename" : "Vector-21.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -19,5 +19,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

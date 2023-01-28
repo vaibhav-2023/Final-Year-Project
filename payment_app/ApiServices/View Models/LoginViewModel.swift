@@ -42,8 +42,6 @@ class LoginViewModel: ViewModel {
                       "fcm_token": token,
                       "device_type": "iOS",
                       "is_ios": true,
-                      "is_terms_accepted": true,
-                      "is_social_login": false,
                       "device_name": deviceModel,
                       "device_ios_version": version,
                       "device_model": deviceModel] as [String : AnyObject]

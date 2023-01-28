@@ -18,11 +18,11 @@ struct CardView<Content> : View where Content : View {
     private let content: Content
     
     init(backgroundColor: Color = .whiteColor,
-         cornerRadius: CGFloat = 10,
+         cornerRadius: CGFloat = 8,
          shadowColor: Color = .darkGrayColor,
-         radius: CGFloat = 5,
-         x: CGFloat = 1,
-         y: CGFloat = 1,
+         radius: CGFloat = 1.25,
+         x: CGFloat = 0.5,
+         y: CGFloat = 0.5,
         @ViewBuilder content: () -> Content) {
         self.backgroundColor = backgroundColor
         self.cornerRadius = cornerRadius
