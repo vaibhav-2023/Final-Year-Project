@@ -62,6 +62,11 @@
 		528B594A296563C30076A88A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5949296563C30076A88A /* SearchTextField.swift */; };
 		528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594B29656B290076A88A /* FillBankDetailsScreen.swift */; };
 		528B595029658BDB0076A88A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594F29658BDB0076A88A /* CardView.swift */; };
+		52B029512967D555000FC386 /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029502967D555000FC386 /* ChatScreen.swift */; };
+		52B029532967D56A000FC386 /* ChooseBankSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029522967D56A000FC386 /* ChooseBankSheet.swift */; };
+		52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029552967D948000FC386 /* PaymentStatusView.swift */; };
+		52B029582967D9DD000FC386 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029572967D9DD000FC386 /* MessageCell.swift */; };
+		52B0295A2968097C000FC386 /* AdjustableHeightTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029592968097C000FC386 /* AdjustableHeightTextView.swift */; };
 		52BB13772966939400ADB832 /* WalletTransactionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13762966939400ADB832 /* WalletTransactionsScreen.swift */; };
 		52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB137829669BDB00ADB832 /* ProfileScreen.swift */; };
 		52BB137B2966A34400ADB832 /* BankAccountsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB137A2966A34400ADB832 /* BankAccountsScreen.swift */; };
@@ -151,6 +156,11 @@
 		528B5949296563C30076A88A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		528B594B29656B290076A88A /* FillBankDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBankDetailsScreen.swift; sourceTree = "<group>"; };
 		528B594F29658BDB0076A88A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		52B029502967D555000FC386 /* ChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreen.swift; sourceTree = "<group>"; };
+		52B029522967D56A000FC386 /* ChooseBankSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBankSheet.swift; sourceTree = "<group>"; };
+		52B029552967D948000FC386 /* PaymentStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatusView.swift; sourceTree = "<group>"; };
+		52B029572967D9DD000FC386 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		52B029592968097C000FC386 /* AdjustableHeightTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustableHeightTextView.swift; sourceTree = "<group>"; };
 		52BB13762966939400ADB832 /* WalletTransactionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransactionsScreen.swift; sourceTree = "<group>"; };
 		52BB137829669BDB00ADB832 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		52BB137A2966A34400ADB832 /* BankAccountsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsScreen.swift; sourceTree = "<group>"; };
@@ -387,6 +397,7 @@
 				52066079296019F900D65347 /* MyTextField.swift */,
 				528B5949296563C30076A88A /* SearchTextField.swift */,
 				5206607B29601A1B00D65347 /* MyTextView.swift */,
+				52B029592968097C000FC386 /* AdjustableHeightTextView.swift */,
 			);
 			path = TextFields;
 			sourceTree = "<group>";
@@ -424,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				528B59172965352E0076A88A /* LoginFieldsOuterView.swift */,
+				52B029552967D948000FC386 /* PaymentStatusView.swift */,
 				528B594729655F6D0076A88A /* AvatarView.swift */,
 			);
 			path = "App Reusable Widgets";
@@ -479,6 +491,8 @@
 		528B594229654F810076A88A /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				52BB137C2966A38400ADB832 /* Bank Account Screen */,
+				52B029542967D922000FC386 /* Chat Screen */,
 				528B593D29654BFC0076A88A /* FillUserDetailsScreen.swift */,
 				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
 				528B5945296558860076A88A /* SelectBankScreen.swift */,
@@ -487,10 +501,19 @@
 				52BB137829669BDB00ADB832 /* ProfileScreen.swift */,
 				52BB13812966E87500ADB832 /* PayToScreen.swift */,
 				52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */,
-				52BB137C2966A38400ADB832 /* Bank Account Screen */,
+				52B029522967D56A000FC386 /* ChooseBankSheet.swift */,
 				52BB13762966939400ADB832 /* WalletTransactionsScreen.swift */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		52B029542967D922000FC386 /* Chat Screen */ = {
+			isa = PBXGroup;
+			children = (
+				52B029502967D555000FC386 /* ChatScreen.swift */,
+				52B029572967D9DD000FC386 /* MessageCell.swift */,
+			);
+			path = "Chat Screen";
 			sourceTree = "<group>";
 		};
 		52BB137C2966A38400ADB832 /* Bank Account Screen */ = {
@@ -784,18 +807,23 @@
 				5206608E29601F2F00D65347 /* SceneDelegate.swift in Sources */,
 				52BB13802966ABE200ADB832 /* PayToNumber.swift in Sources */,
 				528B594029654C9E0076A88A /* ProfileViewModel.swift in Sources */,
+				52B029512967D555000FC386 /* ChatScreen.swift in Sources */,
 				528B591F2965367F0076A88A /* IconButton.swift in Sources */,
 				528B594429654F920076A88A /* HomeScreen.swift in Sources */,
 				5206606E2960115300D65347 /* GeneralFunctions.swift in Sources */,
 				52BB13822966E87500ADB832 /* PayToScreen.swift in Sources */,
 				520660742960132B00D65347 /* FileModel.swift in Sources */,
 				528B594A296563C30076A88A /* SearchTextField.swift in Sources */,
+				52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
 				520660682960107B00D65347 /* Alerts.swift in Sources */,
+				52B029582967D9DD000FC386 /* MessageCell.swift in Sources */,
 				5206608C29601F1600D65347 /* AppDelegate.swift in Sources */,
 				528B593A296549160076A88A /* LargeProgressView.swift in Sources */,
 				528B5915296531140076A88A /* LoginScreen.swift in Sources */,
+				52B0295A2968097C000FC386 /* AdjustableHeightTextView.swift in Sources */,
+				52B029532967D56A000FC386 /* ChooseBankSheet.swift in Sources */,
 				5206605F29600F5800D65347 /* InternetConnectivityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

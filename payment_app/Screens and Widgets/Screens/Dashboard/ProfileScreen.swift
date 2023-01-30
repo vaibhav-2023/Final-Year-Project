@@ -30,7 +30,7 @@ struct ProfileScreen: View {
                         
                         Spacer()
                         
-                        AvatarView(character: "\(name.capitalized.first ?? " ")")
+                        AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                     }
                     
                     let upiID = "upiid"
@@ -43,9 +43,9 @@ struct ProfileScreen: View {
                                 .foregroundColor(.blackColorForAllModes)
                             
                             ImageView(imageName: "contentCopyIconTemplate", isSystemImage: false)
+                                .aspectRatio(contentMode: .fit)
                                 .frame(width: 16, height: 16)
                                 .foregroundColor(.blackColorForAllModes)
-                                .aspectRatio(contentMode: .fit)
                         }.padding(.top, padding)
                     }
                     

@@ -71,7 +71,8 @@ struct LoginScreen: View {
         } else if !mobileNumber.isValidPhone {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidMobileNumber)
         } else {
-            loginVM.sendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
+            selection = NavigationEnum.OTPVerify.rawValue
+            //loginVM.sendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
         }
     }
 }

@@ -25,7 +25,7 @@ struct MinWidthButton: View {
     init(text: String,
          fontEnum: FontEnum,
          textSize: CGFloat,
-         textColor: Color = .whiteColor,
+         textColor: Color = .whiteColorForAllModes,
          verticalPadding: CGFloat = 10,
          horizontalPadding: CGFloat = 10,
          backgroundColor: Color = .primaryColor,

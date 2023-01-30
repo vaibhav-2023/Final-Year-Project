@@ -57,7 +57,7 @@ class AppTexts {
     static let checkBalance = "Check Balance"
     
     //wallet transaction
-    static let failed = "FAILED"
+    static let failed = "Failed"
     
     //profile
     static let profile = "Profile"
@@ -76,6 +76,9 @@ class AppTexts {
     static let received = "Received"
     static let sent = "Sent"
     static let transactionID = "Transaction ID"
+    static let ruppees = "Ruppees"
+    static let ruppee = "Ruppee"
+    static let only = "Only"
     
     class AlertMessages {
         //common
@@ -124,5 +127,7 @@ class AppTexts {
         static let selectBank = "Select Bank"
         static let enterBankAccount = "Enter Bank Account"
         static let enterIFSC = "Enter IFSC"
+        
+        static let enterAMessage = "Enter a message"
     }
 }

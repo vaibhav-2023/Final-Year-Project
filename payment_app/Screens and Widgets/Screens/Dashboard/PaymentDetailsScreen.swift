@@ -36,7 +36,7 @@ struct PaymentDetailsScreen: View {
                         Button {
                             
                         } label: {
-                            AvatarView(character: "\(name.capitalized.first ?? " ")")
+                            AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                         }
                     }
                     
@@ -55,20 +55,22 @@ struct PaymentDetailsScreen: View {
                     .frame(maxWidth: .infinity, maxHeight: 1)
                 
                 VStack(spacing: spacing) {
+                    let price: Double = 2000
                     HStack {
                         Text(Singleton.sharedInstance.generalFunctions.getCurrencySymbol())
                             .foregroundColor(.blackColor)
                             .fontCustom(.Medium, size: 16)
                         
-                        Text("0")
+                        Text("\(price.format())")
                             .foregroundColor(.blackColor)
                             .fontCustom(.SemiBold, size: 40)
                     }.padding(.top, padding)
                     
-                    textView("on 12 Dec 2022 at 9:38 am")
+                    let prefix = price > 1 ? AppTexts.ruppees : AppTexts.ruppee
+                    textView((price.getNumberWords() + " " + prefix + " " + AppTexts.only).capitalized)
                         .padding(.bottom, padding)
                     
-                    showStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isCredit: isCredit)
+                    PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isCredit: isCredit)
                         .padding(.top, padding)
                     
                     textView("on 12 Dec 2022 at 9:38 am")
@@ -93,34 +95,6 @@ struct PaymentDetailsScreen: View {
         Text(text)
             .foregroundColor(.darkGrayColor)
             .fontCustom(.Regular, size: 13)
-    }
-    
-    private func showStatusView(isPaymentSuccessfull: Bool, isCredit: Bool) -> some View {
-        let icon: String
-        let text: String
-        if isPaymentSuccessfull {
-            icon = "tickRoundIconTemplate"
-            if isCredit {
-                text = AppTexts.received
-            } else {
-                text = AppTexts.sent
-            }
-        } else {
-            icon = "errorIconTemplate"
-            text = AppTexts.failed
-        }
-        
-        return HStack {
-            
-            ImageView(imageName: icon, isSystemImage: false)
-                .frame(width: 20, height: 20)
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(isPaymentSuccessfull ? .greenColor : .redColor)
-            
-            Text(text)
-                .foregroundColor(.blackColor)
-                .fontCustom(.Medium, size: 18)
-        }
     }
     
     @ViewBuilder

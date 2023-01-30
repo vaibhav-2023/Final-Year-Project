@@ -88,9 +88,10 @@ struct OTPVerifyScreen: View {
         } else if otpViewModel.otpField.count != 4 {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            if !loginVM.isAnyApiBeingHit {
-                loginVM.verifyOTP(otpViewModel.otpField, sendToMobileNumber: mobileNumber, withCountryCode: countryCode)
-            }
+            selection = NavigationEnum.OTPVerify.rawValue
+//            if !loginVM.isAnyApiBeingHit {
+//                loginVM.verifyOTP(otpViewModel.otpField, sendToMobileNumber: mobileNumber, withCountryCode: countryCode)
+//            }
         }
     }
 }

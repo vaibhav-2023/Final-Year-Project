@@ -9,11 +9,15 @@ import SwiftUI
 
 struct HomeScreen: View {
     
+    @State private var selection: Int? = nil
+    
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
     var body: some View {
         ZStack {
+            addNavigationLinks()
+            
             ScrollView {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
@@ -34,7 +38,7 @@ struct HomeScreen: View {
                             Button {
                                 
                             } label: {
-                                AvatarView(character: "\(name.capitalized.first ?? " ")")
+                                AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                             }
                         }
                         
@@ -48,9 +52,9 @@ struct HomeScreen: View {
                                     .foregroundColor(.blackColorForAllModes)
                                 
                                 ImageView(imageName: "contentCopyIconTemplate", isSystemImage: false)
+                                    .aspectRatio(contentMode: .fit)
                                     .frame(width: 16, height: 16)
                                     .foregroundColor(.blackColorForAllModes)
-                                    .aspectRatio(contentMode: .fit)
                             }.padding(.top, padding)
                         }
                         
@@ -110,6 +114,12 @@ struct HomeScreen: View {
             }
         }
         .background(Color.whiteColor.ignoresSafeArea())
+    }
+    
+    @ViewBuilder
+    private func addNavigationLinks() -> some View {
+        NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.HomeScreen.rawValue, selection: $selection) { EmptyView()
+        }
     }
     
     @ViewBuilder

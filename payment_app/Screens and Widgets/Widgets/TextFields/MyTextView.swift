@@ -11,6 +11,9 @@ struct MyTextView: View {
     
     private let placeHolder: String
     @Binding private var text: String
+    private let isAdjustableTV: Bool
+    @Binding private var adjustableTVHeight: CGFloat
+    private let adjustableTVMaxHeight: CGFloat
     private let fontEnum: FontEnum
     private let textSize: CGFloat
     private let textColor: Color
@@ -20,6 +23,9 @@ struct MyTextView: View {
     
     init(_ placeHolder: String,
          text: Binding<String>,
+         isAdjustableTV: Bool = false,
+         adjustableTVHeight: Binding<CGFloat> = .constant(20),
+         adjustableTVMaxHeight: CGFloat = 100,
          fontEnum: FontEnum = .Regular,
          textSize: CGFloat = 15,
          textColor: Color = .blackColorForAllModes,
@@ -28,6 +34,9 @@ struct MyTextView: View {
     ) {
         self.placeHolder = placeHolder
         self._text = text
+        self.isAdjustableTV = isAdjustableTV
+        self._adjustableTVHeight = adjustableTVHeight
+        self.adjustableTVMaxHeight = adjustableTVMaxHeight
         self.fontEnum = fontEnum
         self.textSize = textSize
         self.textColor = textColor
@@ -37,15 +46,27 @@ struct MyTextView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            TextEditor(text: $text)
-                .font(.bitterRegular(size: textSize))
-                .foregroundColor(textColor)
-                .accentColor(.primaryColor)
-                .multilineTextAlignment(.leading)
-                .frame(minHeight: 150, maxHeight: 150)
-                .colorMultiply(Color.lightGray)
-                .background(Color.lightGray)
-                .cornerRadius(5)
+            if !isAdjustableTV {
+                TextEditor(text: $text)
+                    .font(.bitterRegular(size: textSize))
+                    .foregroundColor(textColor)
+                    .accentColor(.primaryColor)
+                    .multilineTextAlignment(.leading)
+                    .frame(minHeight: 150, maxHeight: 150)
+                    .colorMultiply(Color.lightGray)
+                    .background(Color.lightGray)
+                    .cornerRadius(5)
+            } else {
+                AdjustableHeightTextView(height: $adjustableTVHeight,
+                                         maxheight: adjustableTVMaxHeight,
+                                         text: $text,
+                                         fontEnum: fontEnum,
+                                         textSize: textSize,
+                                         textColor: textColor,
+                                         keyboardType: keyboardType,
+                                         autoCapitalization: autoCapitalization)
+                    .frame(height: adjustableTVHeight)
+            }
             
             if text.isEmpty {
                 Text(placeHolder)

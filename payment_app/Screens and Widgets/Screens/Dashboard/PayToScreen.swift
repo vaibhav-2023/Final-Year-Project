@@ -35,7 +35,7 @@ struct PayToScreen: View {
                         Button {
                             
                         } label: {
-                            AvatarView(character: "\(name.capitalized.first ?? " ")")
+                            AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                         }
                     }
                     
@@ -85,7 +85,7 @@ struct PayToScreen: View {
                             let bankName = "Dummy Bank"
                             let size = DeviceDimensions.width * 0.12
                             HStack(spacing: spacing) {
-                                AvatarView(character: String(bankName.capitalized.first ?? " "), size: size)
+                                AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
                                 
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text(bankName)

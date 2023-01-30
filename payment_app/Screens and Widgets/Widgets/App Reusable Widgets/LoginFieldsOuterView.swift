@@ -11,15 +11,21 @@ struct LoginFieldsOuterView<Content> : View where Content : View  {
     
     private let title: String
     private let spacing: CGFloat
+    private let addFrameHeight: Bool
+    private let addPadding: Bool
     private let content: Content
     private let cornerRadius: CGFloat = 5
     private let lineWidth: CGFloat = 1
     
     init(title: String = "",
          spacing: CGFloat = 5,
-        @ViewBuilder content: () -> Content) {
+         addFrameHeight: Bool = true,
+         addPadding: Bool = true,
+         @ViewBuilder content: () -> Content) {
         self.title = title
         self.spacing = spacing
+        self.addFrameHeight = addFrameHeight
+        self.addPadding = addPadding
         self.content = content()
     }
     
@@ -32,8 +38,8 @@ struct LoginFieldsOuterView<Content> : View where Content : View  {
             }
             
             content
-                .frame(height: 20)
-                .padding(12)
+                .if (addFrameHeight) { $0.frame(height: 20) }
+                .if (addPadding) { $0.padding(12) }
                 .background(Color.lightGray)
                 .cornerRadius(cornerRadius)
                 .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.darkGrayColor, lineWidth: lineWidth))

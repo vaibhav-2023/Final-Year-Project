@@ -274,15 +274,29 @@ extension Double {
         return ((18 * self) / 100).round()
     }
     
-    func formatPrice(withMaximumFractionDigits maximumFractionDigits: Int = 2) -> String {
+    func format(withCurrency: Bool = false, withMaximumFractionDigits maximumFractionDigits: Int = 2) -> String {
         let formatter = NumberFormatter()
-        //formatter.locale = NSLocale.currentLocale() Locale(identifier: "es_IN")
-        formatter.locale = Singleton.sharedInstance.generalFunctions.getLocale()
-        formatter.numberStyle = .currency
+        if withCurrency {
+            //formatter.locale = NSLocale.currentLocale() Locale(identifier: "es_IN")
+            formatter.locale = Singleton.sharedInstance.generalFunctions.getLocale()
+            formatter.numberStyle = .currency
+        }
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = maximumFractionDigits //maximum digits in Double after dot (maximum precision)
         
         let price = self as NSNumber
         return formatter.string(from: price) ?? ""
+    }
+    
+    func doubleToString(places: Int = 2) -> String {
+        return String(format: "%.\(places)f", self)
+    }
+    
+    func getNumberWords() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+        //formatter.locale = Singleton.sharedInstance.generalFunctions.getLocale()
+        let number = self as NSNumber
+        return formatter.string(for: number) ?? ""
     }
 }
