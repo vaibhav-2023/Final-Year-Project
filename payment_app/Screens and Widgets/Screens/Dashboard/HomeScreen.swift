@@ -9,8 +9,14 @@ import SwiftUI
 
 struct HomeScreen: View {
     
-    @State private var selection: Int? = nil
+    @StateObject private var cameraVM = CameraViewModel()
     
+    @State private var selection: Int? = nil
+    @State private var scanResult: String? = nil
+    
+    private let columns = [GridItem(.flexible()),
+                           GridItem(.flexible()),
+                           GridItem(.flexible())]
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
@@ -36,7 +42,7 @@ struct HomeScreen: View {
                             Spacer()
                             
                             Button {
-                                
+                                selection = NavigationEnum.ProfileScreen.rawValue
                             } label: {
                                 AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                             }
@@ -45,6 +51,7 @@ struct HomeScreen: View {
                         let upiID = "upiid"
                         Button {
                             UIPasteboard.general.string = upiID
+                            Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.AlertMessages.copiedToClipboard)
                         } label: {
                             HStack {
                                 Text("\(AppTexts.upiID):- \(upiID)")
@@ -69,56 +76,85 @@ struct HomeScreen: View {
                     
                     VStack(spacing: spacing) {
                         CardView(backgroundColor: .lightBluishGrayColor) {
-                            VStack(spacing: spacing * 2) {
-                                HStack {
-                                    icon("qrCodeScannerIconTemplate", title: AppTexts.scan + "\n" + AppTexts.qr) {
-                                        
-                                    }
-                                    Spacer()
-                                    icon("contactsIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.contact) {
-                                        
-                                    }
-                                    Spacer()
-                                    icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
-                                        
-                                    }
+                            LazyVGrid(columns: columns, spacing: spacing * 2) {
+                                icon("qrCodeScannerIconTemplate", title: AppTexts.scan + "\n" + AppTexts.qr) {
+                                    selection = NavigationEnum.ScanQRScreen.rawValue
                                 }
-                                HStack {
-                                    icon("creditCardIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.upiID) {
-                                        
-                                    }
-                                    Spacer()
-                                    icon("phoneForwardedIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.number) {
-                                        
-                                    }
-                                    Spacer()
-                                    icon("personPinIconTemplate", title: AppTexts.selfString + "\n" + AppTexts.transfer) {
-                                        
-                                    }
+                                icon("contactsIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.contact) {
+                                    selection = NavigationEnum.PayToNumberScreen.rawValue
+                                }
+                                icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
+                                    
+                                }
+                                
+                                icon("creditCardIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.upiID) {
+                                    
+                                }
+                                
+                                icon("phoneForwardedIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.number) {
+                                    selection = NavigationEnum.PayToNumberScreen.rawValue
+                                }
+                                
+                                icon("personPinIconTemplate", title: AppTexts.selfString + "\n" + AppTexts.transfer) {
+                                    
                                 }
                             }.padding(.vertical, padding * 2)
-                                .padding(.horizontal, spacing * 3.5)
+                                .padding(.horizontal, spacing)
                         }
                         
-                        listTile("clockIconTemplate", title: AppTexts.walletTransactions)
-                        {
-                            
+                        listTile("qrCodeIconTemplate", title: AppTexts.qrCode) {
+                            selection = NavigationEnum.QRCodeInfoScreen.rawValue
                         }
                         
-                        listTile("walletBalanceIconTemplate", title: AppTexts.checkBalance)
-                        {
-                            
+                        listTile("clockIconTemplate", title: AppTexts.walletTransactions) {
+                            selection = NavigationEnum.WalletTransactionsScreen.rawValue
+                        }
+                        
+                        listTile("walletBalanceIconTemplate", title: AppTexts.checkBalance) {
+                            selection = NavigationEnum.BankAccountsScreen.rawValue
                         }
                     }.padding(padding)
                 }
             }
-        }
-        .background(Color.whiteColor.ignoresSafeArea())
+        }.background(Color.whiteColor.ignoresSafeArea())
+            .onChange(of: scanResult) { scanResult in
+                if let scanResult = scanResult {
+                    selection = NavigationEnum.PayToScreen.rawValue
+                }
+            }
     }
     
     @ViewBuilder
     private func addNavigationLinks() -> some View {
-        NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.HomeScreen.rawValue, selection: $selection) { EmptyView()
+        NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.ProfileScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        //no need to keep it in navigation stack camera conditions are handled in this class
+        ScanQRScreen(cameraVM: cameraVM, selection: $selection, scanResult: $scanResult)
+        
+        NavigationLink(destination: PayToNumberScreen(), tag: NavigationEnum.PayToNumberScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: PayToUPIIDScreen(), tag: NavigationEnum.PayToUPIIDScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: QRCodeInfoScreen(), tag: NavigationEnum.QRCodeInfoScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: WalletTransactionsScreen(), tag: NavigationEnum.WalletTransactionsScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: BankAccountsScreen(), tag: NavigationEnum.BankAccountsScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: PayToScreen(qrScannedResult: $scanResult), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
+            EmptyView()
         }
     }
     

@@ -16,6 +16,7 @@ class AppTexts {
     static let mobileNumber = "Mobile Number"
     static let save = "Save"
     static let optional = "Optional"
+    static let cancel = "Cancel"
     
     //login
     static let enterYourMobileNumberToContinue = "Enter your mobile number to continue"
@@ -80,6 +81,10 @@ class AppTexts {
     static let ruppee = "Ruppee"
     static let only = "Only"
     
+    //scan QR Code
+    static let grantCameraAccessToScanQRCode = "Grant Camera Access to Scan QR Code"
+    static let openSettings = "Open Settings"
+    
     class AlertMessages {
         //common
         static let successWithExclamation = "Success!"
@@ -88,6 +93,7 @@ class AppTexts {
         static let ok = "Ok"
         static let cancel = "Cancel"
         static let comingSoon = "Coming soon..."
+        static let copiedToClipboard = "Copied to Clipboard"
         
         //network unreachable
         static let networkUnreachableWithExclamation = "Network Unreachable!"
@@ -97,6 +103,13 @@ class AppTexts {
         //session expired
         static let sessionExpiredWithExclamation = "Session Expired!"
         static let yourSessionHasExpiredPleaseLoginAgain = "Your Session has expired, PLease Login Again."
+        
+        //permission alerts
+        static let accessDenied = "Access Denied"
+        static let requiresAccessToContactsToProceed = "requires access to Contacts to proceed."
+        static let requiresAccessToCameraToProceed = "requires access to Camera to proceed."
+        static let goToSettingsToGrantAccess = "Go to Settings to grant access."
+        static let openSettings = "Open Settings"
         
         //login
         static let enterMobileNumber = "Enter Mobile Number"

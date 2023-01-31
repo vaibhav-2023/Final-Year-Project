@@ -9,10 +9,17 @@ import SwiftUI
 
 struct PayToScreen: View {
     
+    @State private var qrScannedResult: String? = nil
     @State private var amount = ""
+    
+    @Binding private var qrScannedResultFromPreviousScreen: String?
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
+    
+    init(qrScannedResult: Binding<String?> = .constant(nil)) {
+        self._qrScannedResultFromPreviousScreen = qrScannedResult
+    }
     
     var body: some View {
         ZStack {
@@ -109,6 +116,12 @@ struct PayToScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .onAppear {
+                if let scannedResult = qrScannedResultFromPreviousScreen {
+                    self.qrScannedResult = scannedResult
+                }
+                qrScannedResultFromPreviousScreen = nil
+            }
     }
 }
 

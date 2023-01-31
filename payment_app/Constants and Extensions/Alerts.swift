@@ -16,6 +16,20 @@ class Alerts {
     private let titleAttributes = [NSAttributedString.Key.font: UIFont.bitterMedium(size: 17), NSAttributedString.Key.foregroundColor: UIColor.blackColor]
     private let messageAttributes = [NSAttributedString.Key.font: UIFont.bitterRegular(size: 14), NSAttributedString.Key.foregroundColor: UIColor.blackColor]
     
+    func showToast(withMessage message: String, seconds: Double = 2.0) {
+        let alert = getAlertController(ofStyle: .alert, withTitle: message, andMessage: nil)
+        //alert.view.backgroundColor = UIColor.lightPrimaryColor
+        //alert.view.alpha = 0.6
+        //alert.view.layer.cornerRadius = 15
+        
+        let vc = Singleton.sharedInstance.generalFunctions.getTopViewController()
+        vc?.present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true)
+        }
+    }
+    
     func getAlertController(ofStyle style: UIAlertController.Style, withTitle title: String?, andMessage message: String?) -> UIAlertController {
         let alert = UIAlertController(title: "", message: "", preferredStyle: style)
         

@@ -1,23 +1,19 @@
 //
-//  ProfileScreen.swift
+//  QRCodeInfoScreen.swift
 //  payment_app
 //
-//  Created by MacBook PRO on 05/01/23.
+//  Created by MacBook PRO on 07/01/23.
 //
 
 import SwiftUI
 
-struct ProfileScreen: View {
-    
-    @State private var selection: Int? = nil
+struct QRCodeInfoScreen: View {
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
     var body: some View {
         ZStack {
-            addNavigationLinks()
-            
             ScrollView {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
@@ -60,77 +56,55 @@ struct ProfileScreen: View {
                         .fill(Color.blackColor)
                         .frame(maxWidth: .infinity, maxHeight: 1)
                     
-                    CardView(backgroundColor: .lightBluishGrayColor) {
-                        VStack(spacing: spacing * 2) {
-                            listTile(withTitle: AppTexts.profile) {
-                                
-                            }
-                            listTile(withTitle: AppTexts.qrCode) {
-                                
-                            }
-                            listTile(withTitle: AppTexts.bankAccount) {
-                                selection = NavigationEnum.BankAccountsScreen.rawValue
-                            }
-                            listTile(withTitle: AppTexts.privacyPolicy) {
-                                
-                            }
-                            listTile(withTitle: AppTexts.termsAndConditions) {
-                                
-                            }
-                        }.padding(.vertical, spacing * 2)
-                    }.padding(padding)
+                    
                 }
+                
+                
+                CardView(backgroundColor: .lightBluishGrayColor) {
+                    VStack(spacing: spacing) {
+                        HStack {
+                            Text(AppTexts.payFrom + ":")
+                                .foregroundColor(.blackColor)
+                                .fontCustom(.Medium, size: 16)
+                            
+                            Spacer()
+                            
+                            Button {
+                                
+                            } label: {
+                                Text(AppTexts.changeBank)
+                                    .foregroundColor(.primaryColor)
+                                    .fontCustom(.SemiBold, size: 16)
+                            }
+                        }
+                        
+                        let bankName = "Dummy Bank"
+                        let size = DeviceDimensions.width * 0.12
+                        HStack(spacing: spacing) {
+                            AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                            
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(bankName)
+                                    .fontCustom(.Medium, size: 16)
+                                    .foregroundColor(.blackColor)
+                                
+                                Text("**** 1234")
+                                    .fontCustom(.Regular, size: 13)
+                                    .foregroundColor(.darkGrayColor)
+                            }
+                            
+                            Spacer()
+                        }
+                        
+                    }.padding(padding)
+                }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
     }
-    
-    @ViewBuilder
-    private func addNavigationLinks() -> some View {
-        NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.ProfileScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: PayToNumberScreen(), tag: NavigationEnum.PayToNumberScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: BankAccountsScreen(), tag: NavigationEnum.BankAccountsScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-    }
-    
-    @ViewBuilder
-    private func listTile(withTitle title: String, iconPressed: @escaping () -> Void) -> some View {
-        Button {
-            iconPressed()
-        } label: {
-            VStack(spacing: 5) {
-                
-                HStack {
-                    Text(title)
-                        .fontCustom(.Medium, size: 16)
-                        .foregroundColor(.blackColor)
-                    
-                    Spacer()
-                    
-                    ImageView(imageName: "forwardIconTemplate",
-                              isSystemImage: false)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.blackColor)
-                }.padding(.horizontal, padding)
-                
-                Rectangle()
-                    .fill(Color.blackColor)
-                    .frame(maxWidth: .infinity, maxHeight: 1)
-                    .padding(.leading, padding * 2)
-            }
-        }
-    }
 }
 
-struct ProfileScreen_Previews: PreviewProvider {
+struct QRCodeInfoScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileScreen()
+        QRCodeInfoScreen()
     }
 }

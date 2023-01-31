@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PayToNumber: View {
+struct PayToNumberScreen: View {
     
     @State private var searchText: String = ""
     
@@ -76,8 +76,8 @@ struct PayToNumber: View {
     }
 }
 
-struct PayToNumber_Previews: PreviewProvider {
+struct PayToNumberScreen_Previews: PreviewProvider {
     static var previews: some View {
-        PayToNumber()
+        PayToNumberScreen()
     }
 }

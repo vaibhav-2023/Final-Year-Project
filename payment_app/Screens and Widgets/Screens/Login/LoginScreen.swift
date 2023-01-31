@@ -71,6 +71,7 @@ struct LoginScreen: View {
         } else if !mobileNumber.isValidPhone {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidMobileNumber)
         } else {
+            print(selection)
             selection = NavigationEnum.OTPVerify.rawValue
             //loginVM.sendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
         }

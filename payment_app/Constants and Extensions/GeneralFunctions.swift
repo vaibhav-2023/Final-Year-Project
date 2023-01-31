@@ -30,7 +30,7 @@ class GeneralFunctions {
         if let tabBarController = rootViewController as? UITabBarController {
             return tabBarController.selectedViewController
         }
-        return nil
+        return rootViewController
     }
     
     func getStatusBarHeight() -> CGFloat {
@@ -153,6 +153,12 @@ class GeneralFunctions {
 //        } else {
 //            print("not able to get app store url")
 //        }
+    }
+    
+    func openAppSettings() {
+        if let settings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settings) {
+            UIApplication.shared.open(settings)
+        }
     }
     
     func getLocale() -> Locale {

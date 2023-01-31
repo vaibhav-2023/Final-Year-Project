@@ -27,6 +27,11 @@ struct OTPVerifyScreen: View {
     
     var body: some View {
         ZStack {
+            
+            NavigationLink(destination: HomeScreen(), tag: NavigationEnum.HomeScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: spacing) {
                     Text(AppTexts.verifyOTP)
@@ -75,8 +80,8 @@ struct OTPVerifyScreen: View {
         )
             .showLoader(isPresenting: .constant(loginVM.isAnyApiBeingHit))
             .onReceive(loginVM.$loginAS) { loginAS in
-                if (loginAS == .OTPSent) {
-                    selection = NavigationEnum.OTPVerify.rawValue
+                if (loginAS == .LoggedIn) {
+                    
                 }
             }
     }
@@ -88,7 +93,7 @@ struct OTPVerifyScreen: View {
         } else if otpViewModel.otpField.count != 4 {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            selection = NavigationEnum.OTPVerify.rawValue
+            selection = NavigationEnum.HomeScreen.rawValue
 //            if !loginVM.isAnyApiBeingHit {
 //                loginVM.verifyOTP(otpViewModel.otpField, sendToMobileNumber: mobileNumber, withCountryCode: countryCode)
 //            }

@@ -40,10 +40,9 @@ struct SearchTextField: View {
             .cornerRadius(10.0)
             
             if showCancelButton  {
-                Button("Cancel") {
-                        //UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                        self.searchText = ""
-                        self.showCancelButton = false
+                Button(AppTexts.cancel) {
+                    self.searchText = ""
+                    self.showCancelButton = false
                 }
                 .foregroundColor(Color(.systemBlue))
             }
