@@ -94,7 +94,7 @@ class ApiServices {
                         case 200...299:
                             #if DEBUG
                             do {
-                                try Singleton.sharedInstance.jsonDecoder.decode(decodingStruct.self, from: data)
+                                let _ = try Singleton.sharedInstance.jsonDecoder.decode(decodingStruct.self, from: data)
                             } catch let DecodingError.typeMismatch(type, context)  {
                                 print("Type '\(type)' mismatch:", context.debugDescription)
                                 print("codingPath:", context.codingPath)

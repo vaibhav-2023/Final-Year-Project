@@ -45,11 +45,13 @@ class AppTexts {
     static let ifsc = "IFSC"
     
     //home
+    static let home = "Home"
     static let greetings = "Greetings"
     static let upiID = "UPI ID"
     static let payTo = "Pay to"
     static let scan = "Scan"
     static let qr = "QR"
+    static let scanQR = "Scan QR"
     static let contact = "Contact"
     static let transfer = "Transfer"
     static let selfString = "Self"
@@ -67,7 +69,12 @@ class AppTexts {
     static let privacyPolicy = "Privacy Policy"
     static let termsAndConditions = "Terms & Conditions"
     
+    //profile info screen
+    static let yourDetails = "Your Details"
+    
     //pay to screen
+    static let payToNumber = "Pay to number"
+    static let payToUPIID = "Pay to UPI ID"
     static let payFrom = "Pay from"
     static let pay = "Pay"
     

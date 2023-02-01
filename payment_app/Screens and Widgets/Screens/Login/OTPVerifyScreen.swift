@@ -77,7 +77,7 @@ struct OTPVerifyScreen: View {
             }
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
-        )
+        ).setNavigationBarTitle(title: AppTexts.verifyOTP)
             .showLoader(isPresenting: .constant(loginVM.isAnyApiBeingHit))
             .onReceive(loginVM.$loginAS) { loginAS in
                 if (loginAS == .LoggedIn) {

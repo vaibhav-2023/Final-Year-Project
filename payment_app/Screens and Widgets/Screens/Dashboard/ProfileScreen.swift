@@ -63,10 +63,10 @@ struct ProfileScreen: View {
                     CardView(backgroundColor: .lightBluishGrayColor) {
                         VStack(spacing: spacing * 2) {
                             listTile(withTitle: AppTexts.profile) {
-                                
+                                selection = NavigationEnum.ProfileInfoScreen.rawValue
                             }
                             listTile(withTitle: AppTexts.qrCode) {
-                                
+                                selection = NavigationEnum.QRCodeInfoScreen.rawValue
                             }
                             listTile(withTitle: AppTexts.bankAccount) {
                                 selection = NavigationEnum.BankAccountsScreen.rawValue
@@ -82,15 +82,16 @@ struct ProfileScreen: View {
                 }
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.profile)
     }
     
     @ViewBuilder
     private func addNavigationLinks() -> some View {
-        NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.ProfileScreen.rawValue, selection: $selection) {
+        NavigationLink(destination: ProfileInfoScreen(), tag: NavigationEnum.ProfileInfoScreen.rawValue, selection: $selection) {
             EmptyView()
         }
         
-        NavigationLink(destination: PayToNumberScreen(), tag: NavigationEnum.PayToNumberScreen.rawValue, selection: $selection) {
+        NavigationLink(destination: QRCodeInfoScreen(), tag: NavigationEnum.QRCodeInfoScreen.rawValue, selection: $selection) {
             EmptyView()
         }
         

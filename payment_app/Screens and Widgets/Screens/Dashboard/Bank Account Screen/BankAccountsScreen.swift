@@ -24,7 +24,8 @@ struct BankAccountsScreen: View {
                 }
             }.padding()
         }
-            .background(Color.whiteColor.ignoresSafeArea())
+            .background(Color.whiteColor.ignoresSafeArea()).setNavigationBarTitle(title: AppTexts.bankAccounts)
+        
     }
 }
 

@@ -46,6 +46,7 @@ struct PayToNumberScreen: View {
                 
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.payToNumber)
     }
     
     @ViewBuilder

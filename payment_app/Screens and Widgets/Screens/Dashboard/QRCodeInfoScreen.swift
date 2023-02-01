@@ -100,6 +100,7 @@ struct QRCodeInfoScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.qrCode)
     }
 }
 

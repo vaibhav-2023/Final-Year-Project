@@ -60,6 +60,11 @@ extension View {
             Loader(isPresenting: isPresenting)
         }
     }
+    
+    func setNavigationBarTitle(title: String, textSize: CGFloat = 18) -> some View {
+        self.navigationBarTitle(title, displayMode: .inline)
+            //.navigationBarItems(leading: AppBarText(title: title, textSize: textSize))
+    }
 }
 
 //MARK: - Text

@@ -16,6 +16,7 @@ struct WalletTransactionsScreen: View {
         ZStack {
             walletTransaction(walletTransaction: "TEst")
         }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.walletTransactions)
     }
     
     @ViewBuilder

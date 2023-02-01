@@ -84,11 +84,11 @@ struct HomeScreen: View {
                                     selection = NavigationEnum.PayToNumberScreen.rawValue
                                 }
                                 icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
-                                    
+                                    //selection = NavigationEnum.PayToNumberScreen.rawValue
                                 }
                                 
                                 icon("creditCardIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.upiID) {
-                                    
+                                    selection = NavigationEnum.PayToUPIIDScreen.rawValue
                                 }
                                 
                                 icon("phoneForwardedIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.number) {
@@ -117,8 +117,9 @@ struct HomeScreen: View {
                 }
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.home)
             .onChange(of: scanResult) { scanResult in
-                if let scanResult = scanResult {
+                if let _ = scanResult {
                     selection = NavigationEnum.PayToScreen.rawValue
                 }
             }

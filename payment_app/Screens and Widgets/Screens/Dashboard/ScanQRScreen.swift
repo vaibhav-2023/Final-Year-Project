@@ -47,6 +47,7 @@ struct ScanQRScreen: View {
                     Spacer()
                 }.padding(padding)
             }.background(Color.whiteColor.ignoresSafeArea())
+                .setNavigationBarTitle(title: AppTexts.scanQR)
             
         }, label: {
             EmptyView()

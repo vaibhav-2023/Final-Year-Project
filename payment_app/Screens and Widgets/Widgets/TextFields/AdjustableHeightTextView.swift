@@ -17,6 +17,7 @@ struct AdjustableHeightTextView: UIViewRepresentable {
     private let textColor: Color
     private let keyboardType: UIKeyboardType
     private let autoCapitalization: UITextAutocapitalizationType
+    private let cursorColor: Color
     
     init(height: Binding<CGFloat>,
          maxheight: CGFloat,
@@ -25,7 +26,8 @@ struct AdjustableHeightTextView: UIViewRepresentable {
          textSize: CGFloat,
          textColor: Color,
          keyboardType: UIKeyboardType,
-         autoCapitalization: UITextAutocapitalizationType) {
+         autoCapitalization: UITextAutocapitalizationType,
+         cursorColor: Color) {
         self._height = height
         self.maxheight = maxheight
         self._text = text
@@ -34,6 +36,7 @@ struct AdjustableHeightTextView: UIViewRepresentable {
         self.textColor = textColor
         self.keyboardType = keyboardType
         self.autoCapitalization = autoCapitalization
+        self.cursorColor = cursorColor
     }
 
     func makeCoordinator() -> Coordinator {
@@ -47,6 +50,7 @@ struct AdjustableHeightTextView: UIViewRepresentable {
         textView.textColor = UIColor(textColor)
         textView.keyboardType = keyboardType
         textView.autocapitalizationType = autoCapitalization
+        textView.tintColor = UIColor(cursorColor)
         
         switch fontEnum {
         case .Light:

@@ -55,7 +55,7 @@ struct LoginScreen: View {
             }
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
-        )
+        ).setNavigationBarTitle(title: AppTexts.login)
             .showLoader(isPresenting: .constant(loginVM.isAnyApiBeingHit))
             .onReceive(loginVM.$loginAS) { loginAS in
                 if (loginAS == .OTPSent) {
@@ -71,7 +71,6 @@ struct LoginScreen: View {
         } else if !mobileNumber.isValidPhone {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidMobileNumber)
         } else {
-            print(selection)
             selection = NavigationEnum.OTPVerify.rawValue
             //loginVM.sendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
         }

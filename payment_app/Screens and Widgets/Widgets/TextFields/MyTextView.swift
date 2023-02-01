@@ -19,6 +19,7 @@ struct MyTextView: View {
     private let textColor: Color
     private let keyboardType: UIKeyboardType
     private let autoCapitalization: UITextAutocapitalizationType
+    private let accentColor: Color
     //let onCommit:
     
     init(_ placeHolder: String,
@@ -30,7 +31,8 @@ struct MyTextView: View {
          textSize: CGFloat = 15,
          textColor: Color = .blackColorForAllModes,
          keyboardType: UIKeyboardType = UIKeyboardType.default,
-         autoCapitalization: UITextAutocapitalizationType = UITextAutocapitalizationType.sentences
+         autoCapitalization: UITextAutocapitalizationType = UITextAutocapitalizationType.sentences,
+         accentColor: Color = .primaryColor
     ) {
         self.placeHolder = placeHolder
         self._text = text
@@ -42,6 +44,7 @@ struct MyTextView: View {
         self.textColor = textColor
         self.keyboardType = keyboardType
         self.autoCapitalization = autoCapitalization
+        self.accentColor = accentColor
     }
     
     var body: some View {
@@ -64,7 +67,8 @@ struct MyTextView: View {
                                          textSize: textSize,
                                          textColor: textColor,
                                          keyboardType: keyboardType,
-                                         autoCapitalization: autoCapitalization)
+                                         autoCapitalization: autoCapitalization,
+                                         cursorColor: accentColor)
                     .frame(height: adjustableTVHeight)
             }
             

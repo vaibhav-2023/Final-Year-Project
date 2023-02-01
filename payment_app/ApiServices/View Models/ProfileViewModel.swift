@@ -26,8 +26,6 @@ class ProfileViewModel: ViewModel {
     
     func hitFillUserDetailsAPI(withName name: String, andEmail email: String) {
         
-        let token = UserDefaults.standard.string(forKey: UserDefaultKeys.firebaseToken) ?? ""
-        
         fillDetailsAS = .IsBeingHit
         
         let params = ["name": name,
