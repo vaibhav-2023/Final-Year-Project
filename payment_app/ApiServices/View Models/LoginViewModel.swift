@@ -32,21 +32,13 @@ class LoginViewModel: ViewModel {
     
     func sendOTPTo(mobileNumber: String, withCountryCode countryCode: String) {
         
-        let token = UserDefaults.standard.string(forKey: UserDefaultKeys.firebaseToken) ?? ""
-        let version = UIDevice.current.systemVersion
-        let deviceModel = UIDevice.getDeviceModel
-        
         loginAS = .IsBeingHit
         
-        let params = ["mobile_number": mobileNumber,
-                      "fcm_token": token,
-                      "device_type": "iOS",
-                      "is_ios": true,
-                      "device_name": deviceModel,
-                      "device_ios_version": version,
-                      "device_model": deviceModel] as [String : AnyObject]
+        let params = ["phone": mobileNumber,
+                      "numericCountryCode": countryCode,
+                      "countryCode": Singleton.sharedInstance.generalFunctions.getCountryCodeOfDevice()] as JSONKeyPair
         
-        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .login)
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .loginRegister)
         urlRequest?.addHeaders()
         urlRequest?.addParameters(params, as: .URLFormEncoded)
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: LoginResponse.self) { [weak self] in
@@ -66,7 +58,7 @@ class LoginViewModel: ViewModel {
     }
     
     func resendOTPTo(mobileNumber: String, withCountryCode countryCode: String) {
-        let params = ["mobile_number": mobileNumber] as [String : AnyObject]
+        let params = ["mobile_number": mobileNumber] as JSONKeyPair
         
         resendOTPAS = .IsBeingHit
         
@@ -92,7 +84,18 @@ class LoginViewModel: ViewModel {
     
     func verifyOTP(_ otp: String, sendToMobileNumber mobileNumber: String, withCountryCode countryCode: String) {
         
-        let params = ["mobile_number": mobileNumber, "otp": otp] as [String : AnyObject]
+        let token = UserDefaults.standard.string(forKey: UserDefaultKeys.firebaseToken) ?? ""
+        let version = UIDevice.current.systemVersion
+        let deviceModel = UIDevice.getDeviceModel
+        
+        let params = ["mobile_number": mobileNumber,
+                      "otp": otp,
+                      "fcm_token": token,
+                      "device_type": "iOS",
+                      "is_ios": true,
+                      "device_name": deviceModel,
+                      "device_ios_version": version,
+                      "device_model": deviceModel] as JSONKeyPair
         
         loginAS = .IsBeingHit
         

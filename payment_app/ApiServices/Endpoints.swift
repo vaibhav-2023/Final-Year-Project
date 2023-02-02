@@ -18,9 +18,11 @@ enum AppEndpoints: String, EndpointsProtocol {
         return AppURLs.getAPIURL() + self.rawValue
     }
     
-    case login = "login",
+    case loginRegister = "loginRegister",
          resendOTP = "resendOTP",
-         verifyOTP = "verifyOTP"
+         verifyOTP = "verifyOtp",
+         userUpdate = "user/update",
+         userSingle = "user/single"
 }
 
 ////MARK: - AppEndpointsWithParamters

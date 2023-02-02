@@ -28,12 +28,15 @@ class ProfileViewModel: ViewModel {
         
         fillDetailsAS = .IsBeingHit
         
-        let params = ["name": name,
-                      "email": email] as [String : AnyObject]
+        let params = ["_id": name,
+                      "name": name,
+                      "email": email] as JSONKeyPair
         
-        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .login)
+        //let fileModel = FileModel(file: <#T##Data#>, fileKeyName: <#T##String#>, fileName: <#T##String#>, mimeType: <#T##String#>)
+        
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userUpdate)
         urlRequest?.addHeaders()
-        urlRequest?.addParameters(params, as: .URLFormEncoded)
+        urlRequest?.addParameters(params, as: .FormData)
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: LoginResponse.self) { [weak self] in
             self?.hitFillUserDetailsAPI(withName: name, andEmail: email)
             }
@@ -54,7 +57,11 @@ class ProfileViewModel: ViewModel {
         
         profileAPIAS = .IsBeingHit
         
-        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .resendOTP)
+        let params = ["_id": "id"] as JSONKeyPair
+        
+        //user_profilePic
+        
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userSingle)
         urlRequest?.addHeaders()
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: BaseResponse.self) { [weak self] in
             self?.getProfile()

@@ -15,7 +15,7 @@ struct DeviceDimensions {
 }
 
 class AppURLs {
-    static let baseURL = "https://www.breakingbadapi.com/"
+    static let baseURL = "http://192.168.1.7:6001/"
     
     static func getAPIURL() -> String {
         return baseURL + "api/"

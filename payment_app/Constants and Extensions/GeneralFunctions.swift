@@ -14,6 +14,8 @@ typealias JSONKeyPair = [String: Any]
 
 class GeneralFunctions {
     
+    private let defaultCountryCode = "in"
+    
     func getTopWindow() -> UIWindow? {
         if #available(iOS 15, *) {
             return (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.keyWindow
@@ -159,6 +161,20 @@ class GeneralFunctions {
         if let settings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settings) {
             UIApplication.shared.open(settings)
         }
+    }
+    
+    func getCountryCodeOfDevice() -> String {
+        ///to get country code with Locale
+//        if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+//            return countryCode
+//        }
+        ///to get country code with SIM
+//        if let carrier = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders?.values.first(where: { $0.isoCountryCode != nil }) {
+//            if let countryCode = carrier.isoCountryCode {
+//                return countryCode
+//            }
+//        }
+        return defaultCountryCode
     }
     
     func getLocale() -> Locale {
