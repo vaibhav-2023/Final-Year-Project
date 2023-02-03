@@ -21,7 +21,7 @@ struct LoginScreen: View {
     
     var body: some View {
         ZStack {
-            NavigationLink(destination: OTPVerifyScreen(countryCode: countryCode, mobileNumber: mobileNumber), tag: NavigationEnum.OTPVerify.rawValue, selection: $selection) {
+            NavigationLink(destination: VerifyOTPandFillDetailsScreen(countryCode: countryCode, mobileNumber: mobileNumber), tag: NavigationEnum.OTPVerify.rawValue, selection: $selection) {
                 EmptyView()
             }
             
@@ -71,8 +71,8 @@ struct LoginScreen: View {
         } else if !mobileNumber.isValidPhone {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidMobileNumber)
         } else {
-            selection = NavigationEnum.OTPVerify.rawValue
-            //loginVM.sendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
+            //selection = NavigationEnum.OTPVerify.rawValue
+            loginVM.sendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
         }
     }
 }

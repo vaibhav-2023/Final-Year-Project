@@ -93,6 +93,7 @@ class ApiServices {
                             return self.getApiErrorPublisher(.InformationalError(response.statusCode), inUrl: urlString)
                         case 200...299:
                             #if DEBUG
+                            print(json)
                             do {
                                 let _ = try Singleton.sharedInstance.jsonDecoder.decode(decodingStruct.self, from: data)
                             } catch let DecodingError.typeMismatch(type, context)  {
@@ -174,8 +175,8 @@ extension URLRequest {
         //set headers
         self.addValue("iOS", forHTTPHeaderField: "device")
         self.addValue("application/json", forHTTPHeaderField: "Accept")
-        if shouldAddAuthToken {
-            //urlRequest?.addValue("token", forHTTPHeaderField: "Authorization")
+        if shouldAddAuthToken, let token = UserDefaults.standard.string(forKey: UserDefaultKeys.authToken) {
+            self.addValue(token, forHTTPHeaderField: "Authorization")
         }
         
         if let headers {
@@ -252,10 +253,10 @@ extension URLRequest {
             self.httpBody = body
             self.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
             self.addValue("\(body.count)", forHTTPHeaderField: "Content-Length")
-            
-            print("paramenterEncoding is", parameterEncoding)
-            print("http paramters", parameters ?? [:])
-            print("http body data", self.httpBody ?? Data())
         }
+        
+        print("paramenterEncoding is", parameterEncoding)
+        print("http paramters", parameters ?? [:])
+        print("http body data", self.httpBody ?? Data())
     }
 }

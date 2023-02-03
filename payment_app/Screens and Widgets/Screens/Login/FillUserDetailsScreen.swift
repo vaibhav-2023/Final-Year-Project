@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FillUserDetailsScreen: View {
     
-    @StateObject private var profileVM = ProfileViewModel()
+    @ObservedObject private var loginVM = LoginViewModel()
     
     @State private var selection: Int? = nil
     
@@ -18,6 +18,10 @@ struct FillUserDetailsScreen: View {
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
+    
+    init(loginVM: LoginViewModel) {
+        self.loginVM = loginVM
+    }
     
     var body: some View {
         ZStack {
@@ -51,13 +55,7 @@ struct FillUserDetailsScreen: View {
             }
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
-        )
-            .showLoader(isPresenting: .constant(profileVM.isAnyApiBeingHit))
-            .onReceive(profileVM.$fillDetailsAS) { fillDetailsAS in
-                if fillDetailsAS == .ApiHit {
-                    //selection = NavigationEnum.OTPVerify.rawValue
-                }
-            }
+        ).setNavigationBarTitle(title: AppTexts.fillDetails)
     }
     
     private func onSaveTapped() {
@@ -66,13 +64,13 @@ struct FillUserDetailsScreen: View {
         } else if !email.isEmpty && !email.isValidEmail {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            profileVM.hitFillUserDetailsAPI(withName: name, andEmail: email)
+            loginVM.hitFillUserDetailsAPI(withName: name, andEmail: email)
         }
     }
 }
 
 struct FillUserDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FillUserDetailsScreen()
+        FillUserDetailsScreen(loginVM: LoginViewModel())
     }
 }

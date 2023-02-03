@@ -15,19 +15,20 @@ class LoginViewModel: ViewModel {
     
     @Published private(set) var loginAS: LoginApiStatus = .NotHitOnce
     @Published private(set) var resendOTPAS: ApiStatus = .NotHitOnce
+    @Published private(set) var fillDetailsAS: LoginApiStatus = .NotHitOnce
     
     //private(set) var loginModel: LoginModel? = nil
     
     var isAnyApiBeingHit: Bool {
-        if loginAS == .IsBeingHit || resendOTPAS == .IsBeingHit {
+        if loginAS == .IsBeingHit || resendOTPAS == .IsBeingHit || fillDetailsAS == .IsBeingHit {
             return true
         }
         return false
     }
     
-    private func saveUserInformation(_ loginResponse: LoginResponse?) {
-        UserDefaults.standard.set(loginResponse?.token, forKey: UserDefaultKeys.authToken)
-        Singleton.sharedInstance.generalFunctions.saveUserModel(loginResponse?.data)
+    private func saveUserInformation(_ verifyOTPResponse: VerifyOTPResponse?) {
+        UserDefaults.standard.set(verifyOTPResponse?.token, forKey: UserDefaultKeys.authToken)
+        Singleton.sharedInstance.generalFunctions.saveUserModel(verifyOTPResponse?.data)
     }
     
     func sendOTPTo(mobileNumber: String, withCountryCode countryCode: String) {
@@ -53,32 +54,50 @@ class LoginViewModel: ViewModel {
                     break
                 }
             } receiveValue: { [weak self] response in
-                self?.loginAS = .OTPSent
+                if let success = response.success, success {
+                    #if DEBUG
+                        Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(response.otp ?? 0)") { _ in
+                            self?.loginAS = .OTPSent
+                        }
+                    #else
+                        self?.loginAS = .OTPSent
+                    #endif
+                } else {
+                    self?.loginAS = .ApiHitWithError
+                }
             }.store(in: &cancellable)
     }
     
     func resendOTPTo(mobileNumber: String, withCountryCode countryCode: String) {
-        let params = ["mobile_number": mobileNumber] as JSONKeyPair
+        let params = ["phone": mobileNumber,
+                      "numericCountryCode": countryCode,
+                      "countryCode": Singleton.sharedInstance.generalFunctions.getCountryCodeOfDevice()] as JSONKeyPair
         
         resendOTPAS = .IsBeingHit
         
-        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .resendOTP)
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .loginRegister)
         urlRequest?.addHeaders()
         urlRequest?.addParameters(params, as: .URLFormEncoded)
-        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: BaseResponse.self) { [weak self] in
+        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: LoginResponse.self) { [weak self] in
             self?.resendOTPTo(mobileNumber: mobileNumber, withCountryCode: countryCode)
             }
             .sink{ [weak self] completion in
                 switch completion {
                     case .finished:
-                    self?.resendOTPAS = .ApiHit
                     break
                     case .failure(_):
                     self?.resendOTPAS = .ApiHitWithError
                     break
                 }
-            } receiveValue: { response in
-                print("in \(#function)")
+            } receiveValue: { [weak self] response in
+                if let success = response.success, success {
+                    #if DEBUG
+                        Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(response.otp ?? 0)")
+                    #endif
+                    self?.resendOTPAS = .ApiHit
+                } else {
+                    self?.resendOTPAS = .ApiHitWithError
+                }
             }.store(in: &cancellable)
     }
     
@@ -88,9 +107,9 @@ class LoginViewModel: ViewModel {
         let version = UIDevice.current.systemVersion
         let deviceModel = UIDevice.getDeviceModel
         
-        let params = ["mobile_number": mobileNumber,
+        let params = ["phone": mobileNumber,
                       "otp": otp,
-                      "fcm_token": token,
+                      "firebaseToken": token,
                       "device_type": "iOS",
                       "is_ios": true,
                       "device_name": deviceModel,
@@ -102,7 +121,7 @@ class LoginViewModel: ViewModel {
         var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .verifyOTP)
         urlRequest?.addHeaders()
         urlRequest?.addParameters(params, as: .URLFormEncoded)
-        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: LoginResponse.self) { [weak self] in
+        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: VerifyOTPResponse.self) { [weak self] in
             self?.verifyOTP(otp, sendToMobileNumber: mobileNumber, withCountryCode: countryCode)
             }
             .sink{ [weak self] completion in
@@ -115,11 +134,56 @@ class LoginViewModel: ViewModel {
                 }
             } receiveValue: { [weak self] response in
                 if let success = response.success, success {
-                    //if user details filled
-                    self?.loginAS = .LoggedIn
-                    //else
-                    //self?.loginAS = .OTPSent
                     self?.saveUserInformation(response)
+                    if let name = response.data?.name, !name.isEmpty {
+                        if let banks = response.data?.banks, !banks.isEmpty {
+                            self?.loginAS = .LoggedIn
+                        } else {
+                            self?.loginAS = .FillBankDetails
+                        }
+                    } else {
+                        self?.loginAS = .FillDetails
+                    }
+                } else {
+                    self?.loginAS = .ApiHitWithError
+                }
+            }.store(in: &cancellable)
+    }
+    
+    func hitFillUserDetailsAPI(withName name: String, andEmail email: String) {
+        
+        fillDetailsAS = .IsBeingHit
+        
+        let params = ["_id": Singleton.sharedInstance.generalFunctions.getUserID(),
+                      "name": name,
+                      "email": email] as JSONKeyPair
+        
+        //let fileModel = FileModel(file: <#T##Data#>, fileKeyName: <#T##String#>, fileName: <#T##String#>, mimeType: <#T##String#>)
+        
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userUpdate)
+        urlRequest?.addHeaders(shouldAddAuthToken: true)
+        urlRequest?.addParameters(params, as: .FormData)
+        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: ProfileResponse.self) { [weak self] in
+            self?.hitFillUserDetailsAPI(withName: name, andEmail: email)
+            }
+            .sink{ [weak self] completion in
+                switch completion {
+                    case .finished:
+                    break
+                    case .failure(_):
+                    self?.fillDetailsAS = .ApiHitWithError
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                if let success = response.success, success {
+                    Singleton.sharedInstance.generalFunctions.saveUserModel(response.data)
+                    if let banks = response.data?.banks, !banks.isEmpty {
+                        self?.loginAS = .LoggedIn
+                    } else {
+                        self?.loginAS = .FillBankDetails
+                    }
+                } else {
+                    self?.loginAS = .ApiHitWithError
                 }
             }.store(in: &cancellable)
     }

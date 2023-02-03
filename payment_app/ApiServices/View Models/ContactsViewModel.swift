@@ -129,8 +129,8 @@ class ContactsViewModel: ViewModel {
         if let contactModel = Singleton.sharedInstance.generalFunctions.structToJSON(contactsToSend) {
             let params = ["contacts": contactModel] as JSONKeyPair
             
-            var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .login)
-            urlRequest?.addHeaders()
+            var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .sendContacts)
+            urlRequest?.addHeaders(shouldAddAuthToken: true)
             urlRequest?.addParameters(params, as: .URLFormEncoded)
             Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: BaseResponse.self) { [weak self] in
                     self?.sendContacts()
@@ -154,6 +154,8 @@ class ContactsViewModel: ViewModel {
                             self.hasSharedContacts = true
                         }
                         self.apiStatus = .ApiHit
+                    } else {
+                        self.apiStatus = .ApiHitWithError
                     }
                 }.store(in: &cancellable)
         }

@@ -17,6 +17,8 @@ class AppTexts {
     static let save = "Save"
     static let optional = "Optional"
     static let cancel = "Cancel"
+    static let noDataAvailable = "No Data Available"
+    static let noBanksFound = "No Banks Found"
     
     //login
     static let enterYourMobileNumberToContinue = "Enter your mobile number to continue"
@@ -30,6 +32,7 @@ class AppTexts {
     static let resendOTP = "Resend OTP"
     
     //fill details
+    static let fillDetails = "Fill Details"
     static let enterYourDetails = "Enter your details"
     static let tellUsAboutYourself = "Tell us about yourself"
     static let yourName = "Your Name"
@@ -68,6 +71,7 @@ class AppTexts {
     static let bankAccounts = "Bank Accounts"
     static let privacyPolicy = "Privacy Policy"
     static let termsAndConditions = "Terms & Conditions"
+    static let logout = "Logout"
     
     //profile info screen
     static let yourDetails = "Your Details"
@@ -135,6 +139,8 @@ class AppTexts {
         static let selectBank = "Select Bank"
         static let enterBankAccount = "Enter Bank Account"
         static let enterIFSC = "Enter IFSC"
+        
+        static let areYouSureYouWantToLogoutFromApp = "Are you sure you want to logout from app"
     }
     
     class TextFieldPlaceholders {

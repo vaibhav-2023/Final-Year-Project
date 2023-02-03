@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileScreen: View {
     
+    @StateObject private var profileVM = ProfileViewModel()
+    
     @State private var selection: Int? = nil
     
     private let spacing: CGFloat = 10
@@ -77,12 +79,21 @@ struct ProfileScreen: View {
                             listTile(withTitle: AppTexts.termsAndConditions) {
                                 
                             }
+                            listTile(withTitle: AppTexts.logout) {
+                                Singleton.sharedInstance.alerts.alertWith(title: AppTexts.logout + "?", message: AppTexts.AlertMessages.areYouSureYouWantToLogoutFromApp + "?", defaultButtonTitle: AppTexts.logout, defaultButtonAction: {_ in
+                                    if !profileVM.isAnyApiBeingHit {
+                                        profileVM.logoutUser()
+                                    }
+//                                    Singleton.sharedInstance.generalFunctions.deinitilseAllVariables()
+                                }, cancelButtonTitle: AppTexts.cancel)
+                            }
                         }.padding(.vertical, spacing * 2)
                     }.padding(padding)
                 }
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .setNavigationBarTitle(title: AppTexts.profile)
+            .showLoader(isPresenting: .constant(profileVM.isAnyApiBeingHit))
     }
     
     @ViewBuilder

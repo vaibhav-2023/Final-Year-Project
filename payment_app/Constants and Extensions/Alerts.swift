@@ -50,10 +50,20 @@ class Alerts {
         alertWith(title: AppTexts.AlertMessages.errorWithExclamation, message: message)
     }
 
-    func alertWith(title: String, message: String, defaultButtonTitle: String = AppTexts.AlertMessages.ok) {
+    func alertWith(title: String, message: String, defaultButtonTitle: String = AppTexts.AlertMessages.ok, defaultButtonAction: ((UIAlertAction) -> Void)? = nil) {
         let alert = getAlertController(ofStyle: .alert, withTitle: title, andMessage: message)
 
-        alert.addAction(UIAlertAction(title: AppTexts.AlertMessages.ok.uppercased(), style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: defaultButtonTitle, style: UIAlertAction.Style.default, handler: defaultButtonAction))
+
+        let vc = Singleton.sharedInstance.generalFunctions.getTopViewController()
+        vc?.present(alert, animated: true, completion: nil)
+    }
+    
+    func alertWith(title: String, message: String, defaultButtonTitle: String = AppTexts.AlertMessages.ok, defaultButtonAction: ((UIAlertAction) -> Void)? = nil, cancelButtonTitle: String = AppTexts.AlertMessages.cancel, cancelButtonAction: ((UIAlertAction) -> Void)? = nil) {
+        let alert = getAlertController(ofStyle: .alert, withTitle: title, andMessage: message)
+
+        alert.addAction(UIAlertAction(title: defaultButtonTitle, style: UIAlertAction.Style.default, handler: defaultButtonAction))
+        alert.addAction(UIAlertAction(title: cancelButtonTitle, style: UIAlertAction.Style.cancel, handler: cancelButtonAction))
 
         let vc = Singleton.sharedInstance.generalFunctions.getTopViewController()
         vc?.present(alert, animated: true, completion: nil)

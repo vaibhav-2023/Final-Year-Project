@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct OTPVerifyScreen: View {
-    @StateObject private var loginVM = LoginViewModel()
     @StateObject private var otpViewModel = OTPTextFieldViewModel()
     
-    @State private var selection: Int? = nil
+    @ObservedObject private var loginVM = LoginViewModel()
+    
+//    @State private var selection: Int? = nil
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
@@ -19,8 +20,10 @@ struct OTPVerifyScreen: View {
     private let countryCode: String
     private let mobileNumber: String
     
-    init(countryCode: String,
+    init(loginVM: LoginViewModel,
+         countryCode: String,
          mobileNumber: String) {
+        self.loginVM = loginVM
         self.countryCode = countryCode
         self.mobileNumber = mobileNumber
     }
@@ -28,9 +31,9 @@ struct OTPVerifyScreen: View {
     var body: some View {
         ZStack {
             
-            NavigationLink(destination: HomeScreen(), tag: NavigationEnum.HomeScreen.rawValue, selection: $selection) {
-                EmptyView()
-            }
+//            NavigationLink(destination: HomeScreen(), tag: NavigationEnum.HomeScreen.rawValue, selection: $selection) {
+//                EmptyView()
+//            }
             
             ScrollView {
                 VStack(alignment: .leading, spacing: spacing) {
@@ -78,12 +81,6 @@ struct OTPVerifyScreen: View {
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
         ).setNavigationBarTitle(title: AppTexts.verifyOTP)
-            .showLoader(isPresenting: .constant(loginVM.isAnyApiBeingHit))
-            .onReceive(loginVM.$loginAS) { loginAS in
-                if (loginAS == .LoggedIn) {
-                    
-                }
-            }
     }
     
     
@@ -93,16 +90,16 @@ struct OTPVerifyScreen: View {
         } else if otpViewModel.otpField.count != 4 {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            selection = NavigationEnum.HomeScreen.rawValue
-//            if !loginVM.isAnyApiBeingHit {
-//                loginVM.verifyOTP(otpViewModel.otpField, sendToMobileNumber: mobileNumber, withCountryCode: countryCode)
-//            }
+//            selection = NavigationEnum.HomeScreen.rawValue
+            if !loginVM.isAnyApiBeingHit {
+                loginVM.verifyOTP(otpViewModel.otpField, sendToMobileNumber: mobileNumber, withCountryCode: countryCode)
+            }
         }
     }
 }
 
 struct OTPVerifyScreen_Previews: PreviewProvider {
     static var previews: some View {
-        OTPVerifyScreen(countryCode: "", mobileNumber: "")
+        OTPVerifyScreen(loginVM: LoginViewModel(), countryCode: "", mobileNumber: "")
     }
 }

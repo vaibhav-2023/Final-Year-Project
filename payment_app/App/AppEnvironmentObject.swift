@@ -13,4 +13,6 @@ final class AppEnvironmentObject: ObservableObject {
     @Published var changeContentView: Bool = false
     // for internet status, connected or not
     @Published var isConnectedToInternet: Bool = true
+    //used to show add bank screen from ContentView
+    var openFillBankDetailsScreen: Bool = false
 }

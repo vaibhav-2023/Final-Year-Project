@@ -46,9 +46,7 @@ struct SearchTextField: View {
                 }
                 .foregroundColor(Color(.systemBlue))
             }
-        }
-        .padding(.horizontal)
-        .navigationBarHidden(showCancelButton)
+        }.navigationBarHidden(showCancelButton)
     }
 }
 

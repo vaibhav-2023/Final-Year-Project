@@ -1,20 +1,20 @@
 //
-//  LoginResponse.swift
+//  VerifyOTPResponse.swift
 //  payment_app
 //
-//  Created by MacBook PRO on 04/01/23.
+//  Created by MacBook PRO on 11/01/23.
 //
 
 import Foundation
 
 //MARK: - LoginResponse
-struct LoginResponse: Codable {
+struct ProfileResponse: Codable {
     let status: Int?
     let success: Bool?
     let message: String?
-    let otp: Int?
+    let data: UserModel?
     
     enum CodingKeys: String, CodingKey {
-        case status, success, message, otp
+        case status, success, message, data
     }
 }

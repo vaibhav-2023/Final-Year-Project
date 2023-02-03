@@ -26,7 +26,14 @@ struct ContentView: View {
     var content: some View {
         Group {
             if Singleton.sharedInstance.generalFunctions.isUserLoggedIn() {
-                HomeScreen()
+                //if Singleton.sharedInstance.appEnvironmentObject.openFillBankDetailsScreen {
+                    FillBankDetailsScreen(isUserFromContentView: true)
+                        .onAppear {
+                            Singleton.sharedInstance.appEnvironmentObject.openFillBankDetailsScreen = false
+                        }
+//                } else {
+//                    HomeScreen()
+//                }
             } else {
                 LoginScreen()
             }

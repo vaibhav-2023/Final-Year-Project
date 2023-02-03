@@ -15,7 +15,7 @@ struct DeviceDimensions {
 }
 
 class AppURLs {
-    static let baseURL = "http://192.168.1.7:6001/"
+    static let baseURL = "https://21d1-2401-4900-1c2a-f23-fd9b-2b2b-afb8-9c56.in.ngrok.io/"
     
     static func getAPIURL() -> String {
         return baseURL + "api/"
@@ -38,6 +38,7 @@ struct AppInfo {
 struct UserDefaultKeys {
     static let apnDeviceToken = "apnDeviceToken"
     static let firebaseToken = "firebaseToken"
+    static let isLoggedIn = "isLoggedIn"
     static let authToken = "authToken"
     static let userModel = "userModel"
     static let userModelUserID = "userModelUserID"
@@ -92,7 +93,7 @@ enum ApiStatus {
 }
 
 enum LoginApiStatus {
-    case NotHitOnce, IsBeingHit, OTPSent, FillDetails, LoggedIn, ApiHitWithError
+    case NotHitOnce, IsBeingHit, OTPSent, FillDetails, FillBankDetails, LoggedIn, ApiHitWithError
 }
 
 enum FontEnum {

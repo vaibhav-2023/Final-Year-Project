@@ -199,12 +199,16 @@ class GeneralFunctions {
     func saveUserModel(_ userModel: UserModel?) {
         if let userModel = userModel, let jsonUserModel = structToData(userModel) {
             UserDefaults.standard.set(jsonUserModel, forKey: UserDefaultKeys.userModel)
-            UserDefaults.standard.set(userModel.id, forKey: UserDefaultKeys.userModelUserID)
+            UserDefaults.standard.set(userModel.id ?? "", forKey: UserDefaultKeys.userModelUserID)
         }
     }
     
-    func isUserLoggedIn() -> Bool{
-        return UserDefaults.standard.data(forKey: UserDefaultKeys.userModel) != nil
+    func getUserID() -> String {
+        return UserDefaults.standard.string(forKey: UserDefaultKeys.userModelUserID) ?? ""
+    }
+    
+    func isUserLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: UserDefaultKeys.isLoggedIn) == true
     }
     
     func deinitilseAllVariables() {

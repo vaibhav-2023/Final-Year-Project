@@ -39,6 +39,15 @@
 		5206609129601FF800D65347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5206609029601FF800D65347 /* LaunchScreen.storyboard */; };
 		5209C1BB296BC6BB00399ADE /* AppBarText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209C1BA296BC6BB00399ADE /* AppBarText.swift */; };
 		5209C1BD296BCCF200399ADE /* ProfileInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */; };
+		526F1049296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1048296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift */; };
+		526F104B296E77E3000CF16C /* ProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F104A296E77E3000CF16C /* ProfileResponse.swift */; };
+		526F104D296E786D000CF16C /* VerifyOTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F104C296E786D000CF16C /* VerifyOTPResponse.swift */; };
+		526F104F296EBC2A000CF16C /* AllBanksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F104E296EBC2A000CF16C /* AllBanksViewModel.swift */; };
+		526F1051296EBCA5000CF16C /* AllBanksResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1050296EBCA5000CF16C /* AllBanksResponse.swift */; };
+		526F1053296EC004000CF16C /* UserBanksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1052296EC004000CF16C /* UserBanksViewModel.swift */; };
+		526F1055296ECA7D000CF16C /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1054296ECA7D000CF16C /* ShimmerView.swift */; };
+		526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1056296ECAD7000CF16C /* EmptyListView.swift */; };
+		526F1059296ECB90000CF16C /* ListFooterProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1058296ECB90000CF16C /* ListFooterProgressView.swift */; };
 		528B5915296531140076A88A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5914296531140076A88A /* LoginScreen.swift */; };
 		528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59172965352E0076A88A /* LoginFieldsOuterView.swift */; };
 		528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B591A2965367F0076A88A /* MaxWidthButton.swift */; };
@@ -142,6 +151,15 @@
 		520660922960205800D65347 /* payment-app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "payment-app-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5209C1BA296BC6BB00399ADE /* AppBarText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBarText.swift; sourceTree = "<group>"; };
 		5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoScreen.swift; sourceTree = "<group>"; };
+		526F1048296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPandFillDetailsScreen.swift; sourceTree = "<group>"; };
+		526F104A296E77E3000CF16C /* ProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponse.swift; sourceTree = "<group>"; };
+		526F104C296E786D000CF16C /* VerifyOTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPResponse.swift; sourceTree = "<group>"; };
+		526F104E296EBC2A000CF16C /* AllBanksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBanksViewModel.swift; sourceTree = "<group>"; };
+		526F1050296EBCA5000CF16C /* AllBanksResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBanksResponse.swift; sourceTree = "<group>"; };
+		526F1052296EC004000CF16C /* UserBanksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBanksViewModel.swift; sourceTree = "<group>"; };
+		526F1054296ECA7D000CF16C /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
+		526F1056296ECAD7000CF16C /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
+		526F1058296ECB90000CF16C /* ListFooterProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterProgressView.swift; sourceTree = "<group>"; };
 		528B5914296531140076A88A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		528B59172965352E0076A88A /* LoginFieldsOuterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFieldsOuterView.swift; sourceTree = "<group>"; };
 		528B591A2965367F0076A88A /* MaxWidthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxWidthButton.swift; sourceTree = "<group>"; };
@@ -372,6 +390,8 @@
 			children = (
 				52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */,
 				528B592929653BF60076A88A /* LoginViewModel.swift */,
+				526F104E296EBC2A000CF16C /* AllBanksViewModel.swift */,
+				526F1052296EC004000CF16C /* UserBanksViewModel.swift */,
 				528B593F29654C9E0076A88A /* ProfileViewModel.swift */,
 				52BC3FB529693131003A0B42 /* ContactsViewModel.swift */,
 			);
@@ -382,8 +402,11 @@
 			isa = PBXGroup;
 			children = (
 				528B592B29653C810076A88A /* LoginResponse.swift */,
+				526F1050296EBCA5000CF16C /* AllBanksResponse.swift */,
+				526F104C296E786D000CF16C /* VerifyOTPResponse.swift */,
 				52BC3FB7296935BD003A0B42 /* ContactsModel.swift */,
 				528B592D29653E5F0076A88A /* BaseResponse.swift */,
+				526F104A296E77E3000CF16C /* ProfileResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -458,6 +481,7 @@
 				528B59172965352E0076A88A /* LoginFieldsOuterView.swift */,
 				5209C1BA296BC6BB00399ADE /* AppBarText.swift */,
 				52B029552967D948000FC386 /* PaymentStatusView.swift */,
+				526F1056296ECAD7000CF16C /* EmptyListView.swift */,
 				528B594729655F6D0076A88A /* AvatarView.swift */,
 			);
 			path = "App Reusable Widgets";
@@ -496,7 +520,9 @@
 			isa = PBXGroup;
 			children = (
 				528B5937296548A10076A88A /* Loader.swift */,
+				526F1058296ECB90000CF16C /* ListFooterProgressView.swift */,
 				528B5939296549160076A88A /* LargeProgressView.swift */,
+				526F1054296ECA7D000CF16C /* ShimmerView.swift */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -504,8 +530,10 @@
 		528B594129654F760076A88A /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				528B593D29654BFC0076A88A /* FillUserDetailsScreen.swift */,
 				528B5914296531140076A88A /* LoginScreen.swift */,
 				528B5927296539250076A88A /* OTPVerifyScreen.swift */,
+				526F1048296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -517,7 +545,6 @@
 				52B029542967D922000FC386 /* Chat Screen */,
 				52B029522967D56A000FC386 /* ChooseBankSheet.swift */,
 				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
-				528B593D29654BFC0076A88A /* FillUserDetailsScreen.swift */,
 				52BC3FBD29697488003A0B42 /* QRCodeInfoScreen.swift */,
 				528B594329654F920076A88A /* HomeScreen.swift */,
 				52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */,
@@ -802,14 +829,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */,
 				528B5928296539250076A88A /* OTPVerifyScreen.swift in Sources */,
 				528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */,
 				528B59252965377E0076A88A /* ImageView.swift in Sources */,
 				528B5946296558860076A88A /* SelectBankScreen.swift in Sources */,
 				52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */,
+				526F104F296EBC2A000CF16C /* AllBanksViewModel.swift in Sources */,
 				528B5933296542F30076A88A /* OTPTextFieldViewModel.swift in Sources */,
 				5206607A296019F900D65347 /* MyTextField.swift in Sources */,
 				528B595029658BDB0076A88A /* CardView.swift in Sources */,
+				526F1053296EC004000CF16C /* UserBanksViewModel.swift in Sources */,
+				526F104B296E77E3000CF16C /* ProfileResponse.swift in Sources */,
 				5206607C29601A1B00D65347 /* MyTextView.swift in Sources */,
 				520660642960101800D65347 /* AppEnvironmentObject.swift in Sources */,
 				52066078296019E400D65347 /* MySecureField.swift in Sources */,
@@ -836,9 +867,11 @@
 				5206605D29600F2300D65347 /* Endpoints.swift in Sources */,
 				52BB137B2966A34400ADB832 /* BankAccountsScreen.swift in Sources */,
 				528B59242965377E0076A88A /* KingfisherImageView.swift in Sources */,
+				526F104D296E786D000CF16C /* VerifyOTPResponse.swift in Sources */,
 				52BC3FBE29697488003A0B42 /* QRCodeInfoScreen.swift in Sources */,
 				528B593C296549300076A88A /* BlurView.swift in Sources */,
 				520660702960118200D65347 /* Singleton.swift in Sources */,
+				526F1051296EBCA5000CF16C /* AllBanksResponse.swift in Sources */,
 				52066072296011AF00D65347 /* Extensions.swift in Sources */,
 				5209C1BB296BC6BB00399ADE /* AppBarText.swift in Sources */,
 				52BB13842966EEFC00ADB832 /* PaymentDetailsScreen.swift in Sources */,
@@ -849,6 +882,7 @@
 				528B591F2965367F0076A88A /* IconButton.swift in Sources */,
 				528B594429654F920076A88A /* HomeScreen.swift in Sources */,
 				5206606E2960115300D65347 /* GeneralFunctions.swift in Sources */,
+				526F1055296ECA7D000CF16C /* ShimmerView.swift in Sources */,
 				52BB13822966E87500ADB832 /* PayToScreen.swift in Sources */,
 				52BC3FB629693131003A0B42 /* ContactsViewModel.swift in Sources */,
 				520660742960132B00D65347 /* FileModel.swift in Sources */,
@@ -856,10 +890,12 @@
 				52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
+				526F1049296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift in Sources */,
 				520660682960107B00D65347 /* Alerts.swift in Sources */,
 				52B029582967D9DD000FC386 /* MessageCell.swift in Sources */,
 				5206608C29601F1600D65347 /* AppDelegate.swift in Sources */,
 				528B593A296549160076A88A /* LargeProgressView.swift in Sources */,
+				526F1059296ECB90000CF16C /* ListFooterProgressView.swift in Sources */,
 				528B5915296531140076A88A /* LoginScreen.swift in Sources */,
 				52B0295A2968097C000FC386 /* AdjustableHeightTextView.swift in Sources */,
 				52B029532967D56A000FC386 /* ChooseBankSheet.swift in Sources */,

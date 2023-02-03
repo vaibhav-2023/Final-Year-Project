@@ -8,16 +8,25 @@
 import SwiftUI
 
 struct FillBankDetailsScreen: View {
-    @StateObject private var profileVM = ProfileViewModel()
     
+    @StateObject private var allBanksVM = AllBanksViewModel()
+    @StateObject private var userBanksVM = UserBanksViewModel()
+    
+    @State private var showBanksListSheet: Bool = false
     @State private var selection: Int? = nil
     
-    @State private var selectedbank: String? = nil
+    @State private var selectedBank: BankModel? = nil
     @State private var bankAccount: String = ""
     @State private var ifsc: String = ""
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
+    
+    private let isUserFromContentView: Bool
+    
+    init(isUserFromContentView: Bool) {
+        self.isUserFromContentView = isUserFromContentView
+    }
     
     var body: some View {
         ZStack {
@@ -37,14 +46,14 @@ struct FillBankDetailsScreen: View {
                     
                     VStack(alignment: .trailing, spacing: spacing/2) {
                         LoginFieldsOuterView(title: AppTexts.bank) {
-                            MyTextField(AppTexts.TextFieldPlaceholders.selectBank, text: $bankAccount)
+                            MyTextField(AppTexts.TextFieldPlaceholders.selectBank, text: .constant(selectedBank?.name ?? ""))
                         }
                             .disabled(true)
                         
                         Button {
-                            
+                            showBanksListSheet = true
                         } label: {
-                            Text(selectedbank == nil ? AppTexts.selectBank : AppTexts.changeBank)
+                            Text(selectedBank == nil ? AppTexts.selectBank : AppTexts.changeBank)
                                 .fontCustom(.Medium, size: 16)
                                 .foregroundColor(.primaryColor)
                         }
@@ -64,16 +73,23 @@ struct FillBankDetailsScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
-            .showLoader(isPresenting: .constant(profileVM.isAnyApiBeingHit))
-            .onReceive(profileVM.$fillDetailsAS) { fillDetailsAS in
-                if fillDetailsAS == .ApiHit {
+            .showLoader(isPresenting: .constant(userBanksVM.isAnyApiBeingHit || allBanksVM.isAnyApiBeingHit))
+            .sheet(isPresented: $showBanksListSheet) {
+                SelectBankScreen(allBanksVM: allBanksVM, selectedBank: $selectedBank, isPresenting: $showBanksListSheet)
+            }.onAppear {
+                allBanksVM.getAllBanks()
+            }.onReceive(userBanksVM.$addBankAS) { addBankAS in
+                if addBankAS == .ApiHit {
+                    if isUserFromContentView {
+                        Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
+                    }
                     //selection = NavigationEnum.OTPVerify.rawValue
                 }
             }
     }
     
     private func onSaveTapped() {
-        if selectedbank == nil {
+        if selectedBank == nil {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.selectBank)
         } else if bankAccount.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterBankAccount)
@@ -87,6 +103,6 @@ struct FillBankDetailsScreen: View {
 
 struct FillBankDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FillBankDetailsScreen()
+        FillBankDetailsScreen(isUserFromContentView: false)
     }
 }

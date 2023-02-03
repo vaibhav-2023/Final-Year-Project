@@ -32,6 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         //set up table view/list
         UITableView.appearance().separatorColor = UIColor.clear
+        //UITableView.appearance().separatorStyle = .none
         UITableView.appearance().tintColor = UIColor.clear
         
         UITextView.appearance().backgroundColor = .clear
