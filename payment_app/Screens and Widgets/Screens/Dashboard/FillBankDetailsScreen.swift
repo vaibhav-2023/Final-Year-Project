@@ -60,11 +60,11 @@ struct FillBankDetailsScreen: View {
                     }.padding(.top, spacing * 2)
                     
                     LoginFieldsOuterView(title: AppTexts.bankAccount) {
-                        MyTextField(AppTexts.TextFieldPlaceholders.enterBankAccount, text: $bankAccount)
+                        MyTextField(AppTexts.TextFieldPlaceholders.enterBankAccount, text: $bankAccount, maxLength: 18)
                     }
                     
                     LoginFieldsOuterView(title: AppTexts.ifsc) {
-                        MyTextField(AppTexts.TextFieldPlaceholders.enterIFSC, text: $ifsc)
+                        MyTextField(AppTexts.TextFieldPlaceholders.enterIFSC, text: $ifsc, maxLength: 11)
                     }.padding(.bottom, spacing)
                     
                     MaxWidthButton(text: AppTexts.save.uppercased(), fontEnum: .Medium) {
@@ -93,10 +93,14 @@ struct FillBankDetailsScreen: View {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.selectBank)
         } else if bankAccount.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterBankAccount)
-        } else if !ifsc.isEmpty {
+        } else if !bankAccount.isValidBankAccount {
+            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidBankAccount)
+        } else if ifsc.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterIFSC)
+        } else if !ifsc.isValidIFSC {
+            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidIFSC)
         } else {
-            
+            userBanksVM.addBankAccount(ofBank: selectedBank, withAccountNumber: bankAccount, andIFSC: ifsc)
         }
     }
 }

@@ -16,7 +16,7 @@ class ProfileViewModel: ViewModel {
     @Published private(set) var profileAPIAS: ApiStatus = .NotHitOnce
     @Published private(set) var logoutAS: ApiStatus = .NotHitOnce
     
-    //private(set) var loginModel: LoginModel? = nil
+    private(set) var userModel: UserModel? = Singleton.sharedInstance.generalFunctions.getUserModel()
     
     var isAnyApiBeingHit: Bool {
         if fillDetailsAS == .IsBeingHit || profileAPIAS == .IsBeingHit {
@@ -83,7 +83,8 @@ class ProfileViewModel: ViewModel {
                 }
             } receiveValue: { [weak self] response in
                 if let success = response.success, success {
-                    Singleton.sharedInstance.generalFunctions.saveUserModel(response.data)
+                    self?.userModel = response.data
+                    Singleton.sharedInstance.generalFunctions.saveUserModel(self?.userModel)
                     self?.profileAPIAS = .ApiHit
                 } else {
                     self?.profileAPIAS = .ApiHitWithError

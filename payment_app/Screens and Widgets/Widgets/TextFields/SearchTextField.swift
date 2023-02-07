@@ -13,8 +13,15 @@ struct SearchTextField: View {
     
     @Binding private var searchText: String
     
-    init(searchText: Binding<String>) {
+    private let maxLength: Int?
+    private let keyboardType: UIKeyboardType
+    
+    init(searchText: Binding<String>,
+         maxLength: Int? = nil,
+         keyboardType: UIKeyboardType = UIKeyboardType.default) {
         self._searchText = searchText
+        self.maxLength = maxLength
+        self.keyboardType = keyboardType
     }
     
     var body: some View {
@@ -22,11 +29,9 @@ struct SearchTextField: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                 
-                TextField(AppTexts.TextFieldPlaceholders.search, text: $searchText, onEditingChanged: { isEditing in
-                    self.showCancelButton = true
-                }, onCommit: {
-                    print("onCommit")
-                }).foregroundColor(.primary)
+                MyTextField(AppTexts.TextFieldPlaceholders.search, text: $searchText, maxLength: maxLength, keyboardType: keyboardType) { isEditing in
+                    self.showCancelButton = isEditing
+                }
                 
                 Button(action: {
                     self.searchText = ""
@@ -46,7 +51,7 @@ struct SearchTextField: View {
                 }
                 .foregroundColor(Color(.systemBlue))
             }
-        }.navigationBarHidden(showCancelButton)
+        }//.navigationBarHidden(showCancelButton)
     }
 }
 

@@ -12,5 +12,5 @@ struct BaseResponse: Codable {
     let success: Bool?
     let status: Int?
     let message: String?
-    let error: [String]?
+    let error: [String?]?
 }

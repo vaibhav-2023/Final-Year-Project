@@ -24,7 +24,7 @@ struct ProfileScreen: View {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
                         HStack(alignment: .bottom) {
-                            let name = "Dummy Name"
+                            let name = (profileVM.userModel?.name ?? "").capitalized
                             VStack(alignment: .leading, spacing: spacing) {
                                 Text(name)
                                     .fontCustom(.SemiBold, size: 30)
@@ -94,6 +94,9 @@ struct ProfileScreen: View {
         }.background(Color.whiteColor.ignoresSafeArea())
             .setNavigationBarTitle(title: AppTexts.profile)
             .showLoader(isPresenting: .constant(profileVM.isAnyApiBeingHit))
+            .onAppear {
+                profileVM.getProfile()
+            }
     }
     
     @ViewBuilder

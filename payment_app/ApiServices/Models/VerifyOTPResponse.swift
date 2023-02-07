@@ -22,7 +22,16 @@ struct VerifyOTPResponse: Codable {
 }
 
 // MARK: - UserModel
-struct UserModel: Codable {
+struct UserModel: Codable, Hashable {
+    
+    static func == (lhs: UserModel, rhs: UserModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     let id: String?
     let userAutoID: Int?
     let name, email, phone: String?
@@ -32,7 +41,7 @@ struct UserModel: Codable {
     let isDelete, isBlocked: Bool?
     let firebaseToken: String?
     let status: Bool?
-    let banks: [UserAddedBankModel]?
+    let banks: [UserAddedBankAccountModel?]?
     let createdAt: String?
 
     enum CodingKeys: String, CodingKey {
@@ -43,8 +52,17 @@ struct UserModel: Codable {
     }
 }
 
-// MARK: - UserAddedBankModel
-struct UserAddedBankModel: Codable {
+// MARK: - UserAddedBankAccountModel
+struct UserAddedBankAccountModel: Codable, Hashable {
+    
+    static func == (lhs: UserAddedBankAccountModel, rhs: UserAddedBankAccountModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     let id, accountNumber: String?
     let bankID: Int?
     

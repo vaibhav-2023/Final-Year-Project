@@ -203,12 +203,24 @@ class GeneralFunctions {
         }
     }
     
+    func isUserLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: UserDefaultKeys.isLoggedIn) == true
+    }
+    
     func getUserID() -> String {
         return UserDefaults.standard.string(forKey: UserDefaultKeys.userModelUserID) ?? ""
     }
     
-    func isUserLoggedIn() -> Bool {
-        return UserDefaults.standard.bool(forKey: UserDefaultKeys.isLoggedIn) == true
+    func getUserModel() -> UserModel? {
+        if let jsonData = UserDefaults.standard.data(forKey: UserDefaultKeys.userModel) {
+            do{
+                let data = try JSONDecoder().decode(UserModel.self, from: jsonData)
+                return data
+            }catch{
+                print("error in \(#function)", error.localizedDescription)
+            }
+        }
+        return nil
     }
     
     func deinitilseAllVariables() {

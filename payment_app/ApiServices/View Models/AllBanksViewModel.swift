@@ -16,7 +16,7 @@ class AllBanksViewModel: ViewModel {
     
     private var totalBanks = 0
     private var currentBanksLength = 0
-    private(set) var banks: [BankModel] = []
+    private(set) var banks: [BankModel?] = []
     
     var isAnyApiBeingHit: Bool {
         if getBanksAS == .IsBeingHit {
@@ -38,6 +38,11 @@ class AllBanksViewModel: ViewModel {
     func getAllBanks(clearList: Bool = true) {
         
         getBanksAS = .IsBeingHit
+        
+        if clearList {
+            currentBanksLength = 0
+            banks.removeAll()
+        }
         
         let params = ["startpoint": currentBanksLength]
         var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .bankAll)

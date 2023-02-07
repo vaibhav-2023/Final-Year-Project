@@ -31,7 +31,7 @@ struct ProfileInfoScreen: View {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourName, text: $name, keyboardType: .default)
                     }.padding(.top, spacing * 2)
                     
-                    LoginFieldsOuterView(title: AppTexts.yourEmail + "(\(AppTexts.optional))") {
+                    LoginFieldsOuterView(title: AppTexts.yourEmail) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourEmail, text: $email, keyboardType: .emailAddress)
                     }.padding(.bottom, spacing)
                     
@@ -45,6 +45,11 @@ struct ProfileInfoScreen: View {
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
         ).setNavigationBarTitle(title: AppTexts.yourDetails)
+            .onAppear {
+                let userModel = Singleton.sharedInstance.generalFunctions.getUserModel()
+                name = userModel?.name ?? ""
+                email = userModel?.email ?? ""
+            }
     }
     
     private func onSaveTapped() {

@@ -23,9 +23,11 @@ enum AppEndpoints: String, EndpointsProtocol {
          verifyOTP = "verifyOtp",
          userUpdate = "user/update",
          userSingle = "user/single",
+         userAll = "user/all",
          logout = "logout",
          sendContacts = "sendContacts",
-         bankAll = "bank/all"
+         bankAll = "bank/all",
+         bankAddAccount = "bank/addAccount"
 }
 
 ////MARK: - AppEndpointsWithParamters

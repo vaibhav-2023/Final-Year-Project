@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeScreen: View {
     
+    @StateObject private var profileVM = ProfileViewModel()
     @StateObject private var cameraVM = CameraViewModel()
     
     @State private var selection: Int? = nil
@@ -28,7 +29,7 @@ struct HomeScreen: View {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
                         HStack(alignment: .top) {
-                            let name = "Dummy Name"
+                            let name = (profileVM.userModel?.name ?? "").capitalized
                             VStack(alignment: .leading, spacing: spacing) {
                                 Text(AppTexts.greetings + ",")
                                     .fontCustom(.SemiBold, size: 30)
@@ -118,7 +119,9 @@ struct HomeScreen: View {
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .setNavigationBarTitle(title: AppTexts.home)
-            .onChange(of: scanResult) { scanResult in
+            .onAppear {
+                profileVM.getProfile()
+            }.onChange(of: scanResult) { scanResult in
                 if let _ = scanResult {
                     selection = NavigationEnum.PayToScreen.rawValue
                 }

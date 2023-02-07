@@ -11,7 +11,7 @@ struct SelectBankScreen: View {
     
     @ObservedObject private var allBanksVM: AllBanksViewModel
     
-    @State private var banksToShow: [BankModel] = []
+    @State private var banksToShow: [BankModel?] = []
     @State private var searchText: String = ""
     
     @Binding private var selectedBank: BankModel?
@@ -37,7 +37,7 @@ struct SelectBankScreen: View {
                 self.searchText = $0
                 if searchText.count > 1 {
                     let searchText = searchText.lowercased()
-                    banksToShow = allBanksVM.banks.filter { $0.name?.lowercased().contains(searchText) == true }
+                    banksToShow = allBanksVM.banks.filter { $0?.name?.lowercased().contains(searchText) == true }
                 } else {
                     banksToShow = allBanksVM.banks
                 }
@@ -66,7 +66,7 @@ struct SelectBankScreen: View {
                                     selectedBank = bank
                                     isPresenting = false
                                 } label: {
-                                    bankDetail(bankName: bank.name ?? "")
+                                    bankDetail(bankName: bank?.name ?? "")
                                 }.padding(.bottom, padding)
                                     .if(index == 0) { $0.padding(.top, padding) }
                                     .onAppear {

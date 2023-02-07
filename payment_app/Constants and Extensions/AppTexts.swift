@@ -19,6 +19,8 @@ class AppTexts {
     static let cancel = "Cancel"
     static let noDataAvailable = "No Data Available"
     static let noBanksFound = "No Banks Found"
+    static let noUsersFound = "No Users Found"
+    static let noBankAccountsAdded = "No Bank Accounts Added"
     
     //login
     static let enterYourMobileNumberToContinue = "Enter your mobile number to continue"
@@ -43,6 +45,7 @@ class AppTexts {
     static let addBankDetailsForVerification = "Add bank details for verification"
     static let changeBank = "Change Bank"
     static let selectBank = "Select Bank"
+    static let selected = "Selected"
     static let bank = "Bank"
     static let bankAccount = "Bank Account"
     static let ifsc = "IFSC"
@@ -81,6 +84,7 @@ class AppTexts {
     static let payToUPIID = "Pay to UPI ID"
     static let payFrom = "Pay from"
     static let pay = "Pay"
+    static let addBankAccount = "Add Bank Account"
     
     //payment details
     static let to = "To"
@@ -138,7 +142,9 @@ class AppTexts {
         //fill bank details
         static let selectBank = "Select Bank"
         static let enterBankAccount = "Enter Bank Account"
+        static let enterValidBankAccount = "Enter valid Bank Account"
         static let enterIFSC = "Enter IFSC"
+        static let enterValidIFSC = "Enter valid IFSC"
         
         static let areYouSureYouWantToLogoutFromApp = "Are you sure you want to logout from app"
     }

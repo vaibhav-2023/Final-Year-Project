@@ -15,7 +15,7 @@ struct DeviceDimensions {
 }
 
 class AppURLs {
-    static let baseURL = "https://21d1-2401-4900-1c2a-f23-fd9b-2b2b-afb8-9c56.in.ngrok.io/"
+    static let baseURL = "https://04ef-2401-4900-1c2b-901b-c16c-c4c8-39ef-a7a6.in.ngrok.io/"
     
     static func getAPIURL() -> String {
         return baseURL + "api/"
@@ -101,7 +101,7 @@ enum FontEnum {
 }
 
 enum NavigationEnum: Int {
-    case Login, OTPVerify, FillDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToNumberScreen, PayToUPIIDScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen
+    case Login, OTPVerify, FillDetails, FillBankDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToNumberScreen, PayToUPIIDScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen, ChatScreen
 }
 
 //MARK: - App Colors

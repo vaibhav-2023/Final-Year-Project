@@ -207,6 +207,14 @@ extension String {
         return !self.isEmpty && self.count >= 6
     }
     
+    var isValidBankAccount: Bool {
+        return self.count >= 9 && self.count <= 18
+    }
+    
+    var isValidIFSC: Bool {
+        return self.count == 11
+    }
+    
     // MARK: - date and time related functions
     func getDateFromStringDate(withFormat format: String) -> Date {
         let olDateFormatter = DateFormatter()

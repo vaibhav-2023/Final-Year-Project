@@ -21,19 +21,19 @@ class UserBanksViewModel: ViewModel {
         return false
     }
     
-    func hitFillUserDetailsAPI(withName name: String, andEmail email: String) {
+    func addBankAccount(ofBank bankID: BankModel?, withAccountNumber accountNumber: String, andIFSC ifsc: String) {
         
         addBankAS = .IsBeingHit
         
-        let params = ["userId": Singleton.sharedInstance.generalFunctions.getUserID(),
-                      "bankId": name,
-                      "accountNumber": email] as JSONKeyPair
+        let params = ["bankId": bankID?.autoID ?? 0,
+                      "accountNumber": accountNumber,
+                      "userId": Singleton.sharedInstance.generalFunctions.getUserID()] as JSONKeyPair
         
-        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userUpdate)
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .bankAddAccount)
         urlRequest?.addHeaders(shouldAddAuthToken: true)
-        urlRequest?.addParameters(params, as: .FormData)
+        urlRequest?.addParameters(params, as: .URLFormEncoded)
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: ProfileResponse.self) { [weak self] in
-            self?.hitFillUserDetailsAPI(withName: name, andEmail: email)
+            self?.addBankAccount(ofBank: bankID, withAccountNumber: accountNumber, andIFSC: ifsc)
             }
             .sink{ [weak self] completion in
                 switch completion {

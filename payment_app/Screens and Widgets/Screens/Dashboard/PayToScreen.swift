@@ -9,24 +9,38 @@ import SwiftUI
 
 struct PayToScreen: View {
     
+    @StateObject private var userDetailsVM = UserDetailsViewModel()
+    @StateObject private var profileVM = ProfileViewModel()
+    
     @State private var qrScannedResult: String? = nil
     @State private var amount = ""
+    @State private var showSelectBankSheet: Bool = false
+    @State private var selection: Int? = nil
+    @State private var selectedBankAccount: UserAddedBankAccountModel? = nil
     
     @Binding private var qrScannedResultFromPreviousScreen: String?
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
-    init(qrScannedResult: Binding<String?> = .constant(nil)) {
+    private let userModel: UserModel?
+    
+    init(userModel: UserModel? = nil, qrScannedResult: Binding<String?> = .constant(nil)) {
         self._qrScannedResultFromPreviousScreen = qrScannedResult
+        self.userModel = userModel
     }
     
     var body: some View {
         ZStack {
+            
+            NavigationLink(destination: FillBankDetailsScreen(isUserFromContentView: false), tag: NavigationEnum.FillBankDetails.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
             VStack(spacing: 0) {
                 VStack(spacing: spacing) {
                     HStack(alignment: .top) {
-                        let name = "Dummy Name"
+                        let name = userDetailsVM.userDetails?.name ?? ""
                         VStack(alignment: .leading, spacing: spacing) {
                             Text(AppTexts.payTo)
                                 .fontCustom(.Medium, size: 16)
@@ -46,7 +60,8 @@ struct PayToScreen: View {
                         }
                     }
                     
-                    Text("\(AppTexts.mobileNumber):- +919876543210")
+                    let mobileNumber = (userDetailsVM.userDetails?.numericCountryCode ?? "") + " " + (userDetailsVM.userDetails?.phone ?? "")
+                    Text("\(AppTexts.mobileNumber):- \(mobileNumber)")
                         .fontCustom(.Medium, size: 16)
                         .foregroundColor(.blackColorForAllModes)
                         .padding(.top, padding)
@@ -73,42 +88,49 @@ struct PayToScreen: View {
                     
                     CardView(backgroundColor: .lightBluishGrayColor) {
                         VStack {
-                            HStack {
-                                Text(AppTexts.payFrom + ":")
-                                    .foregroundColor(.blackColor)
-                                    .fontCustom(.Medium, size: 16)
-                                
-                                Spacer()
-                                
-                                Button {
-                                    
-                                } label: {
-                                    Text(AppTexts.changeBank)
-                                        .foregroundColor(.primaryColor)
-                                        .fontCustom(.SemiBold, size: 16)
+                            if profileVM.userModel?.banks?.isEmpty == true {
+                                MaxWidthButton(text: AppTexts.addBankAccount, fontEnum: .Medium) {
+                                    selection = NavigationEnum.FillBankDetails.rawValue
                                 }
-                            }
-                            
-                            let bankName = "Dummy Bank"
-                            let size = DeviceDimensions.width * 0.12
-                            HStack(spacing: spacing) {
-                                AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
-                                
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(bankName)
-                                        .fontCustom(.Medium, size: 16)
+                            } else {
+                                HStack {
+                                    Text(AppTexts.payFrom + ":")
                                         .foregroundColor(.blackColor)
+                                        .fontCustom(.Medium, size: 16)
                                     
-                                    Text("**** 1234")
-                                        .fontCustom(.Regular, size: 13)
-                                        .foregroundColor(.darkGrayColor)
+                                    Spacer()
+                                    
+                                    Button {
+                                        showSelectBankSheet = true
+                                    } label: {
+                                        Text(AppTexts.changeBank)
+                                            .foregroundColor(.primaryColor)
+                                            .fontCustom(.SemiBold, size: 16)
+                                    }
                                 }
                                 
-                                Spacer()
-                            }.padding(.vertical, padding/2)
-                            
-                            MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
+                                let bankName = selectedBankAccount?.accountNumber ?? ""
+                                let size = DeviceDimensions.width * 0.12
+                                HStack(spacing: spacing) {
+                                    AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                                    
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        Text(bankName)
+                                            .fontCustom(.Medium, size: 16)
+                                            .foregroundColor(.blackColor)
+                                        
+                                        let bankAccountSuffix4: String = String((selectedBankAccount?.accountNumber  ?? "").suffix(4))
+                                        Text("**** \(bankAccountSuffix4)")
+                                            .fontCustom(.Regular, size: 13)
+                                            .foregroundColor(.darkGrayColor)
+                                    }
+                                    
+                                    Spacer()
+                                }.padding(.vertical, padding/2)
                                 
+                                MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
+                                    
+                                }
                             }
                         }.padding()
                     }
@@ -116,11 +138,29 @@ struct PayToScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .showLoader(isPresenting: .constant(userDetailsVM.isAnyApiBeingHit || profileVM.isAnyApiBeingHit))
+            .sheet(isPresented: $showSelectBankSheet) {
+                SelectBankAccountSheet(profileVM: profileVM,
+                                  isPresenting: $showSelectBankSheet,
+                                  selectedBankAccount: $selectedBankAccount,
+                                  selection: $selection)
+            }
             .onAppear {
+                self.userDetailsVM.setUserDetails(userModel)
                 if let scannedResult = qrScannedResultFromPreviousScreen {
                     self.qrScannedResult = scannedResult
                 }
                 qrScannedResultFromPreviousScreen = nil
+                userDetailsVM.getDetailsOfUser()
+                profileVM.getProfile()
+            }.onReceive(profileVM.$profileAPIAS) { apiStatus in
+                if apiStatus == .ApiHit,
+                   selectedBankAccount == nil,
+                   let banks = profileVM.userModel?.banks,
+                   !banks.isEmpty,
+                   let defaultBank = banks.first as? UserAddedBankAccountModel {
+                    selectedBankAccount = defaultBank
+                }
             }
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 struct AllBanksResponse: Codable {
     let success: Bool?
     let status, total: Int?
-    let data: [BankModel]?
+    let data: [BankModel?]?
 }
 
 // MARK: - BankModel
