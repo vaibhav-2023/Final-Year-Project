@@ -93,7 +93,7 @@ class ApiServices {
                             return self.getApiErrorPublisher(.InformationalError(response.statusCode), inUrl: urlString)
                         case 200...299:
                             #if DEBUG
-                            print(json)
+                            //print(json)
                             do {
                                 let _ = try Singleton.sharedInstance.jsonDecoder.decode(decodingStruct.self, from: data)
                             } catch let DecodingError.typeMismatch(type, context)  {

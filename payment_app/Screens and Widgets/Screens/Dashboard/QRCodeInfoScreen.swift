@@ -9,16 +9,27 @@ import SwiftUI
 
 struct QRCodeInfoScreen: View {
     
+    @StateObject private var profileVM = ProfileViewModel()
+    
+    @State private var selection: Int? = nil
+    @State private var showSelectBankSheet: Bool = false
+    @State private var selectedBankAccount: UserAddedBankAccountModel? = nil
+    
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
     var body: some View {
         ZStack {
+            
+            NavigationLink(destination: FillBankDetailsScreen(isUserFromContentView: false), tag: NavigationEnum.FillBankDetails.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
             ScrollView {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
                         HStack(alignment: .bottom) {
-                            let name = "Dummy Name"
+                            let name = (profileVM.userModel?.name ?? "").capitalized
                             VStack(alignment: .leading, spacing: spacing) {
                                 Text(name)
                                     .fontCustom(.SemiBold, size: 30)
@@ -63,7 +74,7 @@ struct QRCodeInfoScreen: View {
                 CardView(backgroundColor: .lightBluishGrayColor) {
                     VStack(spacing: spacing) {
                         HStack {
-                            Text(AppTexts.payFrom + ":")
+                            Text(AppTexts.selectedBank + ":")
                                 .foregroundColor(.blackColor)
                                 .fontCustom(.Medium, size: 16)
                             
@@ -78,7 +89,7 @@ struct QRCodeInfoScreen: View {
                             }
                         }
                         
-                        let bankName = "Dummy Bank"
+                        let bankName = selectedBankAccount?.accountNumber ?? ""
                         let size = DeviceDimensions.width * 0.12
                         HStack(spacing: spacing) {
                             AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
@@ -87,8 +98,9 @@ struct QRCodeInfoScreen: View {
                                 Text(bankName)
                                     .fontCustom(.Medium, size: 16)
                                     .foregroundColor(.blackColor)
-                                
-                                Text("**** 1234")
+                         
+                                let bankAccountSuffix4: String = String((selectedBankAccount?.accountNumber  ?? "").suffix(4))
+                                Text("**** \(bankAccountSuffix4)")
                                     .fontCustom(.Regular, size: 13)
                                     .foregroundColor(.darkGrayColor)
                             }
@@ -100,7 +112,23 @@ struct QRCodeInfoScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
-            .setNavigationBarTitle(title: AppTexts.qrCode)
+            .sheet(isPresented: $showSelectBankSheet) {
+                SelectBankAccountSheet(profileVM: profileVM,
+                                       isPresenting: $showSelectBankSheet,
+                                       selectedBankAccount: $selectedBankAccount,
+                                       selection: $selection)
+            }.setNavigationBarTitle(title: AppTexts.qrCode)
+            .onAppear {
+                profileVM.getProfile()
+            }.onReceive(profileVM.$profileAPIAS) { apiStatus in
+                if apiStatus == .ApiHit,
+                   selectedBankAccount == nil,
+                   let banks = profileVM.userModel?.banks,
+                   !banks.isEmpty,
+                   let defaultBank = banks.first as? UserAddedBankAccountModel {
+                    selectedBankAccount = defaultBank
+                }
+            }
     }
 }
 

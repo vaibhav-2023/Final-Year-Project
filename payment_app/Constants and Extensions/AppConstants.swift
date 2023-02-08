@@ -15,7 +15,7 @@ struct DeviceDimensions {
 }
 
 class AppURLs {
-    static let baseURL = "https://04ef-2401-4900-1c2b-901b-c16c-c4c8-39ef-a7a6.in.ngrok.io/"
+    static let baseURL = "https://6c9b-2401-4900-1c6e-8db9-648f-2338-a852-7acd.in.ngrok.io/"
     
     static func getAPIURL() -> String {
         return baseURL + "api/"
@@ -57,9 +57,7 @@ struct DateFormats {
     // ss - seconds
     // aa - AM/PM
     static let serverDF = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    static let dobDF = "dd-MM-yyyy"
-    static let commonDF = "dd MMM,yyyy hh:mm aa"
-    static let serviceHistoryDF = "dd MMM yyyy"
+    static let ddMMMYYYYathhmmaa = "dd-MMM-yyyy at hh:mm aa"
     
     static let firebaseDF = "EEE MMM dd yyyy HH:mm:ss ZZZ"
     static let chatMessageDF = "dd MMM yyyy hh:mm aa"
@@ -101,7 +99,7 @@ enum FontEnum {
 }
 
 enum NavigationEnum: Int {
-    case Login, OTPVerify, FillDetails, FillBankDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToNumberScreen, PayToUPIIDScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen, ChatScreen
+    case Login, OTPVerify, FillDetails, FillBankDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToNumberScreen, PayToUPIIDScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen, ChatScreen, PaymentDetailsScreen
 }
 
 //MARK: - App Colors

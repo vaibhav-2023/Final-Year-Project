@@ -65,8 +65,6 @@ class ProfileViewModel: ViewModel {
         
         let params = ["_id": Singleton.sharedInstance.generalFunctions.getUserID()] as JSONKeyPair
         
-        //user_profilePic
-        
         var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userSingle)
         urlRequest?.addHeaders(shouldAddAuthToken: true)
         urlRequest?.addParameters(params, as: .URLFormEncoded)

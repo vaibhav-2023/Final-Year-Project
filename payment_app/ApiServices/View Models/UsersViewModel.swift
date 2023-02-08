@@ -64,7 +64,6 @@ class UsersViewModel: ViewModel {
                     self?.totalSearchResultUsers = response.total ?? 0
                     self?.searchResultUsers.append(contentsOf: response.data ?? [])
                     self?.currentSearchResultUsers = self?.searchResultUsers.count ?? 0
-                    print(self?.searchResultUsers.count)
                     self?.getSearchedUsersAS = .ApiHit
                 } else {
                     self?.getSearchedUsersAS = .ApiHitWithError

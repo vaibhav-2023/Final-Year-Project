@@ -15,15 +15,15 @@ class UserDetailsViewModel: ViewModel {
     
     private(set) var userDetails: UserModel? = nil
     
-    func setUserDetails(_ userDetails: UserModel?) {
-        self.userDetails = userDetails
-    }
-    
     var isAnyApiBeingHit: Bool {
         if userDetailsAS == .IsBeingHit {
             return true
         }
         return false
+    }
+    
+    func setUserDetails(_ userDetails: UserModel?) {
+        self.userDetails = userDetails
     }
     
     func getDetailsOfUser() {

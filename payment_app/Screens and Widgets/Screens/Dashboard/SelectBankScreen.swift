@@ -66,7 +66,7 @@ struct SelectBankScreen: View {
                                     selectedBank = bank
                                     isPresenting = false
                                 } label: {
-                                    bankDetail(bankName: bank?.name ?? "")
+                                    bankDetail(bank)
                                 }.padding(.bottom, padding)
                                     .if(index == 0) { $0.padding(.top, padding) }
                                     .onAppear {
@@ -105,11 +105,12 @@ struct SelectBankScreen: View {
     }
     
     @ViewBuilder
-    private func bankDetail(bankName: String) -> some View {
+    private func bankDetail(_ bank: BankModel?) -> some View {
         let size = DeviceDimensions.width * 0.12
         VStack(spacing: spacing) {
             HStack(spacing: spacing) {
-                AvatarView(character: String(bankName.capitalized.first ?? " "), size: size)
+                let bankName = (bank?.name ?? "").capitalized
+                AvatarView(character: String(bankName.first ?? " "), size: size)
                 
                 Text(bankName)
                     .fontCustom(.Medium, size: 16)

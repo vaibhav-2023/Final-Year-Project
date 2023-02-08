@@ -8,19 +8,30 @@
 import SwiftUI
 
 struct PaymentDetailsScreen: View {
+    
+    @EnvironmentObject var appEnvironmentObject: AppEnvironmentObject
+    
+    @StateObject private var walletVM = WalletTransactionsViewModel()
+    
+    private let walletTransactionsDetails: WalletTransactionModel?
+    
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
+    
+    init(walletTransactionsDetails: WalletTransactionModel?) {
+        self.walletTransactionsDetails = walletTransactionsDetails
+    }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 
-                let isCredit = true
-                let isPaymentSuccessfull = true
+                let isCredit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletVM.singleWalletTransaction?.paidByUserID?.id
+                let isPaymentSuccessfull = walletVM.singleWalletTransaction?.isPaymentSuccessful ?? false
                 
                 VStack(spacing: spacing) {
                     HStack(alignment: .top) {
-                        let name = "Dummy Name"
+                        let name = (walletVM.singleWalletTransaction?.paidToUserID?.name ?? "").capitalized
                         VStack(alignment: .leading, spacing: spacing) {
                             Text(isCredit ? AppTexts.from : AppTexts.to)
                                 .fontCustom(.Medium, size: 16)
@@ -33,14 +44,15 @@ struct PaymentDetailsScreen: View {
                         
                         Spacer()
                         
-                        Button {
-                            
-                        } label: {
+//                        Button {
+//
+//                        } label: {
                             AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
-                        }
+//                        }
                     }
                     
-                    Text("\(AppTexts.mobileNumber):- +919876543210")
+                    let mobileNumber = (walletVM.singleWalletTransaction?.paidToUserID?.numericCountryCode ?? "") + (walletVM.singleWalletTransaction?.paidToUserID?.phone ?? "")
+                    Text("\(AppTexts.mobileNumber):- \(mobileNumber)")
                         .fontCustom(.Medium, size: 16)
                         .foregroundColor(.blackColorForAllModes)
                         .padding(.top, padding)
@@ -55,7 +67,7 @@ struct PaymentDetailsScreen: View {
                     .frame(maxWidth: .infinity, maxHeight: 1)
                 
                 VStack(spacing: spacing) {
-                    let price: Double = 2000
+                    let price: Double = walletVM.singleWalletTransaction?.amount ?? 0
                     HStack {
                         Text(Singleton.sharedInstance.generalFunctions.getCurrencySymbol())
                             .foregroundColor(.blackColor)
@@ -73,7 +85,8 @@ struct PaymentDetailsScreen: View {
                     PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isCredit: isCredit)
                         .padding(.top, padding)
                     
-                    textView("on 12 Dec 2022 at 9:38 am")
+                    let date = walletVM.singleWalletTransaction?.createdAt?.convertServerStringDate(toFormat: DateFormats.ddMMMYYYYathhmmaa) ?? ""
+                    textView("on \(date)")
                         .padding(.bottom, padding)
                     
                     VStack(spacing: padding) {
@@ -81,13 +94,22 @@ struct PaymentDetailsScreen: View {
                             .foregroundColor(.blackColor)
                             .fontCustom(.Medium, size: 16)
                         
-                        userDetails(title: AppTexts.from, userDetails: "Dummy Name")
-                        userDetails(title: AppTexts.to, userDetails: "Dummy Name")
+                        userDetails(title: AppTexts.from, userDetails: (walletVM.singleWalletTransaction?.paidByUserID?.name ?? "").capitalized)
+                        userDetails(title: AppTexts.to, userDetails: (walletVM.singleWalletTransaction?.paidToUserID?.name ?? "").capitalized)
                     }
                     
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .onAppear {
+                if walletVM.singleWalletTransaction == nil, let walletTransactionsDetails {
+                    walletVM.setWalletTransactionDetails(walletTransactionsDetails)
+                }
+                if let _ = appEnvironmentObject.walletTransactionDetails {
+                    appEnvironmentObject.walletTransactionDetails = nil
+                }
+                walletVM.getWalletTransacionDetails(withID: walletTransactionsDetails?.id ?? "")
+            }
     }
     
     @ViewBuilder
@@ -118,6 +140,6 @@ struct PaymentDetailsScreen: View {
 
 struct PaymentDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentDetailsScreen()
+        PaymentDetailsScreen(walletTransactionsDetails: nil)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - AllBanksResponse
+// MARK: - UsersListResponse
 struct UsersListResponse: Codable {
     let success: Bool?
     let status, total: Int?

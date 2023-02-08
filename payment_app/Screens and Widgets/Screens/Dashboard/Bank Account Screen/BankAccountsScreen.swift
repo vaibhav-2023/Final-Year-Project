@@ -53,8 +53,6 @@ struct BankAccountsScreen: View {
             .onAppear {
                 profileVM.getProfile()
             }
-        
-        
     }
 }
 

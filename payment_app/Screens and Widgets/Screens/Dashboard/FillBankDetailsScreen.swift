@@ -36,9 +36,23 @@ struct FillBankDetailsScreen: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: spacing) {
-                    Text(AppTexts.bankDetails)
-                        .fontCustom(.SemiBold, size: 30)
-                        .foregroundColor(.blackColor)
+                    HStack(alignment: .top) {
+                        Text(AppTexts.bankDetails)
+                            .fontCustom(.SemiBold, size: 30)
+                            .foregroundColor(.blackColor)
+                        
+                        Spacer()
+                        
+                        if isUserFromContentView {
+                            Button {
+                                Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
+                            } label: {
+                                Text(AppTexts.skip)
+                                    .fontCustom(.Regular, size: 13)
+                                    .foregroundColor(.primaryColor)
+                            }
+                        }
+                    }
                     
                     Text(AppTexts.addBankDetailsForVerification)
                         .fontCustom(.Medium, size: 16)
@@ -46,7 +60,7 @@ struct FillBankDetailsScreen: View {
                     
                     VStack(alignment: .trailing, spacing: spacing/2) {
                         LoginFieldsOuterView(title: AppTexts.bank) {
-                            MyTextField(AppTexts.TextFieldPlaceholders.selectBank, text: .constant(selectedBank?.name ?? ""))
+                            MyTextField(AppTexts.TextFieldPlaceholders.selectBank, text: .constant((selectedBank?.name ?? "").capitalized))
                         }
                             .disabled(true)
                         

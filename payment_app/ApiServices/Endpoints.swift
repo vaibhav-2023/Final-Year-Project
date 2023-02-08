@@ -27,7 +27,10 @@ enum AppEndpoints: String, EndpointsProtocol {
          logout = "logout",
          sendContacts = "sendContacts",
          bankAll = "bank/all",
-         bankAddAccount = "bank/addAccount"
+         bankAddAccount = "bank/addAccount",
+         walletAdd = "wallet/add",
+         walletAllClient = "wallet/allClient",
+         walletSingle = "wallet/single"
 }
 
 ////MARK: - AppEndpointsWithParamters

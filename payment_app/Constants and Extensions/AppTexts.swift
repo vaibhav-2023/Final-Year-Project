@@ -20,6 +20,7 @@ class AppTexts {
     static let noDataAvailable = "No Data Available"
     static let noBanksFound = "No Banks Found"
     static let noUsersFound = "No Users Found"
+    static let noTransactionsFound = "No Transactions Found"
     static let noBankAccountsAdded = "No Bank Accounts Added"
     
     //login
@@ -42,6 +43,7 @@ class AppTexts {
     
     //fill bank details
     static let bankDetails = "Bank Details"
+    static let skip = "Skip"
     static let addBankDetailsForVerification = "Add bank details for verification"
     static let changeBank = "Change Bank"
     static let selectBank = "Select Bank"
@@ -99,6 +101,9 @@ class AppTexts {
     //scan QR Code
     static let grantCameraAccessToScanQRCode = "Grant Camera Access to Scan QR Code"
     static let openSettings = "Open Settings"
+    
+    //qr code details
+    static let selectedBank = "Selected Bank"
     
     class AlertMessages {
         //common
@@ -161,5 +166,7 @@ class AppTexts {
         static let enterIFSC = "Enter IFSC"
         
         static let enterAMessage = "Enter a message"
+        
+        static let noteIfAny = "Note if any"
     }
 }

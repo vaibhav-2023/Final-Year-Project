@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MyTextView: View {
     
@@ -17,6 +18,7 @@ struct MyTextView: View {
     private let fontEnum: FontEnum
     private let textSize: CGFloat
     private let textColor: Color
+    private let maxLength: Int?
     private let keyboardType: UIKeyboardType
     private let autoCapitalization: UITextAutocapitalizationType
     private let accentColor: Color
@@ -30,6 +32,7 @@ struct MyTextView: View {
          fontEnum: FontEnum = .Regular,
          textSize: CGFloat = 15,
          textColor: Color = .blackColorForAllModes,
+         maxLength: Int? = nil,
          keyboardType: UIKeyboardType = UIKeyboardType.default,
          autoCapitalization: UITextAutocapitalizationType = UITextAutocapitalizationType.sentences,
          accentColor: Color = .primaryColor
@@ -42,6 +45,7 @@ struct MyTextView: View {
         self.fontEnum = fontEnum
         self.textSize = textSize
         self.textColor = textColor
+        self.maxLength = maxLength
         self.keyboardType = keyboardType
         self.autoCapitalization = autoCapitalization
         self.accentColor = accentColor
@@ -79,6 +83,14 @@ struct MyTextView: View {
                     .padding(.horizontal, 4)
                     .padding(.vertical, 8)
             }
+        }.onReceive(Just(text)) { newValue in
+            onReceive(newValue: newValue)
+        }
+    }
+    
+    private func onReceive(newValue: String) {
+        if let maxLength {
+            text = "\(text.prefix(maxLength))"
         }
     }
 }

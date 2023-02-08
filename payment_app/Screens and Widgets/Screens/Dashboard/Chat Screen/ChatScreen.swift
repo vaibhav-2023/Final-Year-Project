@@ -28,7 +28,7 @@ struct ChatScreen: View {
     
     var body: some View {
         ZStack {
-            NavigationLink(destination: PayToScreen(userModel: userDetailsVM.userDetails), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
+            NavigationLink(destination: PayToScreen(payToUserModel: userDetailsVM.userDetails), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
                 EmptyView()
             }
             
@@ -59,31 +59,36 @@ struct ChatScreen: View {
                 }
                 
                 HStack(alignment: .bottom, spacing: spacing) {
-                    MinWidthButton(text: AppTexts.pay.uppercased(), fontEnum: .Medium, textSize: 18) {
+                    MaxWidthButton(text: AppTexts.pay.uppercased(), fontEnum: .Medium, textSize: 18) {
                         selection = NavigationEnum.PayToScreen.rawValue
                     }
+//                    MinWidthButton(text: AppTexts.pay.uppercased(), fontEnum: .Medium, textSize: 18) {
+//                        
+//                    }
                     
-                    LoginFieldsOuterView(addFrameHeight: false, addPadding: false) {
-                        MyTextView(AppTexts.TextFieldPlaceholders.enterAMessage, text: $messageText, isAdjustableTV: true, adjustableTVHeight: $textViewHeight)
-                            .padding(.vertical, 4)
-                    }
-                    
-                    VStack {
-                        Button {
-                            print(messageText)
-                        } label: {
-                            ImageView(imageName: "sendIconTemplate", isSystemImage: false)
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(messageText.trim().isEmpty ? .darkGrayColor : .primaryColor)
-                        }
-                    }.frame(height: 45)
+//                    LoginFieldsOuterView(addFrameHeight: false, addPadding: false) {
+//                        MyTextView(AppTexts.TextFieldPlaceholders.enterAMessage, text: $messageText, isAdjustableTV: true, adjustableTVHeight: $textViewHeight)
+//                            .padding(.vertical, 4)
+//                    }
+//
+//                    VStack {
+//                        Button {
+//                            print(messageText)
+//                        } label: {
+//                            ImageView(imageName: "sendIconTemplate", isSystemImage: false)
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: 30, height: 30)
+//                                .foregroundColor(messageText.trim().isEmpty ? .darkGrayColor : .primaryColor)
+//                        }
+//                    }.frame(height: 45)
                 }.padding(padding)
                     .background(Color.lightBluishGrayColor.ignoresSafeArea(edges: .bottom))
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .onAppear {
-                userDetailsVM.setUserDetails(payToUserModel)
+                if userDetailsVM.userDetails == nil, let payToUserModel {
+                    userDetailsVM.setUserDetails(payToUserModel)
+                }
                 userDetailsVM.getDetailsOfUser()
             }
     }

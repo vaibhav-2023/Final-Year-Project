@@ -78,10 +78,11 @@ struct PayToNumberScreen: View {
         let size = DeviceDimensions.width * 0.12
         VStack(spacing: spacing) {
             HStack(spacing: spacing) {
-                AvatarView(character: String(userDetail?.name?.capitalized.first ?? " "), size: size)
+                let name = (userDetail?.name ?? "").capitalized
+                AvatarView(character: String(name.first ?? " "), size: size)
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(userDetail?.name ?? "")
+                    Text(name)
                         .fontCustom(.Medium, size: 16)
                         .foregroundColor(.blackColor)
                     

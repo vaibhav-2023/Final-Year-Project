@@ -11,9 +11,12 @@ struct PayToScreen: View {
     
     @StateObject private var userDetailsVM = UserDetailsViewModel()
     @StateObject private var profileVM = ProfileViewModel()
+    @StateObject private var paymentVM = PaymentViewModel()
     
     @State private var qrScannedResult: String? = nil
     @State private var amount = ""
+    @State private var note = ""
+    @State private var adjustableTVHeight: CGFloat = 34
     @State private var showSelectBankSheet: Bool = false
     @State private var selection: Int? = nil
     @State private var selectedBankAccount: UserAddedBankAccountModel? = nil
@@ -23,11 +26,11 @@ struct PayToScreen: View {
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
-    private let userModel: UserModel?
+    private let payToUserModel: UserModel?
     
-    init(userModel: UserModel? = nil, qrScannedResult: Binding<String?> = .constant(nil)) {
+    init(payToUserModel: UserModel? = nil, qrScannedResult: Binding<String?> = .constant(nil)) {
         self._qrScannedResultFromPreviousScreen = qrScannedResult
-        self.userModel = userModel
+        self.payToUserModel = payToUserModel
     }
     
     var body: some View {
@@ -40,7 +43,7 @@ struct PayToScreen: View {
             VStack(spacing: 0) {
                 VStack(spacing: spacing) {
                     HStack(alignment: .top) {
-                        let name = userDetailsVM.userDetails?.name ?? ""
+                        let name = (userDetailsVM.userDetails?.name ?? "").capitalized
                         VStack(alignment: .leading, spacing: spacing) {
                             Text(AppTexts.payTo)
                                 .fontCustom(.Medium, size: 16)
@@ -81,7 +84,15 @@ struct PayToScreen: View {
                             .foregroundColor(.blackColor)
                             .fontCustom(.Medium, size: 16)
                         
-                        MyTextField("0", text: $amount, fontEnum: .SemiBold, textSize: 40, fixedSize: true)
+                        MyTextField("0", text: $amount, fontEnum: .SemiBold, textSize: 40, maxLength: 6, fixedSize: true)
+                    }
+                    
+                    LoginFieldsOuterView {
+                        MyTextView(AppTexts.TextFieldPlaceholders.noteIfAny + "...",
+                                   text: $note,
+                                   isAdjustableTV: true,
+                                   adjustableTVHeight: $adjustableTVHeight,
+                                   maxLength: 10)
                     }
                     
                     Spacer()
@@ -129,7 +140,16 @@ struct PayToScreen: View {
                                 }.padding(.vertical, padding/2)
                                 
                                 MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
-                                    
+                                    if let banks = userDetailsVM.userDetails?.banks,
+                                       !banks.isEmpty,
+                                       let toBankAccount = banks.first {
+                                        paymentVM.addWalletTransactions(fromBankAccount: selectedBankAccount,
+                                                                        toUser: userDetailsVM.userDetails,
+                                                                        toBankAccount: toBankAccount,
+                                                                        withAmount: amount,
+                                                                        andNote: note,
+                                                                        isSuccessfull: true)
+                                    }
                                 }
                             }
                         }.padding()
@@ -138,7 +158,7 @@ struct PayToScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
-            .showLoader(isPresenting: .constant(userDetailsVM.isAnyApiBeingHit || profileVM.isAnyApiBeingHit))
+            .showLoader(isPresenting: .constant(userDetailsVM.isAnyApiBeingHit || profileVM.isAnyApiBeingHit || paymentVM.isAnyApiBeingHit))
             .sheet(isPresented: $showSelectBankSheet) {
                 SelectBankAccountSheet(profileVM: profileVM,
                                   isPresenting: $showSelectBankSheet,
@@ -146,7 +166,9 @@ struct PayToScreen: View {
                                   selection: $selection)
             }
             .onAppear {
-                self.userDetailsVM.setUserDetails(userModel)
+                if userDetailsVM.userDetails == nil, let payToUserModel {
+                    userDetailsVM.setUserDetails(payToUserModel)
+                }
                 if let scannedResult = qrScannedResultFromPreviousScreen {
                     self.qrScannedResult = scannedResult
                 }

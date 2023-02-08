@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeScreen: View {
     
+    @EnvironmentObject var appEnvironmentObject: AppEnvironmentObject
+    
     @StateObject private var profileVM = ProfileViewModel()
     @StateObject private var cameraVM = CameraViewModel()
     
@@ -118,14 +120,16 @@ struct HomeScreen: View {
                 }
             }
         }.background(Color.whiteColor.ignoresSafeArea())
-            .setNavigationBarTitle(title: AppTexts.home)
             .onAppear {
                 profileVM.getProfile()
+                if let _ = appEnvironmentObject.walletTransactionDetails {
+                    selection = NavigationEnum.PaymentDetailsScreen.rawValue
+                }
             }.onChange(of: scanResult) { scanResult in
                 if let _ = scanResult {
                     selection = NavigationEnum.PayToScreen.rawValue
                 }
-            }
+            }.setNavigationBarTitle(title: AppTexts.home)
     }
     
     @ViewBuilder
@@ -158,6 +162,10 @@ struct HomeScreen: View {
         }
         
         NavigationLink(destination: PayToScreen(qrScannedResult: $scanResult), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: PaymentDetailsScreen(walletTransactionsDetails: appEnvironmentObject.walletTransactionDetails), tag: NavigationEnum.PaymentDetailsScreen.rawValue, selection: $selection) {
             EmptyView()
         }
     }

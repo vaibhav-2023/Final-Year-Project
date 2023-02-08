@@ -76,7 +76,7 @@ struct MyTextField: View {
                 .font(.bitterRegular(size: textSize))
                 .foregroundColor(textColor)
                 .accentColor(.primaryColor)
-                .if (fixedSize) { $0.fixedSize() }
+                //.if (fixedSize) { $0.fixedSize() }
         }
     }
     
