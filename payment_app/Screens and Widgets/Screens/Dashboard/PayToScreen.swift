@@ -13,7 +13,7 @@ struct PayToScreen: View {
     @StateObject private var profileVM = ProfileViewModel()
     @StateObject private var paymentVM = PaymentViewModel()
     
-    @State private var qrScannedResult: String? = nil
+    @State private var qrCodeScannedModel: QrCodeScannedModel? = nil
     @State private var amount = ""
     @State private var note = ""
     @State private var adjustableTVHeight: CGFloat = 34
@@ -21,15 +21,16 @@ struct PayToScreen: View {
     @State private var selection: Int? = nil
     @State private var selectedBankAccount: UserAddedBankAccountModel? = nil
     
-    @Binding private var qrScannedResultFromPreviousScreen: String?
+    @Binding private var qrScannedResultFromPreviousScreen: QrCodeScannedModel?
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
     private let payToUserModel: UserModel?
     
-    init(payToUserModel: UserModel? = nil, qrScannedResult: Binding<String?> = .constant(nil)) {
-        self._qrScannedResultFromPreviousScreen = qrScannedResult
+    init(payToUserModel: UserModel? = nil,
+         qrCodeScannedModel: Binding<QrCodeScannedModel?> = .constant(nil)) {
+        self._qrScannedResultFromPreviousScreen = qrCodeScannedModel
         self.payToUserModel = payToUserModel
     }
     
@@ -56,11 +57,11 @@ struct PayToScreen: View {
                         
                         Spacer()
                         
-                        Button {
-                            
-                        } label: {
+//                        Button {
+//
+//                        } label: {
                             AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
-                        }
+//                        }
                     }
                     
                     let mobileNumber = (userDetailsVM.userDetails?.numericCountryCode ?? "") + " " + (userDetailsVM.userDetails?.phone ?? "")
@@ -84,7 +85,7 @@ struct PayToScreen: View {
                             .foregroundColor(.blackColor)
                             .fontCustom(.Medium, size: 16)
                         
-                        MyTextField("0", text: $amount, fontEnum: .SemiBold, textSize: 40, maxLength: 6, fixedSize: true)
+                        MyTextField("0", text: $amount, fontEnum: .SemiBold, textSize: 40, maxLength: 6, keyboardType: .numberPad, fixedSize: true)
                     }
                     
                     LoginFieldsOuterView {
@@ -140,16 +141,7 @@ struct PayToScreen: View {
                                 }.padding(.vertical, padding/2)
                                 
                                 MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
-                                    if let banks = userDetailsVM.userDetails?.banks,
-                                       !banks.isEmpty,
-                                       let toBankAccount = banks.first {
-                                        paymentVM.addWalletTransactions(fromBankAccount: selectedBankAccount,
-                                                                        toUser: userDetailsVM.userDetails,
-                                                                        toBankAccount: toBankAccount,
-                                                                        withAmount: amount,
-                                                                        andNote: note,
-                                                                        isSuccessfull: true)
-                                    }
+                                    payBA()
                                 }
                             }
                         }.padding()
@@ -158,6 +150,7 @@ struct PayToScreen: View {
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .ignoresSafeArea(.keyboard)
             .showLoader(isPresenting: .constant(userDetailsVM.isAnyApiBeingHit || profileVM.isAnyApiBeingHit || paymentVM.isAnyApiBeingHit))
             .sheet(isPresented: $showSelectBankSheet) {
                 SelectBankAccountSheet(profileVM: profileVM,
@@ -170,10 +163,14 @@ struct PayToScreen: View {
                     userDetailsVM.setUserDetails(payToUserModel)
                 }
                 if let scannedResult = qrScannedResultFromPreviousScreen {
-                    self.qrScannedResult = scannedResult
+                    self.qrCodeScannedModel = scannedResult
                 }
                 qrScannedResultFromPreviousScreen = nil
-                userDetailsVM.getDetailsOfUser()
+                if let qrCodeScannedModel {
+                    userDetailsVM.getUser(withQRCodeScannedModel: qrCodeScannedModel)
+                } else {
+                    userDetailsVM.getDetailsOfUser()
+                }
                 profileVM.getProfile()
             }.onReceive(profileVM.$profileAPIAS) { apiStatus in
                 if apiStatus == .ApiHit,
@@ -184,6 +181,28 @@ struct PayToScreen: View {
                     selectedBankAccount = defaultBank
                 }
             }
+    }
+    
+    private func payBA() {
+        let amountInInt = Int(amount) ?? 0
+        let minimumAmountRequiredToRecharge = 1
+        if amountInInt < minimumAmountRequiredToRecharge {
+            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.amountShouldBeAtleast + " " + Singleton.sharedInstance.generalFunctions.getCurrencyCode() + "\(minimumAmountRequiredToRecharge)")
+        } else {
+            let toBankAccount: UserAddedBankAccountModel?
+            if let banks = userDetailsVM.userDetails?.banks,
+               !banks.isEmpty, let toBankAccountFirst = banks.first {
+                toBankAccount = toBankAccountFirst
+            } else {
+                toBankAccount = nil
+            }
+            paymentVM.addWalletTransactions(fromBankAccount: selectedBankAccount,
+                                            toUser: userDetailsVM.userDetails,
+                                            toBankAccount: toBankAccount,
+                                            withAmount: amount,
+                                            andNote: note,
+                                            isSuccessfull: true)
+        }
     }
 }
 

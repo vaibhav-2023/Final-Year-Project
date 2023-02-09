@@ -16,6 +16,11 @@ struct FillUserDetailsScreen: View {
     @State private var name: String = ""
     @State private var email: String = ""
     
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    @State private var showImagePicker: Bool = false
+    @State private var uiImage: UIImage = UIImage()
+    @State private var imageData: Data = Data()
+    
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
@@ -56,6 +61,9 @@ struct FillUserDetailsScreen: View {
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
         ).setNavigationBarTitle(title: AppTexts.fillDetails)
+            .sheet(isPresented: $showImagePicker) {
+                ImagePickerView(uiImage: $uiImage, imageData: $imageData, sourceType: $sourceType)
+            }
     }
     
     private func onSaveTapped() {
@@ -64,7 +72,7 @@ struct FillUserDetailsScreen: View {
         } else if !email.isEmpty && !email.isValidEmail {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            loginVM.hitFillUserDetailsAPI(withName: name, andEmail: email)
+            loginVM.hitFillUserDetailsAPI(withName: name, andEmail: email, imageData: imageData == Data() ? nil : imageData)
         }
     }
 }

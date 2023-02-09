@@ -10,6 +10,9 @@ import SwiftUI
 struct SelectBankAccountSheet: View {
     
     @ObservedObject private var profileVM: ProfileViewModel
+    
+    @State private var scrollViewReader: ScrollViewProxy?
+    
     @Binding private var isPresenting: Bool
     @Binding private var selectedBankAccount: UserAddedBankAccountModel?
     @Binding private var selection: Int?
@@ -29,45 +32,53 @@ struct SelectBankAccountSheet: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: spacing) {
+            VStack(alignment: .leading, spacing: spacing) {
+                Text(AppTexts.selectBank)
+                    .fontCustom(.SemiBold, size: 30)
+                    .foregroundColor(.blackColor)
+                    .padding([.top, .horizontal], padding)
+                
                 let count = profileVM.userModel?.banks?.count ?? 0
                 if profileVM.profileAPIAS == .ApiHit && count == 0 {
                     EmptyListView(text: AppTexts.noBankAccountsAdded)
                 } else if count != 0 {
-                    List {
-                        ForEach(Array((profileVM.userModel?.banks ?? []).enumerated()), id: \.1) { index, bankAccountDetails in
-                            BankAccountCell(bankAccountDetails: bankAccountDetails) {
-                                let isSelected = bankAccountDetails?.id == selectedBankAccount?.id
-                                Button {
-                                    if !isSelected {
-                                        selectedBankAccount = bankAccountDetails
+                    ScrollViewReader { scrollViewReader in
+                        List {
+                            ForEach(Array((profileVM.userModel?.banks ?? []).enumerated()), id: \.1) { index, bankAccountDetails in
+                                BankAccountCell(bankAccountDetails: bankAccountDetails) {
+                                    let isSelected = bankAccountDetails?.id == selectedBankAccount?.id
+                                    Button {
+                                        if !isSelected {
+                                            selectedBankAccount = bankAccountDetails
+                                        }
+                                        isPresenting = false
+                                    } label: {
+                                        Text(isSelected ? AppTexts.selected : AppTexts.selectBank)
+                                            .foregroundColor(isSelected ? .greenColor : .darkGrayColor)
+                                            .fontCustom(.Regular, size: 13)
                                     }
-                                    isPresenting = false
-                                } label: {
-                                    Text(isSelected ? AppTexts.selected : AppTexts.selectBank)
-                                        .foregroundColor(isSelected ? .greenColor : .darkGrayColor)
-                                        .fontCustom(.Regular, size: 13)
-                                }
-                                .padding(.bottom, padding)
-                                .if(index == 0) { $0.padding(.top, padding) }
-                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .listRowBackground(Color.clear)
-                                .id(index)
-                                .buttonStyle(PlainButtonStyle())
+                                }.padding([.bottom, .horizontal], padding)
+                                    .if(index == 0) { $0.padding(.top, padding) }
+                                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                    .listRowBackground(Color.clear)
+                                    .id(index)
+                                    .buttonStyle(PlainButtonStyle())
                             }
-                        }
-                    }.listStyle(PlainListStyle())
-                        .onTapGesture {
-                            return
-                        }
-                        .onLongPressGesture(minimumDuration: 0.1) {
-                            return
-                        }
+                        }.listStyle(PlainListStyle())
+                            .onTapGesture {
+                                return
+                            }
+                            .onLongPressGesture(minimumDuration: 0.1) {
+                                return
+                            }.onAppear {
+                                self.scrollViewReader = scrollViewReader
+                            }
+                    }
                 } else {
                     Spacer()
                 }
                 
-                MaxWidthButton(text: AppTexts.addBankAccount, fontEnum: .Medium) {
+                MaxWidthButton(text: AppTexts.addBankAccount, fontEnum: .Medium, verticalPadding: 12, cornerRadius: 0) {
                     isPresenting = false
                     selection = NavigationEnum.FillBankDetails.rawValue
                 }

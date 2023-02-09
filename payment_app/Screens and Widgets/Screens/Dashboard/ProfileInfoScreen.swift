@@ -11,6 +11,8 @@ struct ProfileInfoScreen: View {
     
     @State private var name: String = ""
     @State private var email: String = ""
+    @State private var countryCode: String = Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice()
+    @State private var mobileNumber: String = ""
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
@@ -33,6 +35,17 @@ struct ProfileInfoScreen: View {
                     
                     LoginFieldsOuterView(title: AppTexts.yourEmail) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourEmail, text: $email, keyboardType: .emailAddress)
+                    }
+                    
+                    HStack {
+                        LoginFieldsOuterView {
+                            Text(countryCode)
+                                .fontCustom(.Regular, size: 15)
+                                .foregroundColor(.blackColor)
+                        }
+                        LoginFieldsOuterView {
+                            MyTextField(AppTexts.TextFieldPlaceholders.enterMobileNumber, text: $mobileNumber, maxLength: 10, keyboardType: .numberPad)
+                        }
                     }.padding(.bottom, spacing)
                     
                     
@@ -49,6 +62,8 @@ struct ProfileInfoScreen: View {
                 let userModel = Singleton.sharedInstance.generalFunctions.getUserModel()
                 name = userModel?.name ?? ""
                 email = userModel?.email ?? ""
+                countryCode = userModel?.numericCountryCode ?? ""
+                mobileNumber = userModel?.phone ?? ""
             }
     }
     

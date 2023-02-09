@@ -13,7 +13,7 @@ struct LoginScreen: View {
     
     @State private var selection: Int? = nil
     
-    @State private var countryCode: String = "91"
+    @State private var countryCode: String = Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice()
     @State private var mobileNumber: String = ""
     
     private let spacing: CGFloat = 10
@@ -42,7 +42,7 @@ struct LoginScreen: View {
                                 .foregroundColor(.blackColor)
                         }
                         LoginFieldsOuterView {
-                            MyTextField(AppTexts.TextFieldPlaceholders.enterMobileNumber, text: $mobileNumber, maxLength: 10, keyboardType: .phonePad)
+                            MyTextField(AppTexts.TextFieldPlaceholders.enterMobileNumber, text: $mobileNumber, maxLength: 10, keyboardType: .numberPad)
                         }
                     }.padding(.top, spacing * 2)
                         .padding(.bottom, spacing)

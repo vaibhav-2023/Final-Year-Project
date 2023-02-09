@@ -215,6 +215,36 @@ extension String {
         return self.count == 11
     }
     
+    func containsPhoneNumber() -> Bool {
+        do {
+            let patt = "1?([2-9][0-8][0-9])([2-9][0-9]{2})([0-9]{4})(x?t?())?"
+            let regPhn = "\\(?\\d{3}\\)?[.-]? *\\d{3}[.-]? *[.-]?\\d{4}"
+            let regPhn2 = "(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}?"
+            let regPhn3="(\\+\\d{1,3}( )?)?((\\(\\d{1,3}\\))|\\d{1,3})[- .]?\\d{3,4}[- .]?\\d{4}"
+            let regex = try NSRegularExpression(pattern: patt)
+            let nsString = self as NSString
+            let results = regex.matches(in: self, range: NSRange(location: 0, length: nsString.length))
+            let phoneNumber = results.map { nsString.substring(with: $0.range)}
+            let regex2 = try NSRegularExpression(pattern: regPhn)
+            let results2 = regex2.matches(in: self, range: NSRange(location: 0, length: nsString.length))
+            let phoneNumber2 = results2.map { nsString.substring(with: $0.range)}
+            let regex3 = try NSRegularExpression(pattern: regPhn2)
+            let results3 = regex3.matches(in: self, range: NSRange(location: 0, length: nsString.length))
+            let phoneNumber3 = results3.map { nsString.substring(with: $0.range)}
+            let regex4 = try NSRegularExpression(pattern: regPhn3)
+            let results4 = regex4.matches(in: self, range: NSRange(location: 0, length: nsString.length))
+            let phoneNumber4 = results4.map { nsString.substring(with: $0.range)}
+            if (phoneNumber.isEmpty && phoneNumber2.isEmpty && phoneNumber3.isEmpty && phoneNumber4.isEmpty) {
+                return false
+            } else {
+            return true
+            }
+        } catch let error {
+            print("error in \(#function): \(error.localizedDescription)")
+            return false
+        }
+    }
+    
     // MARK: - date and time related functions
     func getDateFromStringDate(withFormat format: String) -> Date {
         let olDateFormatter = DateFormatter()

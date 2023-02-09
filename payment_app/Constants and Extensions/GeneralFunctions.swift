@@ -15,6 +15,7 @@ typealias JSONKeyPair = [String: Any]
 class GeneralFunctions {
     
     private let defaultCountryCode = "in"
+    private let defaultNumericCountryCode = "91"
     
     func getTopWindow() -> UIWindow? {
         if #available(iOS 15, *) {
@@ -66,8 +67,17 @@ class GeneralFunctions {
         return nil
     }
     
+    func structToJSONString<T: Encodable>(_ model: T) -> String? {
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            let json = String(data: jsonData, encoding: .utf8)
+            return json
+        } catch { print(error.localizedDescription) }
+        return nil
+    }
+    
     func structToParameters<T: Encodable>(_ model: T) -> JSONKeyPair? {
-        if let json = structToJSON(model){
+        if let json = structToJSON(model) {
             if let parameter = json as? JSONKeyPair {
                 return parameter
             }
@@ -175,6 +185,11 @@ class GeneralFunctions {
 //            }
 //        }
         return defaultCountryCode
+    }
+    
+    func getNumericCountryCodeOfDevice() -> String {
+        //getCountryCodeOfDevice()
+        return defaultNumericCountryCode
     }
     
     func getLocale() -> Locale {

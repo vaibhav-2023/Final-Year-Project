@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FillBankDetailsScreen: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @StateObject private var allBanksVM = AllBanksViewModel()
     @StateObject private var userBanksVM = UserBanksViewModel()
     
@@ -81,12 +83,13 @@ struct FillBankDetailsScreen: View {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterIFSC, text: $ifsc, maxLength: 11)
                     }.padding(.bottom, spacing)
                     
-                    MaxWidthButton(text: AppTexts.save.uppercased(), fontEnum: .Medium) {
+                    MaxWidthButton(text: AppTexts.proceed.uppercased(), fontEnum: .Medium) {
                         onSaveTapped()
                     }
                 }.padding(padding)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.addBankAccount)
             .showLoader(isPresenting: .constant(userBanksVM.isAnyApiBeingHit || allBanksVM.isAnyApiBeingHit))
             .sheet(isPresented: $showBanksListSheet) {
                 SelectBankScreen(allBanksVM: allBanksVM, selectedBank: $selectedBank, isPresenting: $showBanksListSheet)
@@ -96,8 +99,9 @@ struct FillBankDetailsScreen: View {
                 if addBankAS == .ApiHit {
                     if isUserFromContentView {
                         Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
+                    } else {
+                        self.presentationMode.wrappedValue.dismiss()
                     }
-                    //selection = NavigationEnum.OTPVerify.rawValue
                 }
             }
     }

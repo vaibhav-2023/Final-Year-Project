@@ -10,12 +10,12 @@ import SwiftUI
 struct PaymentStatusView: View {
     
     private let isPaymentSuccessfull: Bool
-    private let isCredit: Bool
+    private let isDebit: Bool
     
     init(isPaymentSuccessfull: Bool,
-         isCredit: Bool) {
+         isDebit: Bool) {
         self.isPaymentSuccessfull = isPaymentSuccessfull
-        self.isCredit = isCredit
+        self.isDebit = isDebit
     }
     
     var body: some View {
@@ -23,10 +23,10 @@ struct PaymentStatusView: View {
         let text: String
         if isPaymentSuccessfull {
             icon = "tickRoundIconTemplate"
-            if isCredit {
-                text = AppTexts.received
-            } else {
+            if isDebit {
                 text = AppTexts.sent
+            } else {
+                text = AppTexts.received
             }
         } else {
             icon = "errorIconTemplate"
@@ -49,6 +49,6 @@ struct PaymentStatusView: View {
 
 struct PaymentStatusView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentStatusView(isPaymentSuccessfull: true, isCredit: true)
+        PaymentStatusView(isPaymentSuccessfull: true, isDebit: true)
     }
 }

@@ -53,36 +53,40 @@ struct MyTextView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            if !isAdjustableTV {
-                TextEditor(text: $text)
-                    .font(.bitterRegular(size: textSize))
-                    .foregroundColor(textColor)
-                    .accentColor(.primaryColor)
-                    .multilineTextAlignment(.leading)
-                    .frame(minHeight: 150, maxHeight: 150)
-                    .colorMultiply(Color.lightGray)
-                    .background(Color.lightGray)
-                    .cornerRadius(5)
-            } else {
-                AdjustableHeightTextView(height: $adjustableTVHeight,
-                                         maxheight: adjustableTVMaxHeight,
-                                         text: $text,
-                                         fontEnum: fontEnum,
-                                         textSize: textSize,
-                                         textColor: textColor,
-                                         keyboardType: keyboardType,
-                                         autoCapitalization: autoCapitalization,
-                                         cursorColor: accentColor)
-                    .frame(height: adjustableTVHeight)
-            }
-            
-            if text.isEmpty {
+
+            let showPlaceholder = text.isEmpty
+            if showPlaceholder {
                 Text(placeHolder)
                     .font(.bitterRegular(size: textSize))
                     .foregroundColor(.placeHolderColor)
                     .padding(.horizontal, 4)
                     .padding(.vertical, 8)
             }
+            
+            Group {
+                if !isAdjustableTV {
+                    TextEditor(text: $text)
+                        .font(.bitterRegular(size: textSize))
+                        .foregroundColor(textColor)
+                        .accentColor(.primaryColor)
+                        .multilineTextAlignment(.leading)
+                        .frame(minHeight: 150, maxHeight: 150)
+                        .colorMultiply(Color.lightGray)
+                        .background(Color.lightGray)
+                        .cornerRadius(5)
+                } else {
+                    AdjustableHeightTextView(height: $adjustableTVHeight,
+                                             maxheight: adjustableTVMaxHeight,
+                                             text: $text,
+                                             fontEnum: fontEnum,
+                                             textSize: textSize,
+                                             textColor: textColor,
+                                             keyboardType: keyboardType,
+                                             autoCapitalization: autoCapitalization,
+                                             cursorColor: accentColor)
+                    .frame(height: adjustableTVHeight)
+                }
+            }.opacity(showPlaceholder ? 0.5 : 1)
         }.onReceive(Just(text)) { newValue in
             onReceive(newValue: newValue)
         }

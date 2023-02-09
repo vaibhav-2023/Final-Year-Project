@@ -11,6 +11,8 @@ struct BankAccountsScreen: View {
     
     @StateObject private var profileVM = ProfileViewModel()
     
+    @State private var scrollViewReader: ScrollViewProxy?
+    
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
@@ -20,31 +22,34 @@ struct BankAccountsScreen: View {
             if profileVM.profileAPIAS == .ApiHit && count == 0 {
                 EmptyListView(text: AppTexts.noBankAccountsAdded)
             } else if count != 0 {
-                List {
-                    ForEach(Array((profileVM.userModel?.banks ?? []).enumerated()), id: \.1) { index, bankAccountDetails in
-                        BankAccountCell(bankAccountDetails: bankAccountDetails) {
-                            Button {
-                                
-                            } label: {
-                                Text(AppTexts.checkBalance)
-                                    .foregroundColor(.greenColor)
-                                    .fontCustom(.Regular, size: 13)
-                            }
-                            .padding(.bottom, padding)
-                            .if(index == 0) { $0.padding(.top, padding) }
-                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                            .id(index)
-                            .buttonStyle(PlainButtonStyle())
+                ScrollViewReader { scrollViewReader in
+                    List {
+                        ForEach(Array((profileVM.userModel?.banks ?? []).enumerated()), id: \.1) { index, bankAccountDetails in
+                            BankAccountCell(bankAccountDetails: bankAccountDetails) {
+                                Button {
+                                    Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
+                                } label: {
+                                    Text(AppTexts.checkBalance)
+                                        .foregroundColor(.greenColor)
+                                        .fontCustom(.Regular, size: 13)
+                                }
+                            }.padding([.bottom, .horizontal], padding)
+                                .if(index == 0) { $0.padding(.top, padding) }
+                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .listRowBackground(Color.clear)
+                                .id(index)
+                                .buttonStyle(PlainButtonStyle())
                         }
-                    }
-                }.listStyle(PlainListStyle())
-                    .onTapGesture {
-                        return
-                    }
-                    .onLongPressGesture(minimumDuration: 0.1) {
-                        return
-                    }
+                    }.listStyle(PlainListStyle())
+                        .onTapGesture {
+                            return
+                        }
+                        .onLongPressGesture(minimumDuration: 0.1) {
+                            return
+                        }.onAppear {
+                            self.scrollViewReader = scrollViewReader
+                        }
+                }
             } else {
                 Spacer()
             }

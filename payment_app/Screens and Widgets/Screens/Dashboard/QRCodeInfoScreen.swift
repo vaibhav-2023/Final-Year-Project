@@ -81,7 +81,7 @@ struct QRCodeInfoScreen: View {
                             Spacer()
                             
                             Button {
-                                
+                                showSelectBankSheet = true
                             } label: {
                                 Text(AppTexts.changeBank)
                                     .foregroundColor(.primaryColor)

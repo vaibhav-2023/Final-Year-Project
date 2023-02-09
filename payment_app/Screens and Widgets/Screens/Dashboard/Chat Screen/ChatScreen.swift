@@ -9,11 +9,15 @@ import SwiftUI
 
 struct ChatScreen: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @StateObject private var userDetailsVM = UserDetailsViewModel()
+    @StateObject private var chatVM = ChatViewModel()
     
     @State private var scrollViewReader: ScrollViewProxy?
     @State private var textViewHeight: CGFloat = 34
     @State private var messageText: String = ""
+    @State private var selectedWalletTransaction: WalletTransactionModel? = nil
     
     @State private var selection: Int? = nil
     
@@ -32,30 +36,54 @@ struct ChatScreen: View {
                 EmptyView()
             }
             
+            NavigationLink(destination: PaymentDetailsScreen(walletTransactionsDetails: selectedWalletTransaction), tag: NavigationEnum.PaymentDetailsScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
             VStack(spacing: spacing) {
-                ScrollViewReader { scrollViewReader in
-                    List {
-                        MessageCell(message: "My Message", isSent: true)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                        //.id(index)
-                            .buttonStyle(PlainButtonStyle())
-                            .padding([.top, .horizontal], padding/2)
-                        MessageCell(message: "My Message", isSent: false)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                        //.id(index)
-                            .buttonStyle(PlainButtonStyle())
-                            .padding([.top, .horizontal], padding/2)
-                    }.listStyle(PlainListStyle())
-                        .onTapGesture {
-                            return
-                        }
-                        .onLongPressGesture(minimumDuration: 0.1) {
-                            return
-                        }.onAppear {
-                            self.scrollViewReader = scrollViewReader
-                        }
+                let count = chatVM.chatWalletTransactions.count
+                if chatVM.getChatWalletTransactionsAS == .ApiHit && count == 0 {
+                    EmptyListView(text: AppTexts.noTransactionsFound)
+                } else if count != 0 {
+                    ScrollViewReader { scrollViewReader in
+                        List {
+                            ForEach(Array((chatVM.chatWalletTransactions.reversed()).enumerated()), id: \.1) { index, chatWalletTransaction in
+                                let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  chatWalletTransaction?.paidByUserID?.id
+                                let isPayment = true
+                                Group {
+                                    if isPayment {
+                                        Button {
+                                            selection = NavigationEnum.PaymentDetailsScreen.rawValue
+                                            selectedWalletTransaction = chatWalletTransaction
+                                        } label: {
+                                            MessageCell(chatWalletTransaction: chatWalletTransaction,
+                                                        isSent: isDebit,
+                                                        isPayment: isPayment)
+                                        }
+                                    } else {
+                                        MessageCell(chatWalletTransaction: chatWalletTransaction,
+                                                    isSent: isDebit,
+                                                    isPayment: isPayment)
+                                    }
+                                }.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                    .listRowBackground(Color.clear)
+                                    .id(index)
+                                    .buttonStyle(PlainButtonStyle())
+                                    .padding([.top, .horizontal], padding/2)
+                            }
+                        }.listStyle(PlainListStyle())
+                            .onTapGesture {
+                                return
+                            }
+                            .onLongPressGesture(minimumDuration: 0.1) {
+                                return
+                            }.onAppear {
+                                self.scrollViewReader = scrollViewReader
+                                self.scrollViewReader?.scrollTo(chatVM.chatWalletTransactions.count - 1)
+                            }
+                    }
+                } else {
+                    Spacer()
                 }
                 
                 HStack(alignment: .bottom, spacing: spacing) {
@@ -85,12 +113,40 @@ struct ChatScreen: View {
                     .background(Color.lightBluishGrayColor.ignoresSafeArea(edges: .bottom))
             }
         }.background(Color.whiteColor.ignoresSafeArea())
+            .showLoader(isPresenting: .constant(userDetailsVM.isAnyApiBeingHit || chatVM.isAnyApiBeingHit))
+            .navigationBarItems(leading: navigationBarLeadingView)
+            .navigationBarBackButtonHidden(true)
             .onAppear {
                 if userDetailsVM.userDetails == nil, let payToUserModel {
                     userDetailsVM.setUserDetails(payToUserModel)
                 }
                 userDetailsVM.getDetailsOfUser()
+                chatVM.getChatWalletTransactionsWith(secondUserID: userDetailsVM.userDetails?.id ?? "")
             }
+    }
+    
+    private var navigationBarLeadingView: some View {
+        HStack(spacing: spacing) {
+            Button {
+                self.presentationMode.wrappedValue.dismiss()
+            } label: {
+                Image(systemName: "chevron.backward")
+                    .foregroundColor(.primaryColor)
+            }
+            
+            let name = (userDetailsVM.userDetails?.name ?? "").capitalized
+            AvatarView(character: String(name.first ?? " "), size: 35)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(name)
+                    .fontCustom(.Medium, size: 16)
+                    .foregroundColor(.blackColor)
+                
+                let mobileNumber = (userDetailsVM.userDetails?.numericCountryCode ?? "") + " " + (userDetailsVM.userDetails?.phone ?? "")
+                Text(mobileNumber)
+                    .fontCustom(.Medium, size: 16)
+                    .foregroundColor(.blackColor)
+            }
+        }
     }
 }
 

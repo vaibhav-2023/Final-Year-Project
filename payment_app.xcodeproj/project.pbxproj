@@ -76,6 +76,11 @@
 		528B594A296563C30076A88A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5949296563C30076A88A /* SearchTextField.swift */; };
 		528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594B29656B290076A88A /* FillBankDetailsScreen.swift */; };
 		528B595029658BDB0076A88A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594F29658BDB0076A88A /* CardView.swift */; };
+		52A6F39C297540E9005951B4 /* QrCodeScannedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */; };
+		52A6F39E29767753005951B4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39D29767753005951B4 /* ChatViewModel.swift */; };
+		52A6F3A02976A7A8005951B4 /* FillDetailsBankTransferScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */; };
+		52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F3A22976B200005951B4 /* PayToContactScreen.swift */; };
+		52A6F3A52976B606005951B4 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F3A42976B606005951B4 /* ImagePickerView.swift */; };
 		52B029512967D555000FC386 /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029502967D555000FC386 /* ChatScreen.swift */; };
 		52B029532967D56A000FC386 /* SelectBankAccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */; };
 		52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029552967D948000FC386 /* PaymentStatusView.swift */; };
@@ -195,6 +200,12 @@
 		528B5949296563C30076A88A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		528B594B29656B290076A88A /* FillBankDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBankDetailsScreen.swift; sourceTree = "<group>"; };
 		528B594F29658BDB0076A88A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannedModel.swift; sourceTree = "<group>"; };
+		52A6F39D29767753005951B4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillDetailsBankTransferScreen.swift; sourceTree = "<group>"; };
+		52A6F3A12976AED3005951B4 /* payment_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = payment_app.entitlements; sourceTree = "<group>"; };
+		52A6F3A22976B200005951B4 /* PayToContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToContactScreen.swift; sourceTree = "<group>"; };
+		52A6F3A42976B606005951B4 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		52B029502967D555000FC386 /* ChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreen.swift; sourceTree = "<group>"; };
 		52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBankAccountSheet.swift; sourceTree = "<group>"; };
 		52B029552967D948000FC386 /* PaymentStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatusView.swift; sourceTree = "<group>"; };
@@ -305,6 +316,7 @@
 		520660292960088D00D65347 /* payment_app */ = {
 			isa = PBXGroup;
 			children = (
+				52A6F3A12976AED3005951B4 /* payment_app.entitlements */,
 				520660922960205800D65347 /* payment-app-Info.plist */,
 				5206605429600E6500D65347 /* ApiServices */,
 				5206605629600E8900D65347 /* App */,
@@ -406,6 +418,7 @@
 				528B592929653BF60076A88A /* LoginViewModel.swift */,
 				526F104E296EBC2A000CF16C /* AllBanksViewModel.swift */,
 				521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */,
+				52A6F39D29767753005951B4 /* ChatViewModel.swift */,
 				52E0B99A2970FF530022F0CE /* WalletTransactionsViewModel.swift */,
 				526F1052296EC004000CF16C /* UserBanksViewModel.swift */,
 				528B593F29654C9E0076A88A /* ProfileViewModel.swift */,
@@ -436,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				520660732960132B00D65347 /* FileModel.swift */,
+				52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */,
 			);
 			path = "Models used to send data";
 			sourceTree = "<group>";
@@ -523,6 +537,7 @@
 			children = (
 				528B59212965377E0076A88A /* KingfisherImageView.swift */,
 				528B59222965377E0076A88A /* ImageView.swift */,
+				52A6F3A42976B606005951B4 /* ImagePickerView.swift */,
 			);
 			path = "Image and Sliders";
 			sourceTree = "<group>";
@@ -566,11 +581,13 @@
 				52B029542967D922000FC386 /* Chat Screen */,
 				52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */,
 				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
+				52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */,
 				52BC3FBD29697488003A0B42 /* QRCodeInfoScreen.swift */,
 				528B594329654F920076A88A /* HomeScreen.swift */,
 				52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */,
 				52BB137F2966ABE200ADB832 /* PayToNumberScreen.swift */,
 				52BB13812966E87500ADB832 /* PayToScreen.swift */,
+				52A6F3A22976B200005951B4 /* PayToContactScreen.swift */,
 				52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */,
 				52BB137829669BDB00ADB832 /* ProfileScreen.swift */,
 				5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */,
@@ -854,6 +871,7 @@
 				528B5928296539250076A88A /* OTPVerifyScreen.swift in Sources */,
 				528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */,
 				528B59252965377E0076A88A /* ImageView.swift in Sources */,
+				52A6F3A52976B606005951B4 /* ImagePickerView.swift in Sources */,
 				528B5946296558860076A88A /* SelectBankScreen.swift in Sources */,
 				52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */,
 				526F104F296EBC2A000CF16C /* AllBanksViewModel.swift in Sources */,
@@ -884,6 +902,7 @@
 				52BC3FBA29694B2D003A0B42 /* CameraViewModel.swift in Sources */,
 				528B591E2965367F0076A88A /* MinWidthButton.swift in Sources */,
 				528B5934296542F30076A88A /* OTPTextField.swift in Sources */,
+				52A6F39E29767753005951B4 /* ChatViewModel.swift in Sources */,
 				528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */,
 				528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */,
 				52BC3FBC29694DCE003A0B42 /* ScanQRScreen.swift in Sources */,
@@ -913,10 +932,12 @@
 				52BC3FB629693131003A0B42 /* ContactsViewModel.swift in Sources */,
 				520660742960132B00D65347 /* FileModel.swift in Sources */,
 				521DEAD3296FC77000FC47D3 /* UsersListResponse.swift in Sources */,
+				52A6F39C297540E9005951B4 /* QrCodeScannedModel.swift in Sources */,
 				528B594A296563C30076A88A /* SearchTextField.swift in Sources */,
 				52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
+				52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */,
 				521DEAD1296FC69700FC47D3 /* UsersViewModel.swift in Sources */,
 				526F1049296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift in Sources */,
 				520660682960107B00D65347 /* Alerts.swift in Sources */,
@@ -928,6 +949,7 @@
 				52B0295A2968097C000FC386 /* AdjustableHeightTextView.swift in Sources */,
 				52B029532967D56A000FC386 /* SelectBankAccountSheet.swift in Sources */,
 				5209C1BD296BCCF200399ADE /* ProfileInfoScreen.swift in Sources */,
+				52A6F3A02976A7A8005951B4 /* FillDetailsBankTransferScreen.swift in Sources */,
 				5206605F29600F5800D65347 /* InternetConnectivityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1085,13 +1107,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = payment_app/payment_app.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"payment_app/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BQSM8JQ2DG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "payment-app-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "payment_app requires access to camera to scan QR Codes";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(CFBundleDisplayName) requires access to camera to scan QR Codes and to upload profile Pic";
+				INFOPLIST_KEY_NSContactsUsageDescription = "$(CFBundleDisplayName) requires access to contacts for showing your contacts using our app and sending payments to them.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(CFBundleDisplayName) requires access to camera to upload profile Pic";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1103,8 +1131,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.company.payment-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.paymentApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Payment App Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1117,13 +1147,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = payment_app/payment_app.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"payment_app/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BQSM8JQ2DG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "payment-app-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "payment_app requires access to camera to scan QR Codes";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(CFBundleDisplayName) requires access to camera to scan QR Codes and to upload profile Pic";
+				INFOPLIST_KEY_NSContactsUsageDescription = "$(CFBundleDisplayName) requires access to contacts for showing your contacts using our app and sending payments to them.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(CFBundleDisplayName) requires access to camera to upload profile Pic";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1135,8 +1171,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.company.payment-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.paymentApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Payment App Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

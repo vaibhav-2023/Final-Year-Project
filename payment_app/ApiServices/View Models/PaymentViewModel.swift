@@ -29,13 +29,24 @@ class PaymentViewModel: ViewModel {
         
         addWalletTransactionAS = .IsBeingHit
         
-        let params = ["paidByUserId": Singleton.sharedInstance.generalFunctions.getUserID(),
+        var params = ["paidByUserId": Singleton.sharedInstance.generalFunctions.getUserID(),
                       "fromBankId": fromBankAccount?.id ?? "",
-                      "paidToUserId": toUser?.id ?? "",
-                      "toBankId": toBankAccount?.id ?? "",
                       "amount": amount,
                       "isPaymentSuccessful": true,
                       "remarks": note] as JSONKeyPair
+        
+        if let toUserId = toUser?.id {
+            params["paidToUserId"] = toUserId
+        } else if let json = Singleton.sharedInstance.generalFunctions.structToJSONString(toUser) {
+            params["paidToUserData"] = json
+        }
+        
+        if let toBankAccountID = toBankAccount?.id {
+            params["toBankId"] = toBankAccountID
+        }
+        
+        print(params)
+        
         var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .walletAdd)
         urlRequest?.addHeaders(shouldAddAuthToken: true)
         urlRequest?.addParameters(params, as: .URLFormEncoded)

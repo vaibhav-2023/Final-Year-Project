@@ -25,13 +25,18 @@ class ProfileViewModel: ViewModel {
         return false
     }
     
-    func hitFillUserDetailsAPI(withName name: String, andEmail email: String) {
+    func hitFillUserDetailsAPI(withName name: String, email email: String, andImageModel imageData: Data?) {
         
         fillDetailsAS = .IsBeingHit
         
         let params = ["_id": Singleton.sharedInstance.generalFunctions.getUserID(),
                       "name": name,
                       "email": email] as JSONKeyPair
+        
+        var fileModel: [FileModel] = []
+        if let imageData = imageData {
+            fileModel.append(contentsOf: [FileModel(file: imageData, fileKeyName: "customer_image", fileName: "profilePic", mimeType: "image")])
+        }
         
         //let fileModel = FileModel(file: <#T##Data#>, fileKeyName: <#T##String#>, fileName: <#T##String#>, mimeType: <#T##String#>)
         

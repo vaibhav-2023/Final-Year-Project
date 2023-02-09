@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessageCell: View {
     
-    private let message: String
+    private let chatWalletTransaction: WalletTransactionModel?
     private let isSent: Bool
     private let isPayment: Bool
     
@@ -18,10 +18,12 @@ struct MessageCell: View {
     
     let maxWidth = DeviceDimensions.width * 0.7
     
-    init(message: String, isSent: Bool) {
-        self.message = message
+    init(chatWalletTransaction: WalletTransactionModel?,
+         isSent: Bool,
+         isPayment: Bool) {
+        self.chatWalletTransaction = chatWalletTransaction
         self.isSent = isSent
-        isPayment = true
+        self.isPayment = isPayment
     }
     
     var body: some View {
@@ -36,7 +38,7 @@ struct MessageCell: View {
                     VStack(alignment: alignment, spacing: spacing) {
                         
                         if isPayment {
-                            let isPaymentSuccessfull = true
+                            let isPaymentSuccessfull = chatWalletTransaction?.isPaymentSuccessful ?? false
                             HStack {
                                 if isSent {
                                     Spacer(minLength: 1)
@@ -46,7 +48,7 @@ struct MessageCell: View {
                                     .foregroundColor(.blackColor)
                                     .fontCustom(.Medium, size: 16)
                                 
-                                Text("0")
+                                Text(chatWalletTransaction?.amount?.format() ?? "")
                                     .foregroundColor(.blackColor)
                                     .fontCustom(.SemiBold, size: 40)
                                 
@@ -55,9 +57,15 @@ struct MessageCell: View {
                                 }
                             }.opacity(isPaymentSuccessfull ? 1 : 0.5)
                             
+                            if let remarks = chatWalletTransaction?.remarks, !remarks.isEmpty {
+                                Text(remarks)
+                                    .fontCustom(.Regular, size: 15)
+                                    .foregroundColor(.blackColor)
+                            }
+                            
                             HStack(spacing: spacing) {
                                 
-                                PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isCredit: !isSent)
+                                PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isDebit: isSent)
                                 
                                 Spacer(minLength: 1)
                                 
@@ -68,7 +76,7 @@ struct MessageCell: View {
                                 
                             }
                         } else {
-                            Text(message)
+                            Text(chatWalletTransaction?.remarks ?? "")
                                 .fontCustom(.Regular, size: 15)
                                 .foregroundColor(.blackColor)
                             
@@ -89,7 +97,7 @@ struct MessageCell: View {
                     if isSent {
                         Spacer(minLength: 1)
                     }
-                    Text("13 Dec 2022 at 9:00 am")
+                    Text(chatWalletTransaction?.createdAt?.convertServerStringDate(toFormat: DateFormats.ddMMMYYYYathhmmaa) ?? "")
                         .foregroundColor(.darkGrayColor)
                         .fontCustom(.Regular, size: 13)
                     if !isSent {
@@ -107,6 +115,6 @@ struct MessageCell: View {
 
 struct MessageCell_Previews: PreviewProvider {
     static var previews: some View {
-        MessageCell(message: "Message", isSent: false)
+        MessageCell(chatWalletTransaction: nil, isSent: false, isPayment: false)
     }
 }

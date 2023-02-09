@@ -26,14 +26,14 @@ struct PaymentDetailsScreen: View {
         ScrollView {
             VStack(spacing: 0) {
                 
-                let isCredit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletVM.singleWalletTransaction?.paidByUserID?.id
+                let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletVM.singleWalletTransaction?.paidByUserID?.id
                 let isPaymentSuccessfull = walletVM.singleWalletTransaction?.isPaymentSuccessful ?? false
                 
                 VStack(spacing: spacing) {
                     HStack(alignment: .top) {
-                        let name = (walletVM.singleWalletTransaction?.paidToUserID?.name ?? "").capitalized
+                        let name = (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized
                         VStack(alignment: .leading, spacing: spacing) {
-                            Text(isCredit ? AppTexts.from : AppTexts.to)
+                            Text(isDebit ? AppTexts.to : AppTexts.from)
                                 .fontCustom(.Medium, size: 16)
                                 .foregroundColor(.blackColorForAllModes)
                             
@@ -51,7 +51,7 @@ struct PaymentDetailsScreen: View {
 //                        }
                     }
                     
-                    let mobileNumber = (walletVM.singleWalletTransaction?.paidToUserID?.numericCountryCode ?? "") + (walletVM.singleWalletTransaction?.paidToUserID?.phone ?? "")
+                    let mobileNumber = (walletVM.singleWalletTransaction?.getPaidToUserModel?.numericCountryCode ?? "") + " " + (walletVM.singleWalletTransaction?.getPaidToUserModel?.phone ?? "")
                     Text("\(AppTexts.mobileNumber):- \(mobileNumber)")
                         .fontCustom(.Medium, size: 16)
                         .foregroundColor(.blackColorForAllModes)
@@ -82,7 +82,7 @@ struct PaymentDetailsScreen: View {
                     textView((price.getNumberWords() + " " + prefix + " " + AppTexts.only).capitalized)
                         .padding(.bottom, padding)
                     
-                    PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isCredit: isCredit)
+                    PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isDebit: isDebit)
                         .padding(.top, padding)
                     
                     let date = walletVM.singleWalletTransaction?.createdAt?.convertServerStringDate(toFormat: DateFormats.ddMMMYYYYathhmmaa) ?? ""
@@ -95,7 +95,7 @@ struct PaymentDetailsScreen: View {
                             .fontCustom(.Medium, size: 16)
                         
                         userDetails(title: AppTexts.from, userDetails: (walletVM.singleWalletTransaction?.paidByUserID?.name ?? "").capitalized)
-                        userDetails(title: AppTexts.to, userDetails: (walletVM.singleWalletTransaction?.paidToUserID?.name ?? "").capitalized)
+                        userDetails(title: AppTexts.to, userDetails: (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized)
                     }
                     
                 }.padding(padding)

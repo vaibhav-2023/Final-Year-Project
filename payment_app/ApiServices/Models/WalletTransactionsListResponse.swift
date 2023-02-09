@@ -32,7 +32,7 @@ struct WalletTransactionModel: Codable, Hashable {
     
     let id: String?
     let autoID: Int?
-    let paidByUserID, paidToUserID: UserModel?
+    let paidByUserID, paidToUserID, paidToUserData: UserModel?
     let amount: Double?
     let remarks: String?
     let isPaymentSuccessful, isDelete, isBlocked: Bool?
@@ -44,8 +44,15 @@ struct WalletTransactionModel: Codable, Hashable {
         case autoID = "autoId"
         case paidByUserID = "paidByUserId"
         case paidToUserID = "paidToUserId"
-        case amount, remarks, isPaymentSuccessful, isDelete, isBlocked, status, createdAt
+        case paidToUserData, amount, remarks, isPaymentSuccessful, isDelete, isBlocked, status, createdAt
         case fromBankID = "fromBankId"
         case toBankID = "toBankId"
+    }
+    
+    var getPaidToUserModel: UserModel? {
+        if let paidToUserID {
+            return paidToUserID
+        }
+        return paidToUserData
     }
 }

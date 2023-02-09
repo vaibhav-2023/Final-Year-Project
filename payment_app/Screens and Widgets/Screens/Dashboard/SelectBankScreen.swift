@@ -11,6 +11,7 @@ struct SelectBankScreen: View {
     
     @ObservedObject private var allBanksVM: AllBanksViewModel
     
+    @State private var scrollViewReader: ScrollViewProxy?
     @State private var banksToShow: [BankModel?] = []
     @State private var searchText: String = ""
     
@@ -57,33 +58,37 @@ struct SelectBankScreen: View {
                 if allBanksVM.getBanksAS == ApiStatus.ApiHit && count == 0 {
                     EmptyListView(text: AppTexts.noBanksFound)
                 } else if allBanksVM.getBanksAS == ApiStatus.ApiHit || count != 0 {
-                    List {
-                        Section(footer: !allBanksVM.fetchedAllData ?
-                                ListFooterProgressView()
-                                : nil) {
-                            ForEach(Array(banksToShow.enumerated()), id: \.1) { index, bank in
-                                Button {
-                                    selectedBank = bank
-                                    isPresenting = false
-                                } label: {
-                                    bankDetail(bank)
-                                }.padding(.bottom, padding)
-                                    .if(index == 0) { $0.padding(.top, padding) }
-                                    .onAppear {
-                                        allBanksVM.paginateWithIndex(index)
-                                    }.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                    .listRowBackground(Color.clear)
-                                    .id(index)
-                                    .buttonStyle(PlainButtonStyle())
+                    ScrollViewReader { scrollViewReader in
+                        List {
+                            Section(footer: !allBanksVM.fetchedAllData ?
+                                    ListFooterProgressView()
+                                    : nil) {
+                                ForEach(Array(banksToShow.enumerated()), id: \.1) { index, bank in
+                                    Button {
+                                        selectedBank = bank
+                                        isPresenting = false
+                                    } label: {
+                                        bankDetail(bank)
+                                    }.padding(.bottom, padding)
+                                        .if(index == 0) { $0.padding(.top, padding) }
+                                        .onAppear {
+                                            allBanksVM.paginateWithIndex(index)
+                                        }.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                        .listRowBackground(Color.clear)
+                                        .id(index)
+                                        .buttonStyle(PlainButtonStyle())
+                                }
                             }
-                        }
-                    }.listStyle(PlainListStyle())
-                        .onTapGesture {
-                            return
-                        }
-                        .onLongPressGesture(minimumDuration: 0.1) {
-                            return
-                        }
+                        }.listStyle(PlainListStyle())
+                            .onTapGesture {
+                                return
+                            }
+                            .onLongPressGesture(minimumDuration: 0.1) {
+                                return
+                            }.onAppear {
+                                self.scrollViewReader = scrollViewReader
+                            }
+                    }
                 } else {
                     ScrollView {
                         ForEach(0...14, id: \.self) { index in

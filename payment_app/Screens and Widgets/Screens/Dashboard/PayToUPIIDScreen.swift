@@ -11,6 +11,9 @@ struct PayToUPIIDScreen: View {
     
     @State private var searchText: String = ""
     
+    private let spacing: CGFloat = 10
+    private let padding: CGFloat = 16
+    
     var body: some View {
         ZStack {
             let searchString = Binding<String>(get: {
@@ -25,8 +28,11 @@ struct PayToUPIIDScreen: View {
                 }
             })
             
-            VStack {
+            VStack(spacing: spacing) {
                 SearchTextField(searchText: searchString)
+                    .padding([.top, .horizontal], padding)
+                    .disabled(true)
+                EmptyListView(text: AppTexts.willBeAddedSoon)
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .setNavigationBarTitle(title: AppTexts.payToUPIID)

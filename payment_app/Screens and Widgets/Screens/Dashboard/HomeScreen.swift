@@ -16,6 +16,7 @@ struct HomeScreen: View {
     
     @State private var selection: Int? = nil
     @State private var scanResult: String? = nil
+    @State private var qrCodeScannedModel: QrCodeScannedModel? = nil
     
     private let columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
@@ -87,7 +88,7 @@ struct HomeScreen: View {
                                     selection = NavigationEnum.PayToNumberScreen.rawValue
                                 }
                                 icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
-                                    //selection = NavigationEnum.PayToNumberScreen.rawValue
+                                    selection = NavigationEnum.FillDetailsBankTransferScreen.rawValue
                                 }
                                 
                                 icon("creditCardIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.upiID) {
@@ -99,7 +100,7 @@ struct HomeScreen: View {
                                 }
                                 
                                 icon("personPinIconTemplate", title: AppTexts.selfString + "\n" + AppTexts.transfer) {
-                                    
+                                    Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
                                 }
                             }.padding(.vertical, padding * 2)
                                 .padding(.horizontal, spacing)
@@ -126,10 +127,24 @@ struct HomeScreen: View {
                     selection = NavigationEnum.PaymentDetailsScreen.rawValue
                 }
             }.onChange(of: scanResult) { scanResult in
-                if let _ = scanResult {
-                    selection = NavigationEnum.PayToScreen.rawValue
+                print("IMP scan Result =", scanResult ?? "no data received")
+                if let scanResult {
+                    if let qrCodeToURL = URL(string: scanResult),
+                       let queryParameters = qrCodeToURL.queryParameters {
+                        let qrCodeScannedModel = Singleton.sharedInstance.generalFunctions.jsonToStruct(json: queryParameters, decodingStruct: QrCodeScannedModel.self)
+                        if String(qrCodeScannedModel?.pa?.prefix(10) ?? "").containsPhoneNumber() {
+                            self.qrCodeScannedModel = qrCodeScannedModel
+                            selection = NavigationEnum.PayToScreen.rawValue
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                Singleton.sharedInstance.alerts.errorAlertWith(message: "Cannot transfer payment to this QR Code")
+                            }
+                        }
+                    }
+                    self.scanResult = nil
                 }
-            }.setNavigationBarTitle(title: AppTexts.home)
+            }
+            .setNavigationBarTitle(title: AppTexts.home)
     }
     
     @ViewBuilder
@@ -161,7 +176,11 @@ struct HomeScreen: View {
             EmptyView()
         }
         
-        NavigationLink(destination: PayToScreen(qrScannedResult: $scanResult), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
+        NavigationLink(destination: FillDetailsBankTransferScreen(), tag: NavigationEnum.FillDetailsBankTransferScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: PayToScreen(qrCodeScannedModel: $qrCodeScannedModel), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
             EmptyView()
         }
         
@@ -200,12 +219,12 @@ struct HomeScreen: View {
             HStack {
                 ImageView(imageName: iconName,
                           isSystemImage: false)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 18, height: 18)
-                    .foregroundColor(.whiteColorForAllModes)
-                    .frame(width: 35, height: 35)
-                    .background(Color.primaryColor)
-                    .clipShape(Circle())
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 18, height: 18)
+                .foregroundColor(.whiteColorForAllModes)
+                .frame(width: 35, height: 35)
+                .background(Color.primaryColor)
+                .clipShape(Circle())
                 
                 Text(title)
                     .fontCustom(.Regular, size: 15)
@@ -221,10 +240,10 @@ struct HomeScreen: View {
                 
             }.padding(.horizontal, 14)
                 .padding(.vertical, 10)
-            .background(Color.lightPrimaryColor)
-            .cornerRadius(cornerRadius)
-            .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.primaryColor, lineWidth: lineWidth))
-            .padding(lineWidth)
+                .background(Color.lightPrimaryColor)
+                .cornerRadius(cornerRadius)
+                .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.primaryColor, lineWidth: lineWidth))
+                .padding(lineWidth)
         }
     }
 }

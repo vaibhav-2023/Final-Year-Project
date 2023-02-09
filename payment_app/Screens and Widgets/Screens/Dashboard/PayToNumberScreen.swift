@@ -11,6 +11,7 @@ struct PayToNumberScreen: View {
     
     @StateObject private var usersVM = UsersViewModel()
     
+    @State private var scrollViewReader: ScrollViewProxy?
     @State private var searchText: String = ""
     @State private var selection: Int? = nil
     @State private var selectedUser: UserModel? = nil
@@ -25,45 +26,48 @@ struct PayToNumberScreen: View {
                 EmptyView()
             }
             
-            VStack {
+            VStack(spacing: spacing) {
                 SearchTextField(searchText: $searchText, maxLength: 10, keyboardType: .numberPad)
-                    .padding(.top, padding)
+                    .padding([.top, .horizontal], padding)
                 
                 if usersVM.getSearchedUsersAS == .ApiHit && usersVM.searchResultUsers.count == 0 {
                     EmptyListView(text: AppTexts.noUsersFound)
                 } else if usersVM.searchResultUsers.count != 0 {
-                    List {
-                        Section(footer: !usersVM.fetchedAllData ?
-                                ListFooterProgressView()
-                                : nil) {
-                            ForEach(Array(usersVM.searchResultUsers.enumerated()), id: \.1) { index, user in
-                                Button {
-                                    selectedUser = user
-                                    selection = NavigationEnum.ChatScreen.rawValue
-                                } label: {
-                                    contactDetail(userDetail: user)
-                                }.padding(.bottom, padding)
-                                    .if(index == 0) { $0.padding(.top, padding) }
-                                    .onAppear {
-                                        usersVM.paginateWithIndex(index, andSearchText: searchText)
-                                    }.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                    .listRowBackground(Color.clear)
-                                    .id(index)
-                                    .buttonStyle(PlainButtonStyle())
+                    ScrollViewReader { scrollViewReader in
+                        List {
+                            Section(footer: !usersVM.fetchedAllData ?
+                                    ListFooterProgressView()
+                                    : nil) {
+                                ForEach(Array(usersVM.searchResultUsers.enumerated()), id: \.1) { index, user in
+                                    Button {
+                                        selectedUser = user
+                                        selection = NavigationEnum.ChatScreen.rawValue
+                                    } label: {
+                                        contactDetail(userDetail: user)
+                                    }.padding(.bottom, padding)
+                                        .if(index == 0) { $0.padding(.top, padding) }
+                                        .onAppear {
+                                            usersVM.paginateWithIndex(index, andSearchText: searchText)
+                                        }.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                        .listRowBackground(Color.clear)
+                                        .id(index)
+                                        .buttonStyle(PlainButtonStyle())
+                                }
                             }
-                        }
-                    }.listStyle(PlainListStyle())
-                        .onTapGesture {
-                            return
-                        }
-                        .onLongPressGesture(minimumDuration: 0.1) {
-                            return
-                        }
+                        }.listStyle(PlainListStyle())
+                            .onTapGesture {
+                                return
+                            }
+                            .onLongPressGesture(minimumDuration: 0.1) {
+                                return
+                            }.onAppear {
+                                self.scrollViewReader = scrollViewReader
+                            }
+                    }
                 } else {
                     Spacer()
                 }
-            }.padding(.horizontal, padding)
-                .background(Color.whiteColor.ignoresSafeArea())
+            }.background(Color.whiteColor.ignoresSafeArea())
                 .setNavigationBarTitle(title: AppTexts.payToNumber)
                 .onChange(of: searchText) { text in
                     if searchText.count > 3 {
@@ -92,13 +96,13 @@ struct PayToNumberScreen: View {
                 }
                 
                 Spacer()
-            }.padding(.horizontal, padding)
+            }
             
             Rectangle()
                 .fill(Color.blackColor)
                 .frame(maxWidth: .infinity, maxHeight: 1)
                 .padding(.leading, padding + (size/2))
-        }
+        }.padding(.horizontal, padding)
     }
 }
 

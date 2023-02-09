@@ -62,7 +62,10 @@ class UsersViewModel: ViewModel {
             } receiveValue: { [weak self] response in
                 if let success = response.success, success {
                     self?.totalSearchResultUsers = response.total ?? 0
-                    self?.searchResultUsers.append(contentsOf: response.data ?? [])
+                    //                    let userData = Singleton.sharedInstance.generalFunctions.getUserModel()
+                    //                    var users = (response.data ?? [])
+                    //                    users.removeAll(where: { $0?.phone == userData?.phone })
+                    self?.searchResultUsers.append(contentsOf: (response.data ?? []))
                     self?.currentSearchResultUsers = self?.searchResultUsers.count ?? 0
                     self?.getSearchedUsersAS = .ApiHit
                 } else {

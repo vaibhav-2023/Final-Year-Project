@@ -15,6 +15,7 @@ class AppTexts {
     static let hours = "Hours"
     static let mobileNumber = "Mobile Number"
     static let save = "Save"
+    static let proceed = "Proceed"
     static let optional = "Optional"
     static let cancel = "Cancel"
     static let noDataAvailable = "No Data Available"
@@ -22,6 +23,7 @@ class AppTexts {
     static let noUsersFound = "No Users Found"
     static let noTransactionsFound = "No Transactions Found"
     static let noBankAccountsAdded = "No Bank Accounts Added"
+    static let willBeAddedSoon = "Will be Added Soon"
     
     //login
     static let enterYourMobileNumberToContinue = "Enter your mobile number to continue"
@@ -51,6 +53,11 @@ class AppTexts {
     static let bank = "Bank"
     static let bankAccount = "Bank Account"
     static let ifsc = "IFSC"
+    
+    //fill bank transfer details
+    static let accountNumber = "Account Number"
+    static let reenterAccountNumber = "Re-enter Account Number"
+    static let receipientName = "Receipient Name"
     
     //home
     static let home = "Home"
@@ -151,6 +158,15 @@ class AppTexts {
         static let enterIFSC = "Enter IFSC"
         static let enterValidIFSC = "Enter valid IFSC"
         
+        //payment screen
+        static let amountShouldBeAtleast = "Amount Should be alteast"
+        
+        static let enterAccountNumber = "Enter Account Number"
+        static let enterValidAccountNumber = "Enter valid Account Number"
+        static let reenterAccountNumber = "Re-enter Account Number"
+        static let accountNumberDoesNotMatch = "Account Number does not match"
+        static let enterRecipientName = "Enter Recipient Name"
+        
         static let areYouSureYouWantToLogoutFromApp = "Are you sure you want to logout from app"
     }
     
@@ -168,5 +184,9 @@ class AppTexts {
         static let enterAMessage = "Enter a message"
         
         static let noteIfAny = "Note if any"
+        
+        static let enterAccountNumber = "Enter Account Number"
+        static let reenterAccountNumber = "Re-enter Account Number"
+        static let enterReceipientName = "Enter Receipient Name"
     }
 }
