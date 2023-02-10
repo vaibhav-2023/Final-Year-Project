@@ -9,10 +9,15 @@ import SwiftUI
 
 struct ProfileInfoScreen: View {
     
+    @StateObject private var profileVM = ProfileViewModel()
+    
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var countryCode: String = Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice()
     @State private var mobileNumber: String = ""
+    
+    @State private var pickerImageModel: ImageModel = ImageModel(sourceType: .camera)
+    @State private var showImagePicker: Bool = false
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
@@ -29,24 +34,83 @@ struct ProfileInfoScreen: View {
 //                        .fontCustom(.Medium, size: 16)
 //                        .foregroundColor(.blackColor)
                     
-                    LoginFieldsOuterView(title: AppTexts.yourName) {
-                        MyTextField(AppTexts.TextFieldPlaceholders.enterYourName, text: $name, keyboardType: .default)
+                    HStack {
+                        Spacer()
+                        
+                        VStack(alignment: .center, spacing: spacing) {
+                            let isImageSeleted = pickerImageModel.uiImage != nil
+                            ZStack(alignment: .bottomTrailing) {
+                                let size = DeviceDimensions.width * 0.3
+                                Group {
+                                    if isImageSeleted {
+                                        Image(uiImage: pickerImageModel.uiImage ?? UIImage())
+                                            .resizable()
+                                    } else {
+                                        AvatarView(character: String(name.capitalized.first ?? "A"),
+                                                   textSize: 35,
+                                                   size: size)
+                                    }
+                                }.frame(width: size, height: size)
+                                    .overlay(Circle().stroke(Color.blackColor))
+                                    .clipShape(Circle())
+                                
+//                                Button {
+//                                    Singleton.sharedInstance
+//                                        .alerts
+//                                        .actionSheetWith(title: AppTexts.AlertMessages.selectImageFrom,
+//                                                         message: nil,
+//                                                         firstDefaultButtonTitle: AppTexts.AlertMessages.camera,
+//                                                         firstDefaultButtonAction: { _ in
+//                                            pickImageFrom(.camera)
+//                                        },
+//                                                         secondDefaultButtonTitle: AppTexts.AlertMessages.photoLibrary,
+//                                                         secondDefaultButtonAction: { _ in
+//                                            pickImageFrom(.photoLibrary)
+//                                        })
+//                                } label: {
+//                                    Image(systemName: "square.and.pencil")
+//                                        .foregroundColor(.blackColor)
+//                                        .padding(.trailing, size / 10)
+//                                }
+                            }
+                            
+                            if isImageSeleted {
+                                Button {
+                                    pickerImageModel.uiImage = nil
+                                } label: {
+                                    Text(AppTexts.removeImage)
+                                        .foregroundColor(.primaryColor)
+                                        .fontCustom(.Medium, size: 16)
+                                }
+                            }
+                        }
+                        Spacer()
                     }.padding(.top, spacing * 2)
                     
-                    LoginFieldsOuterView(title: AppTexts.yourEmail) {
+                    LoginFieldsOuterView(title: AppTexts.name) {
+                        MyTextField(AppTexts.TextFieldPlaceholders.enterYourName, text: $name, keyboardType: .default)
+                    }
+                    
+                    LoginFieldsOuterView(title: AppTexts.email) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourEmail, text: $email, keyboardType: .emailAddress)
                     }
                     
-                    HStack {
-                        LoginFieldsOuterView {
-                            Text(countryCode)
-                                .fontCustom(.Regular, size: 15)
-                                .foregroundColor(.blackColor)
-                        }
-                        LoginFieldsOuterView {
-                            MyTextField(AppTexts.TextFieldPlaceholders.enterMobileNumber, text: $mobileNumber, maxLength: 10, keyboardType: .numberPad)
-                        }
-                    }.padding(.bottom, spacing)
+                    VStack(alignment: .leading, spacing: spacing/2) {
+                        Text(AppTexts.mobileNumber)
+                            .fontCustom(.Medium, size: 16)
+                            .foregroundColor(.blackColor)
+                        
+                        HStack {
+                            LoginFieldsOuterView {
+                                Text(countryCode)
+                                    .fontCustom(.Regular, size: 15)
+                                    .foregroundColor(.blackColor)
+                            }
+                            LoginFieldsOuterView {
+                                MyTextField(AppTexts.TextFieldPlaceholders.enterMobileNumber, text: $mobileNumber, maxLength: 10, keyboardType: .numberPad)
+                            }
+                        }.padding(.bottom, spacing)
+                    }
                     
                     
                     //                MaxWidthButton(text: AppTexts.save.uppercased(), fontEnum: .Medium) {
@@ -58,6 +122,9 @@ struct ProfileInfoScreen: View {
         }.background(
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
         ).setNavigationBarTitle(title: AppTexts.yourDetails)
+            .sheet(isPresented: $showImagePicker) {
+                ImagePickerView(imageModel: $pickerImageModel)
+            }
             .onAppear {
                 let userModel = Singleton.sharedInstance.generalFunctions.getUserModel()
                 name = userModel?.name ?? ""
@@ -67,13 +134,18 @@ struct ProfileInfoScreen: View {
             }
     }
     
+    private func pickImageFrom(_ sourceType: UIImagePickerController.SourceType) {
+        pickerImageModel.sourceType = sourceType
+        showImagePicker = true
+    }
+    
     private func onSaveTapped() {
         if name.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterName)
         } else if !email.isEmpty && !email.isValidEmail {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            
+            profileVM.hitFillUserDetailsAPI(withName: name, email: email, andImageModel: pickerImageModel)
         }
     }
 }

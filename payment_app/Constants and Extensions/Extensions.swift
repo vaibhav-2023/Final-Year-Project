@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 import Combine
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 //MARK: - UIApplication
 extension UIApplication {
@@ -43,6 +45,25 @@ extension UIDevice {
             }
         }
         return modelCode ?? ""
+    }
+}
+
+//MARK: - URL
+extension URL {
+    func getMimeType() -> String {
+        if #available(iOS 15, *) {
+            if let mimeType = UTType(filenameExtension: self.pathExtension)?.preferredMIMEType {
+                return mimeType
+            }
+        } else {
+            //https://stackoverflow.com/questions/31243371/path-extension-and-mime-type-of-file-in-swift
+            if let retainedValue = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, self.pathExtension as NSString, nil)?.takeRetainedValue(),
+               let mimetype = UTTypeCopyPreferredTagWithClass(retainedValue, kUTTagClassMIMEType)?.takeRetainedValue() {
+                return mimetype as String
+            }
+        }
+        
+        return "application/octet-stream"
     }
 }
 
@@ -166,6 +187,25 @@ extension Data {
         if let data = string.data(using: .utf8) {
             append(data)
         }
+    }
+    
+    //to get extension of image
+    var format: String {
+        let array = [UInt8](self)
+        let ext: String
+        switch (array[0]) {
+        case 0xFF:
+            ext = "jpeg"
+        case 0x89:
+            ext = "png"
+        case 0x47:
+            ext = "gif"
+        case 0x49, 0x4D :
+            ext = "tiff"
+        default:
+            ext = "unknown"
+        }
+        return ext
     }
 }
 

@@ -16,10 +16,8 @@ struct FillUserDetailsScreen: View {
     @State private var name: String = ""
     @State private var email: String = ""
     
-    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    @State private var pickerImageModel: ImageModel = ImageModel(sourceType: .camera)
     @State private var showImagePicker: Bool = false
-    @State private var uiImage: UIImage = UIImage()
-    @State private var imageData: Data = Data()
     
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
@@ -44,9 +42,63 @@ struct FillUserDetailsScreen: View {
                         .fontCustom(.Medium, size: 16)
                         .foregroundColor(.blackColor)
                     
+                    HStack {
+                        Spacer()
+                        
+                        VStack(alignment: .center, spacing: spacing) {
+                            let isImageSeleted = pickerImageModel.uiImage != nil
+                            ZStack(alignment: .bottomTrailing) {
+                                let size = DeviceDimensions.width * 0.3
+                                Group {
+                                    if isImageSeleted {
+                                        Image(uiImage: pickerImageModel.uiImage ?? UIImage())
+                                            .resizable()
+                                    } else {
+                                        AvatarView(character: String(name.capitalized.first ?? "A"),
+                                                   textSize: 35,
+                                                   size: size)
+                                    }
+                                }.frame(width: size, height: size)
+                                    .overlay(Circle().stroke(Color.blackColor))
+                                    .clipShape(Circle())
+                                
+                                Button {
+                                    Singleton.sharedInstance
+                                        .alerts
+                                        .actionSheetWith(title: AppTexts.AlertMessages.selectImageFrom,
+                                                         message: nil,
+                                                         firstDefaultButtonTitle: AppTexts.AlertMessages.camera,
+                                                         firstDefaultButtonAction: { _ in
+                                            pickImageFrom(.camera)
+                                        },
+                                                         secondDefaultButtonTitle: AppTexts.AlertMessages.photoLibrary,
+                                                         secondDefaultButtonAction: { _ in
+                                            pickImageFrom(.photoLibrary)
+                                        })
+                                } label: {
+                                    Image(systemName: "square.and.pencil")
+                                        .foregroundColor(.blackColor)
+                                        .padding(.trailing, size / 10)
+                                }
+                            }
+                            
+                            if isImageSeleted {
+                                Button {
+                                    pickerImageModel.uiImage = nil
+                                } label: {
+                                    Text(AppTexts.removeImage)
+                                        .foregroundColor(.primaryColor)
+                                        .fontCustom(.Medium, size: 16)
+                                }
+                            }
+                        }
+                        
+                        Spacer()
+                    }.padding(.top, spacing * 2)
+                    
                     LoginFieldsOuterView(title: AppTexts.yourName) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourName, text: $name, keyboardType: .default)
-                    }.padding(.top, spacing * 2)
+                    }
                     
                     LoginFieldsOuterView(title: AppTexts.yourEmail + "(\(AppTexts.optional))") {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourEmail, text: $email, keyboardType: .emailAddress)
@@ -62,8 +114,13 @@ struct FillUserDetailsScreen: View {
             LinearGradient(gradient: Gradient(colors: [.whiteColor, .lightBluishGrayColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea()
         ).setNavigationBarTitle(title: AppTexts.fillDetails)
             .sheet(isPresented: $showImagePicker) {
-                ImagePickerView(uiImage: $uiImage, imageData: $imageData, sourceType: $sourceType)
+                ImagePickerView(imageModel: $pickerImageModel)
             }
+    }
+    
+    private func pickImageFrom(_ sourceType: UIImagePickerController.SourceType) {
+        pickerImageModel.sourceType = sourceType
+        showImagePicker = true
     }
     
     private func onSaveTapped() {
@@ -72,7 +129,7 @@ struct FillUserDetailsScreen: View {
         } else if !email.isEmpty && !email.isValidEmail {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            loginVM.hitFillUserDetailsAPI(withName: name, andEmail: email, imageData: imageData == Data() ? nil : imageData)
+            loginVM.hitFillUserDetailsAPI(withName: name, email: email, andImageModel: pickerImageModel)
         }
     }
 }

@@ -30,29 +30,39 @@ struct ScanQRScreen: View {
     }
     
     var body: some View {
-        NavigationLink(isActive: $showGrantAccessScreen, destination: {
-            ZStack {
-                VStack(spacing: spacing) {
-                    Spacer()
-                    
-                    Text(AppTexts.grantCameraAccessToScanQRCode)
-                        .foregroundColor(.blackColor)
-                        .fontCustom(.Medium, size: 22)
-                        .multilineTextAlignment(.center)
-                    
-                    MinWidthButton(text: AppTexts.openSettings, fontEnum: .Medium, textSize: 18, horizontalPadding: padding) {
-                        cameraVM.showSettingsAlert()
-                    }
-                    
-                    Spacer()
-                }.padding(padding)
-            }.background(Color.whiteColor.ignoresSafeArea())
-                .setNavigationBarTitle(title: AppTexts.scanQR)
+        ZStack {
+            NavigationLink(isActive: $showGrantAccessScreen, destination: {
+                ZStack {
+                    VStack(spacing: spacing) {
+                        Spacer()
+                        
+                        Text(AppTexts.grantCameraAccessToScanQRCode)
+                            .foregroundColor(.blackColor)
+                            .fontCustom(.Medium, size: 22)
+                            .multilineTextAlignment(.center)
+                        
+                        MinWidthButton(text: AppTexts.openSettings, fontEnum: .Medium, textSize: 18, horizontalPadding: padding) {
+                            cameraVM.showSettingsAlert()
+                        }
+                        
+                        Spacer()
+                    }.padding(padding)
+                }.background(Color.whiteColor.ignoresSafeArea())
+                    .setNavigationBarTitle(title: AppTexts.scanQR)
+            }, label: {
+                EmptyView()
+            })
             
-        }, label: {
-            EmptyView()
-        }).sheet(isPresented: $showQRCodeScanner) {
-            CodeScannerView(codeTypes: [.qr], completion: handleScanResult(result:))
+            NavigationLink(isActive: $showQRCodeScanner, destination: {
+                ZStack {
+                    
+                    CodeScannerView(codeTypes: [.qr], completion: handleScanResult(result:))
+                    
+                    
+                }
+            }, label: {
+                EmptyView()
+            })
         }.onAppear {
             cameraVM.requestAccess()
         }.onChange(of: selection) { selection in

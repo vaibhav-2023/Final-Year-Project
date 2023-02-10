@@ -8,28 +8,16 @@
 import SwiftUI
 
 struct ImagePickerView: UIViewControllerRepresentable {
-    @Binding var uiImage: UIImage
-    @Binding var imageData: Data
-    @Binding var sourceType: UIImagePickerController.SourceType
+    @Binding private var imageModel: ImageModel
     
-    init(uiImage: Binding<UIImage>? = nil,
-         imageData: Binding<Data>,
-         sourceType: Binding<UIImagePickerController.SourceType>) {
-        
-        if let uiImage = uiImage {
-            self._uiImage = uiImage
-        }else{
-            self._uiImage = .constant(UIImage())
-        }
-        
-        self._imageData = imageData
-        self._sourceType = sourceType
+    init(imageModel: Binding<ImageModel>) {
+        self._imageModel = imageModel
     }
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController(navigationBarStyle: .black)
         imagePicker.navigationBar.tintColor = .black
-        imagePicker.sourceType = self.sourceType
+        imagePicker.sourceType = imageModel.sourceType
         imagePicker.delegate = context.coordinator
         return imagePicker
     }
@@ -54,14 +42,16 @@ struct ImagePickerView: UIViewControllerRepresentable {
             //            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let resizedImage = image.resizedTo1MB() {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 let getImageData = image.jpegData(compressionQuality: 1.0) ?? Data()
-                self.parent.imageData = getImageData
-                self.parent.uiImage = image
+                self.parent.imageModel.imageData = getImageData
+                self.parent.imageModel.uiImage = image
+                if picker.sourceType == .savedPhotosAlbum, let assetPath = info[.imageURL] as? URL {
+                    self.parent.imageModel.mimeType = assetPath.getMimeType()
+                } else {
+                    //when image is picked from camera
+                    self.parent.imageModel.mimeType = getImageData.format
+                }
             }
             picker.dismiss(animated: true)
-        }
-        
-        @objc func data() {
-            print("hahahaha")
         }
     }
 }

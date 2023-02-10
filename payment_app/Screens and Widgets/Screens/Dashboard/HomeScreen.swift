@@ -85,7 +85,7 @@ struct HomeScreen: View {
                                     selection = NavigationEnum.ScanQRScreen.rawValue
                                 }
                                 icon("contactsIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.contact) {
-                                    selection = NavigationEnum.PayToNumberScreen.rawValue
+                                    selection = NavigationEnum.PayToContactScreen.rawValue
                                 }
                                 icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
                                     selection = NavigationEnum.FillDetailsBankTransferScreen.rawValue
@@ -149,43 +149,51 @@ struct HomeScreen: View {
     
     @ViewBuilder
     private func addNavigationLinks() -> some View {
-        NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.ProfileScreen.rawValue, selection: $selection) {
-            EmptyView()
+        Group {
+            NavigationLink(destination: ProfileScreen(), tag: NavigationEnum.ProfileScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            //no need to keep it in navigation stack camera conditions are handled in this class
+            ScanQRScreen(cameraVM: cameraVM, selection: $selection, scanResult: $scanResult)
+            
+            NavigationLink(destination: PayToNumberScreen(), tag: NavigationEnum.PayToNumberScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: PayToContactScreen(), tag: NavigationEnum.PayToContactScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: PayToUPIIDScreen(), tag: NavigationEnum.PayToUPIIDScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
         }
         
-        //no need to keep it in navigation stack camera conditions are handled in this class
-        ScanQRScreen(cameraVM: cameraVM, selection: $selection, scanResult: $scanResult)
-        
-        NavigationLink(destination: PayToNumberScreen(), tag: NavigationEnum.PayToNumberScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: PayToUPIIDScreen(), tag: NavigationEnum.PayToUPIIDScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: QRCodeInfoScreen(), tag: NavigationEnum.QRCodeInfoScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: WalletTransactionsScreen(), tag: NavigationEnum.WalletTransactionsScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: BankAccountsScreen(), tag: NavigationEnum.BankAccountsScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: FillDetailsBankTransferScreen(), tag: NavigationEnum.FillDetailsBankTransferScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: PayToScreen(qrCodeScannedModel: $qrCodeScannedModel), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
-            EmptyView()
-        }
-        
-        NavigationLink(destination: PaymentDetailsScreen(walletTransactionsDetails: appEnvironmentObject.walletTransactionDetails), tag: NavigationEnum.PaymentDetailsScreen.rawValue, selection: $selection) {
-            EmptyView()
+        Group {
+            NavigationLink(destination: QRCodeInfoScreen(), tag: NavigationEnum.QRCodeInfoScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: WalletTransactionsScreen(), tag: NavigationEnum.WalletTransactionsScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: BankAccountsScreen(), tag: NavigationEnum.BankAccountsScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: FillDetailsBankTransferScreen(), tag: NavigationEnum.FillDetailsBankTransferScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: PayToScreen(qrCodeScannedModel: $qrCodeScannedModel), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: PaymentDetailsScreen(walletTransactionsDetails: appEnvironmentObject.walletTransactionDetails), tag: NavigationEnum.PaymentDetailsScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
         }
     }
     
@@ -242,7 +250,8 @@ struct HomeScreen: View {
                 .padding(.vertical, 10)
                 .background(Color.lightPrimaryColor)
                 .cornerRadius(cornerRadius)
-                .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.primaryColor, lineWidth: lineWidth))
+                .overlay(RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(Color.primaryColor, lineWidth: lineWidth))
                 .padding(lineWidth)
         }
     }

@@ -25,43 +25,39 @@ class ContactsViewModel: ViewModel {
         
         switch CNContactStore.authorizationStatus(for: .contacts) {
         case .authorized:
-            if sendContacts && self.apiStatus == .NotHitOnce {
-                self.getContacts()
-            }
-            DispatchQueue.main.async {
-                self.hasGrantedRequest = true
-            }
-            print("in contacts .authorized")
+            handleAllowedCase()
+            print("in Contacts .authorized")
         case .denied:
-            DispatchQueue.main.async {
-                self.hasGrantedRequest = false
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.showSettingsAlert()
-            }
-            print("in contacts .denied")
-        case .restricted, .notDetermined:
-            contactStore.requestAccess(for: .contacts) { granted, error in
+            handleDeniedRestrictedCase()
+            print("in Contacts .denied")
+        case .restricted:
+            handleDeniedRestrictedCase()
+            print("in Contacts .restricted")
+        case .notDetermined:
+            contactStore.requestAccess(for: .contacts) { [weak self] granted, error in
                 if granted {
                     DispatchQueue.main.async {
-                        self.hasGrantedRequest = true
+                        self?.hasGrantedRequest = false
                     }
-                    if sendContacts && self.apiStatus == .NotHitOnce {
-                        self.getContacts()
-                    }
+                    print("in Contacts user Allowed Acess")
                 } else {
-                    DispatchQueue.main.async {
-                        self.hasGrantedRequest = false
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.showSettingsAlert()
-                    }
+                    self?.handleDeniedRestrictedCase()
+                    print("in Contacts user Denied Acess")
                 }
             }
-            print("in contacts .restricted, .notDetermined")
+            print("in Contacts .notDetermined")
         @unknown default:
-            print("in contacts @unknown default")
+            print("in Contacts @unknown default")
         }
+    }
+    
+    private func handleDeniedRestrictedCase() {
+        DispatchQueue.main.async {
+            self.hasGrantedRequest = false
+        }
+        //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        //                self.showSettingsAlert()
+        //            }
     }
     
     private func showSettingsAlert() {
@@ -80,7 +76,17 @@ class ContactsViewModel: ViewModel {
         vc?.present(alert, animated: true, completion: nil)
     }
     
-    func getContacts() {
+    private func handleAllowedCase() {
+        //if sendContacts && self.apiStatus == .NotHitOnce {
+        if self.apiStatus == .NotHitOnce {
+            self.getContacts()
+        }
+        DispatchQueue.main.async {
+            self.hasGrantedRequest = true
+        }
+    }
+    
+    private func getContacts() {
         let keys = [CNContactVCardSerialization.descriptorForRequiredKeys()] as [CNKeyDescriptor]
         let request = CNContactFetchRequest(keysToFetch: keys)
         let contactStore = CNContactStore()
@@ -108,7 +114,7 @@ class ContactsViewModel: ViewModel {
         }
     }
     
-    func sendContacts() {
+    private func sendContacts() {
         apiStatus = .IsBeingHit
         
         let range = 500

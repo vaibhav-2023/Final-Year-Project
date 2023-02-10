@@ -10,16 +10,19 @@ import SwiftUI
 struct AvatarView: View {
     
     private let character: String
+    private let textSize: CGFloat
     private let width: CGFloat
     private let height: CGFloat
     private let strokeColor: Color
     private let lineWidth: CGFloat
     
     init(character: String,
+         textSize: CGFloat = 22,
          size: CGFloat = DeviceDimensions.width * 0.12,
          strokeColor: Color = Color.clear,
          lineWidth: CGFloat = 0) {
         self.character = character
+        self.textSize = textSize
         self.width = size
         self.height = size
         self.strokeColor = strokeColor
@@ -28,7 +31,7 @@ struct AvatarView: View {
     
     var body: some View {
         Text(character)
-            .fontCustom(.Medium, size: 22)
+            .fontCustom(.Medium, size: textSize)
             .foregroundColor(.whiteColorForAllModes)
             .frame(width: width, height: width)
             .background(Color.primaryColor)

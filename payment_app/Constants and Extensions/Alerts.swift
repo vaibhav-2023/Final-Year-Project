@@ -50,7 +50,9 @@ class Alerts {
         alertWith(title: AppTexts.AlertMessages.errorWithExclamation, message: message)
     }
 
-    func alertWith(title: String, message: String, defaultButtonTitle: String = AppTexts.AlertMessages.ok, defaultButtonAction: ((UIAlertAction) -> Void)? = nil) {
+    func alertWith(title: String, message: String?,
+                   defaultButtonTitle: String = AppTexts.AlertMessages.ok,
+                   defaultButtonAction: ((UIAlertAction) -> Void)? = nil) {
         let alert = getAlertController(ofStyle: .alert, withTitle: title, andMessage: message)
 
         alert.addAction(UIAlertAction(title: defaultButtonTitle, style: UIAlertAction.Style.default, handler: defaultButtonAction))
@@ -59,10 +61,31 @@ class Alerts {
         vc?.present(alert, animated: true, completion: nil)
     }
     
-    func alertWith(title: String, message: String, defaultButtonTitle: String = AppTexts.AlertMessages.ok, defaultButtonAction: ((UIAlertAction) -> Void)? = nil, cancelButtonTitle: String = AppTexts.AlertMessages.cancel, cancelButtonAction: ((UIAlertAction) -> Void)? = nil) {
+    func alertWith(title: String, message: String?,
+                   defaultButtonTitle: String = AppTexts.AlertMessages.ok,
+                   defaultButtonAction: ((UIAlertAction) -> Void)? = nil,
+                   cancelButtonTitle: String = AppTexts.AlertMessages.cancel,
+                   cancelButtonAction: ((UIAlertAction) -> Void)? = nil) {
         let alert = getAlertController(ofStyle: .alert, withTitle: title, andMessage: message)
 
         alert.addAction(UIAlertAction(title: defaultButtonTitle, style: UIAlertAction.Style.default, handler: defaultButtonAction))
+        alert.addAction(UIAlertAction(title: cancelButtonTitle, style: UIAlertAction.Style.cancel, handler: cancelButtonAction))
+
+        let vc = Singleton.sharedInstance.generalFunctions.getTopViewController()
+        vc?.present(alert, animated: true, completion: nil)
+    }
+    
+    func actionSheetWith(title: String, message: String?,
+                         firstDefaultButtonTitle: String,
+                         firstDefaultButtonAction: @escaping ((UIAlertAction) -> Void),
+                         secondDefaultButtonTitle: String,
+                         secondDefaultButtonAction: @escaping ((UIAlertAction) -> Void),
+                         cancelButtonTitle: String = AppTexts.AlertMessages.cancel,
+                         cancelButtonAction: ((UIAlertAction) -> Void)? = nil) {
+        let alert = getAlertController(ofStyle: .actionSheet, withTitle: title, andMessage: message)
+
+        alert.addAction(UIAlertAction(title: firstDefaultButtonTitle, style: UIAlertAction.Style.default, handler: firstDefaultButtonAction))
+        alert.addAction(UIAlertAction(title: secondDefaultButtonTitle, style: UIAlertAction.Style.default, handler: secondDefaultButtonAction))
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: UIAlertAction.Style.cancel, handler: cancelButtonAction))
 
         let vc = Singleton.sharedInstance.generalFunctions.getTopViewController()

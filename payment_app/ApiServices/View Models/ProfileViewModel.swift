@@ -25,7 +25,7 @@ class ProfileViewModel: ViewModel {
         return false
     }
     
-    func hitFillUserDetailsAPI(withName name: String, email email: String, andImageModel imageData: Data?) {
+    func hitFillUserDetailsAPI(withName name: String, email: String, andImageModel imageModel: ImageModel?) {
         
         fillDetailsAS = .IsBeingHit
         
@@ -34,17 +34,18 @@ class ProfileViewModel: ViewModel {
                       "email": email] as JSONKeyPair
         
         var fileModel: [FileModel] = []
-        if let imageData = imageData {
-            fileModel.append(contentsOf: [FileModel(file: imageData, fileKeyName: "customer_image", fileName: "profilePic", mimeType: "image")])
+        if let imageData = imageModel?.imageData {
+            fileModel.append(contentsOf: [FileModel(file: imageData,
+                                                    fileKeyName: "profilePic",
+                                                    fileName: "profilePic",
+                                                    mimeType: imageModel?.mimeType ?? "image")])
         }
-        
-        //let fileModel = FileModel(file: <#T##Data#>, fileKeyName: <#T##String#>, fileName: <#T##String#>, mimeType: <#T##String#>)
         
         var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userUpdate)
         urlRequest?.addHeaders(shouldAddAuthToken: true)
-        urlRequest?.addParameters(params, as: .FormData)
+        urlRequest?.addParameters(params, withFileModel: fileModel, as: .FormData)
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: ProfileResponse.self) { [weak self] in
-            self?.hitFillUserDetailsAPI(withName: name, andEmail: email)
+            self?.hitFillUserDetailsAPI(withName: name, email: email, andImageModel: imageModel)
             }
             .sink{ [weak self] completion in
                 switch completion {

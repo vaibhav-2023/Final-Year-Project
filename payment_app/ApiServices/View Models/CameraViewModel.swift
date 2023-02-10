@@ -15,26 +15,22 @@ class CameraViewModel: ViewModel {
     func requestAccess() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            DispatchQueue.main.async {
-                self.hasGrantedRequest = true
-            }
+            handleAllowedCase()
             print("in Camera .authorized")
         case .denied:
-            handleDeniesRestrictedCase()
+            handleDeniedRestrictedCase()
             print("in Camera .denied")
         case .restricted:
-            handleDeniesRestrictedCase()
+            handleDeniedRestrictedCase()
             print("in Camera .restricted")
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] (granted: Bool) in
                 if granted {
-                    DispatchQueue.main.async {
-                        self.hasGrantedRequest = true
-                    }
+                    self?.handleAllowedCase()
                     print("in Camera user Allowed Acess")
                 } else {
                     DispatchQueue.main.async {
-                        self.hasGrantedRequest = false
+                        self?.hasGrantedRequest = false
                     }
                     print("in Camera user Denied Acess")
                 }
@@ -45,7 +41,13 @@ class CameraViewModel: ViewModel {
         }
     }
     
-    private func handleDeniesRestrictedCase() {
+    private func handleAllowedCase() {
+        DispatchQueue.main.async {
+            self.hasGrantedRequest = true
+        }
+    }
+    
+    private func handleDeniedRestrictedCase() {
         DispatchQueue.main.async {
             self.hasGrantedRequest = false
         }

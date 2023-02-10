@@ -87,6 +87,9 @@ class AppTexts {
     
     //profile info screen
     static let yourDetails = "Your Details"
+    static let name = "Name"
+    static let email = "Email"
+    static let removeImage = "Remove Image"
     
     //pay to screen
     static let payToNumber = "Pay to number"
@@ -161,12 +164,19 @@ class AppTexts {
         //payment screen
         static let amountShouldBeAtleast = "Amount Should be alteast"
         
+        //bank tranfer screen
         static let enterAccountNumber = "Enter Account Number"
         static let enterValidAccountNumber = "Enter valid Account Number"
         static let reenterAccountNumber = "Re-enter Account Number"
         static let accountNumberDoesNotMatch = "Account Number does not match"
         static let enterRecipientName = "Enter Recipient Name"
         
+        //profile info screen
+        static let selectImageFrom = "Select Image From"
+        static let camera = "Camera"
+        static let photoLibrary = "Photo Library"
+        
+        //logout
         static let areYouSureYouWantToLogoutFromApp = "Are you sure you want to logout from app"
     }
     
