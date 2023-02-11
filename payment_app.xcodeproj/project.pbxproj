@@ -51,6 +51,7 @@
 		526F1055296ECA7D000CF16C /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1054296ECA7D000CF16C /* ShimmerView.swift */; };
 		526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1056296ECAD7000CF16C /* EmptyListView.swift */; };
 		526F1059296ECB90000CF16C /* ListFooterProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1058296ECB90000CF16C /* ListFooterProgressView.swift */; };
+		5289A499297969A2006AF03E /* SeeThroughShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289A498297969A2006AF03E /* SeeThroughShapeView.swift */; };
 		528B5915296531140076A88A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5914296531140076A88A /* LoginScreen.swift */; };
 		528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59172965352E0076A88A /* LoginFieldsOuterView.swift */; };
 		528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B591A2965367F0076A88A /* MaxWidthButton.swift */; };
@@ -82,7 +83,6 @@
 		52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F3A22976B200005951B4 /* PayToContactScreen.swift */; };
 		52A6F3A52976B606005951B4 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F3A42976B606005951B4 /* ImagePickerView.swift */; };
 		52A6F3A72977C774005951B4 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F3A62977C774005951B4 /* ImageModel.swift */; };
-		52A6F3A92978087B005951B4 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F3A82978087B005951B4 /* Test.swift */; };
 		52B029512967D555000FC386 /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029502967D555000FC386 /* ChatScreen.swift */; };
 		52B029532967D56A000FC386 /* SelectBankAccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */; };
 		52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B029552967D948000FC386 /* PaymentStatusView.swift */; };
@@ -177,6 +177,7 @@
 		526F1054296ECA7D000CF16C /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		526F1056296ECAD7000CF16C /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		526F1058296ECB90000CF16C /* ListFooterProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterProgressView.swift; sourceTree = "<group>"; };
+		5289A498297969A2006AF03E /* SeeThroughShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeThroughShapeView.swift; sourceTree = "<group>"; };
 		528B5914296531140076A88A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		528B59172965352E0076A88A /* LoginFieldsOuterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFieldsOuterView.swift; sourceTree = "<group>"; };
 		528B591A2965367F0076A88A /* MaxWidthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxWidthButton.swift; sourceTree = "<group>"; };
@@ -209,7 +210,6 @@
 		52A6F3A22976B200005951B4 /* PayToContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToContactScreen.swift; sourceTree = "<group>"; };
 		52A6F3A42976B606005951B4 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		52A6F3A62977C774005951B4 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
-		52A6F3A82978087B005951B4 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		52B029502967D555000FC386 /* ChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreen.swift; sourceTree = "<group>"; };
 		52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBankAccountSheet.swift; sourceTree = "<group>"; };
 		52B029552967D948000FC386 /* PaymentStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatusView.swift; sourceTree = "<group>"; };
@@ -470,7 +470,6 @@
 				52066076296019D200D65347 /* TextFields */,
 				528B593B296549300076A88A /* BlurView.swift */,
 				528B594F29658BDB0076A88A /* CardView.swift */,
-				52A6F3A82978087B005951B4 /* Test.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -524,6 +523,7 @@
 				52B029552967D948000FC386 /* PaymentStatusView.swift */,
 				526F1056296ECAD7000CF16C /* EmptyListView.swift */,
 				528B594729655F6D0076A88A /* AvatarView.swift */,
+				5289A498297969A2006AF03E /* SeeThroughShapeView.swift */,
 			);
 			path = "App Reusable Widgets";
 			sourceTree = "<group>";
@@ -909,6 +909,7 @@
 				528B591E2965367F0076A88A /* MinWidthButton.swift in Sources */,
 				528B5934296542F30076A88A /* OTPTextField.swift in Sources */,
 				52A6F39E29767753005951B4 /* ChatViewModel.swift in Sources */,
+				5289A499297969A2006AF03E /* SeeThroughShapeView.swift in Sources */,
 				528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */,
 				528B591D2965367F0076A88A /* MaxWidthButton.swift in Sources */,
 				52BC3FBC29694DCE003A0B42 /* ScanQRScreen.swift in Sources */,
@@ -946,7 +947,6 @@
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
 				52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */,
 				521DEAD1296FC69700FC47D3 /* UsersViewModel.swift in Sources */,
-				52A6F3A92978087B005951B4 /* Test.swift in Sources */,
 				526F1049296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift in Sources */,
 				520660682960107B00D65347 /* Alerts.swift in Sources */,
 				52B029582967D9DD000FC386 /* MessageCell.swift in Sources */,

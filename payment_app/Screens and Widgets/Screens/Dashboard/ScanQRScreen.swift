@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CodeScanner
+import AVFoundation
 
 struct ScanQRScreen: View {
     
@@ -14,6 +15,7 @@ struct ScanQRScreen: View {
     
     @State private var showGrantAccessScreen: Bool = false
     @State private var showQRCodeScanner: Bool = false
+    @State private var torchMode = AVCaptureDevice.TorchMode.off
     
     @Binding private var selection: Int?
     @Binding private var scanResult: String?
@@ -32,34 +34,13 @@ struct ScanQRScreen: View {
     var body: some View {
         ZStack {
             NavigationLink(isActive: $showGrantAccessScreen, destination: {
-                ZStack {
-                    VStack(spacing: spacing) {
-                        Spacer()
-                        
-                        Text(AppTexts.grantCameraAccessToScanQRCode)
-                            .foregroundColor(.blackColor)
-                            .fontCustom(.Medium, size: 22)
-                            .multilineTextAlignment(.center)
-                        
-                        MinWidthButton(text: AppTexts.openSettings, fontEnum: .Medium, textSize: 18, horizontalPadding: padding) {
-                            cameraVM.showSettingsAlert()
-                        }
-                        
-                        Spacer()
-                    }.padding(padding)
-                }.background(Color.whiteColor.ignoresSafeArea())
-                    .setNavigationBarTitle(title: AppTexts.scanQR)
+                provideCameraAccessView
             }, label: {
                 EmptyView()
             })
             
             NavigationLink(isActive: $showQRCodeScanner, destination: {
-                ZStack {
-                    
-                    CodeScannerView(codeTypes: [.qr], completion: handleScanResult(result:))
-                    
-                    
-                }
+                scanQRView
             }, label: {
                 EmptyView()
             })
@@ -75,6 +56,59 @@ struct ScanQRScreen: View {
                 self.selection = nil
             }
         }
+    }
+    
+    private var provideCameraAccessView: some View {
+        ZStack {
+            VStack(spacing: spacing) {
+                Spacer()
+                
+                Text(AppTexts.grantCameraAccessToScanQRCode)
+                    .foregroundColor(.blackColor)
+                    .fontCustom(.Medium, size: 22)
+                    .multilineTextAlignment(.center)
+                
+                MinWidthButton(text: AppTexts.openSettings, fontEnum: .Medium, textSize: 18, horizontalPadding: padding) {
+                    cameraVM.showSettingsAlert()
+                }
+                
+                Spacer()
+            }.padding(padding)
+        }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.scanQR)
+    }
+    
+    private var scanQRView: some View {
+        ZStack {
+            let size = DeviceDimensions.width * 0.7
+            CodeScannerView(codeTypes: [.qr], completion: handleScanResult(result:))
+            
+            Rectangle()
+                .foregroundColor(Color.black.opacity(0.5))
+                .mask(SeeThroughShapeView(size: CGSize(width: size, height: size)).fill(style: FillStyle(eoFill: true)))
+                .overlay(RoundedRectangle(cornerRadius: 3).stroke(Color.white, lineWidth: 2)
+                    .frame(width: size, height: size))
+        }.setNavigationBarTitle(title: AppTexts.scanQR)
+            .navigationBarItems(trailing: navigationBarTrailingView)
+    }
+    
+    private var navigationBarTrailingView: some View {
+        Button {
+            toggleFlash()
+        } label: {
+            switch torchMode {
+            case .on:
+                Image("flashLightOffIconTemplate")
+            case .off:
+                Image("flashLightOnIconTemplate")
+            default:
+                EmptyView()
+            }
+        }
+//        .resizable()
+        //.aspectRatio(contentMode: .fit)
+//            .frame(width: 25, height: 25)
+//            .foregroundColor(.primaryColor)
     }
     
     private func handleScanResult(result: Result<ScanResult, ScanError>) {
@@ -95,6 +129,31 @@ struct ScanQRScreen: View {
                 print("Scanning Failed: The camera permission is denied. \(error.localizedDescription)")
             }
             self.scanResult = "scanResult.string"
+        }
+    }
+    
+    private func toggleFlash() {
+        let device = AVCaptureDevice.default(for: AVMediaType.video)
+        if let device, device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                switch device.torchMode {
+                case .on:
+                    device.torchMode = AVCaptureDevice.TorchMode.off
+                case .off:
+                    do {
+                        try device.setTorchModeOn(level: 1.0)
+                    } catch {
+                        print("error in \(#function)", error)
+                    }
+                default:
+                    print("inside default in \(#function)")
+                }
+                device.unlockForConfiguration()
+            } catch {
+                print("error in \(#function)", error)
+            }
+            torchMode = device.torchMode
         }
     }
 }
