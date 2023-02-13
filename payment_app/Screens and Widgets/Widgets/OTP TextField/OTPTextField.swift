@@ -8,6 +8,8 @@
 import SwiftUI
 import Combine
 
+//https://stackoverflow.com/questions/69025986/creating-otp-page-for-swiftui-using-textfield
+//https://imthath.medium.com/swiftui-passcode-field-for-otp-and-pin-entry-b61ba663dc31
 struct OTPTextField: View {
     
     @ObservedObject private var viewModel: OTPTextFieldViewModel

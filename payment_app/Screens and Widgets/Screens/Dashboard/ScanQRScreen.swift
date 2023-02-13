@@ -11,6 +11,7 @@ import AVFoundation
 
 struct ScanQRScreen: View {
     
+    //MARK: - Variables
     @ObservedObject private var cameraVM: CameraViewModel
     
     @State private var showGrantAccessScreen: Bool = false
@@ -23,6 +24,7 @@ struct ScanQRScreen: View {
     private let padding : CGFloat = 16
     private let spacing : CGFloat = 16
     
+    //MARK: - init
     init(cameraVM: CameraViewModel,
          selection: Binding<Int?>,
          scanResult: Binding<String?>) {
@@ -31,6 +33,7 @@ struct ScanQRScreen: View {
         self._scanResult = scanResult
     }
     
+    //MARK: - Views
     var body: some View {
         ZStack {
             NavigationLink(isActive: $showGrantAccessScreen, destination: {
@@ -94,23 +97,31 @@ struct ScanQRScreen: View {
     
     private var navigationBarTrailingView: some View {
         Button {
+            print(torchMode.rawValue)
             toggleFlash()
+            print(torchMode.rawValue)
         } label: {
             switch torchMode {
             case .on:
-                Image("flashLightOffIconTemplate")
+                imageView("flashLightOffIconTemplate")
             case .off:
-                Image("flashLightOnIconTemplate")
+                imageView("flashLightOnIconTemplate")
             default:
                 EmptyView()
             }
         }
-//        .resizable()
-        //.aspectRatio(contentMode: .fit)
-//            .frame(width: 25, height: 25)
-//            .foregroundColor(.primaryColor)
     }
     
+    @ViewBuilder
+    private func imageView(_ imageName: String) -> some View {
+        Image(imageName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 20, height: 20)
+            .foregroundColor(.primaryColor)
+    }
+    
+    //MARK: - Methods
     private func handleScanResult(result: Result<ScanResult, ScanError>) {
         showQRCodeScanner = false
         
@@ -128,7 +139,7 @@ struct ScanQRScreen: View {
             case .permissionDenied:
                 print("Scanning Failed: The camera permission is denied. \(error.localizedDescription)")
             }
-            self.scanResult = "scanResult.string"
+            self.scanResult = "Issue in Scan Result"
         }
     }
     
@@ -141,11 +152,12 @@ struct ScanQRScreen: View {
                 case .on:
                     device.torchMode = AVCaptureDevice.TorchMode.off
                 case .off:
-                    do {
-                        try device.setTorchModeOn(level: 1.0)
-                    } catch {
-                        print("error in \(#function)", error)
-                    }
+                    device.torchMode = AVCaptureDevice.TorchMode.on
+//                    do {
+//                        try device.setTorchModeOn(level: 1.0)
+//                    } catch {
+//                        print("error in \(#function)", error)
+//                    }
                 default:
                     print("inside default in \(#function)")
                 }
