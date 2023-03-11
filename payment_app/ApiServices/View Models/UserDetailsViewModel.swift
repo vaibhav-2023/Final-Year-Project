@@ -7,6 +7,7 @@
 
 import Combine
 
+//view model to fetch details of single user created on 12/01/23
 class UserDetailsViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -15,6 +16,7 @@ class UserDetailsViewModel: ViewModel {
     
     private(set) var userDetails: UserModel? = nil
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if userDetailsAS == .IsBeingHit {
             return true
@@ -22,10 +24,12 @@ class UserDetailsViewModel: ViewModel {
         return false
     }
     
+    //function to update user details stored in the view model
     func setUserDetails(_ userDetails: UserModel?) {
         self.userDetails = userDetails
     }
     
+    //function to get details of the user
     func getDetailsOfUser() {
         
         userDetailsAS = .IsBeingHit
@@ -55,6 +59,7 @@ class UserDetailsViewModel: ViewModel {
             }.store(in: &cancellable)
     }
     
+    //function to get details of user with qr code scanner
     func getUser(withQRCodeScannedModel qrCodeScannedModel: QrCodeScannedModel) {
         
         userDetailsAS = .IsBeingHit

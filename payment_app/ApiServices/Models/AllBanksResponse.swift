@@ -7,6 +7,7 @@
 
 import Foundation
 
+//This is the model which will be used when fetching data from all banks api created on 11/01/23
 // MARK: - AllBanksResponse
 struct AllBanksResponse: Codable {
     let success: Bool?
@@ -14,6 +15,7 @@ struct AllBanksResponse: Codable {
     let data: [BankModel?]?
 }
 
+//This is the model which will hold data of one single bank model
 // MARK: - BankModel
 struct BankModel: Codable, Hashable {
     

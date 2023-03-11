@@ -7,6 +7,7 @@
 
 import Foundation
 
+//This Model is used when single wallet transaction is fetched created on 13/01/23
 //MARK: - SingleWalletTransactionResponse
 struct SingleWalletTransactionResponse: Codable {
     let status: Int?

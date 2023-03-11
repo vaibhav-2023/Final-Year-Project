@@ -8,12 +8,14 @@
 import Foundation
 import Combine
 
+//view model to add user banks created on 11/01/23
 class UserBanksViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
     
     @Published private(set) var addBankAS: ApiStatus = .NotHitOnce
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if addBankAS == .IsBeingHit {
             return true
@@ -21,6 +23,7 @@ class UserBanksViewModel: ViewModel {
         return false
     }
     
+    //func to add bank account
     func addBankAccount(ofBank bankID: BankModel?, withAccountNumber accountNumber: String, andIFSC ifsc: String) {
         
         addBankAS = .IsBeingHit

@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 
+//AppDelegate of the App created on 31/12/22
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     var window: UIWindow?
@@ -65,7 +66,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        
+        //set up scene delegate
         let config = UISceneConfiguration(name: "Scene Delegate", sessionRole: connectingSceneSession.role)
         config.delegateClass = SceneDelegate.self
         return config

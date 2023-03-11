@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+//view model to fetch users created on 12/01/23
 class UsersViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -18,6 +19,7 @@ class UsersViewModel: ViewModel {
     private var currentSearchResultUsers = 0
     private(set) var searchResultUsers: [UserModel?] = []
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if getSearchedUsersAS == .IsBeingHit {
             return true
@@ -25,16 +27,19 @@ class UsersViewModel: ViewModel {
         return false
     }
     
+    //variable to check if all banks data is fetched or not
     var fetchedAllData: Bool {
         return totalSearchResultUsers <= currentSearchResultUsers
     }
     
+    //paginate with index
     func paginateWithIndex(_ index: Int, andSearchText searchText: String) {
         if getSearchedUsersAS != .IsBeingHit && index == currentSearchResultUsers - 1 && !fetchedAllData {
             searchUsers(withMobileNumber: searchText, clearList: false)
         }
     }
     
+    //api to fetch users according to mobile number
     func searchUsers(withMobileNumber mobileNumber: String, clearList: Bool = true) {
         
         getSearchedUsersAS = .IsBeingHit

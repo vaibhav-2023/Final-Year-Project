@@ -9,9 +9,11 @@ import Foundation
 import AVFoundation
 import UIKit
 
+//View Model to handle camera permissions created on 07/01/23
 class CameraViewModel: ViewModel {
     @Published var hasGrantedRequest: Bool = false
     
+    //request for camera permission
     func requestAccess() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -24,15 +26,16 @@ class CameraViewModel: ViewModel {
             handleDeniedRestrictedCase()
             print("in Camera .restricted")
         case .notDetermined:
+            //if permission is not determined then request for permission
             AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] (granted: Bool) in
                 if granted {
                     self?.handleAllowedCase()
-                    print("in Camera user Allowed Acess")
+                    print("in Camera user Allowed Access")
                 } else {
                     DispatchQueue.main.async {
                         self?.hasGrantedRequest = false
                     }
-                    print("in Camera user Denied Acess")
+                    print("in Camera user Denied Access")
                 }
             })
             print("in Camera .notDetermined")
@@ -56,10 +59,11 @@ class CameraViewModel: ViewModel {
         //            }
     }
     
+    //if user has not given camera, we show the open app settings option with this method
     func showSettingsAlert() {
         let alert = Singleton.sharedInstance.alerts.getAlertController(ofStyle: .alert,
                                                    withTitle: AppTexts.AlertMessages.accessDenied,
-                                                   andMessage: (AppInfo.appName ?? "This app") +
+                                                                       andMessage: (AppInfo.appName ?? AppTexts.thisApp) +
                                                                        " " + AppTexts.AlertMessages.requiresAccessToCameraToProceed +
                                                                        " " + AppTexts.AlertMessages.goToSettingsToGrantAccess)
         

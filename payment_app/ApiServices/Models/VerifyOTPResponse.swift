@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Model used for api to verify OTP created on 11/01/23
 //MARK: - VerifyOTPResponse
 struct VerifyOTPResponse: Codable {
     let status: Int?
@@ -21,6 +22,7 @@ struct VerifyOTPResponse: Codable {
     }
 }
 
+//This is the model of the user details
 // MARK: - UserModel
 struct UserModel: Codable, Hashable {
     
@@ -52,6 +54,7 @@ struct UserModel: Codable, Hashable {
     }
 }
 
+//This is the model which will hold the User Added Bank Accounts
 // MARK: - UserAddedBankAccountModel
 struct UserAddedBankAccountModel: Codable, Hashable {
     

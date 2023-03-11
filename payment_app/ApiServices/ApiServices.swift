@@ -9,12 +9,15 @@ import Foundation
 import Network
 import Combine
 
+//protocol to implement cancellables in all view model classes created on 31/12/22
 protocol ViewModel: ObservableObject {
     func cancelAllCancellables()
 }
 
+//Class to handle all the Api Requests created on 31/12/22
 class ApiServices {
     
+    //function to create query items
     func getQueryItems(forURLString urlString: String, andParamters parameters: JSONKeyPair) -> URLComponents? {
         var urlComponents = URLComponents(string: urlString)
         urlComponents?.queryItems = []
@@ -31,6 +34,7 @@ class ApiServices {
         return urlComponents
     }
     
+    //function to create URLRequest with String
     func getURL(ofHTTPMethod httpMethod: HTTPMethod,
                 forAppEndpoint appEndpoint: AppEndpoints,
                 withQueryParameters queryParameters: JSONKeyPair? = nil) -> URLRequest? {
@@ -43,6 +47,7 @@ class ApiServices {
 //        return getURL(ofHTTPMethod: httpMethod, forString: appEndpoint.getURLString(), withQueryParameters: queryParameters)
 //    }
     
+    //function to create URLRequest with Endpoint Enum
     private func getURL(ofHTTPMethod httpMethod: HTTPMethod,
                         forString urlString: String,
                         withQueryParameters queryParameters: JSONKeyPair?) -> URLRequest? {
@@ -61,6 +66,7 @@ class ApiServices {
         return urlRequest
     }
     
+    //function to hit a URL Request, i.e., perform an API Task
     func hitApi<T: Decodable>(withURLRequest urlRequest: URLRequest?,
                               decodingStruct: T.Type,
                               outputBlockForInternetNotConnected: @escaping () -> Void) -> AnyPublisher<T, APIError> {
@@ -69,6 +75,7 @@ class ApiServices {
         let urlString = urlRequest?.url?.absoluteString ?? "URL not set"
         print("url", urlString, "\n")
         
+        //if user is connected to internet only then perform API task
         if Singleton.sharedInstance.appEnvironmentObject.isConnectedToInternet {
             
             if let urlRequest {
@@ -82,12 +89,14 @@ class ApiServices {
                     }
                 //.decode(type: T.self, decoder: Singleton.sharedInstance.jsonDecoder)
                     .flatMap { data, response -> AnyPublisher<T, APIError> in
+                        //check if response is in form of HTTPResponse or not
                         guard let response = response as? HTTPURLResponse else{
                             return self.getApiErrorPublisher(.InvalidHTTPURLResponse, inUrl: urlString)
                         }
                         let jsonConvert = try? JSONSerialization.jsonObject(with: data, options: [])
                         let json = jsonConvert as AnyObject
                         
+                        //handle cases according to http status code
                         switch response.statusCode {
                         case 100...199:
                             return self.getApiErrorPublisher(.InformationalError(response.statusCode), inUrl: urlString)
@@ -145,6 +154,8 @@ class ApiServices {
                 return getApiErrorPublisher(.UrlNotValid, inUrl: urlString)
             }
         } else {
+            //if internet is not connected, add observer, so that when internet access is acquired
+            //perform the task
             let monitor = NWPathMonitor()
             let queue = DispatchQueue(label: urlString)
             monitor.pathUpdateHandler = { path in
@@ -160,6 +171,7 @@ class ApiServices {
         }
     }
     
+    //to return the error in AnyPublisher class form
     private func getApiErrorPublisher<T: Decodable>(_ apiError: APIError, inUrl urlString: String) -> AnyPublisher<T, APIError> {
         printApiError(apiError, inUrl: urlString)
         return Fail(error: apiError).eraseToAnyPublisher()
@@ -171,6 +183,7 @@ class ApiServices {
 }
 
 extension URL {
+    //Extension to get Query Parameters
     public var queryParameters: [String: String]? {
         guard
             let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
@@ -182,6 +195,7 @@ extension URL {
 }
 
 extension URLRequest {
+    //extension to add headers to the URL Request
     mutating func addHeaders(_ headers: JSONKeyPair? = nil, shouldAddAuthToken: Bool = false) {
         //set headers
         self.addValue("iOS", forHTTPHeaderField: "device")
@@ -197,8 +211,11 @@ extension URLRequest {
         }
     }
     
+    //extension to add body to the URL Request
     mutating func addParameters(_ parameters: JSONKeyPair?, withFileModel fileModel: [FileModel]? = nil, as parameterEncoding: ParameterEncoding) {
         let urlString = self.url?.absoluteString ?? ""
+        
+        //every body type requires different steps
         switch parameterEncoding {
         case .JSONBody:
             if let parameters {

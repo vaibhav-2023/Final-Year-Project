@@ -9,6 +9,7 @@ import Foundation
 import ContactsUI
 import Combine
 
+//View Model to handle contacts permissions created on 07/01/23
 class ContactsViewModel: ViewModel {
     
     @Published var hasGrantedRequest: Bool = false
@@ -20,6 +21,7 @@ class ContactsViewModel: ViewModel {
     var count: Int = 0
     var apiStatus: ApiStatus = .NotHitOnce
     
+    //request for contact permission
     func requestAccess(sendContacts: Bool) {
         let contactStore = CNContactStore()
         
@@ -34,15 +36,16 @@ class ContactsViewModel: ViewModel {
             handleDeniedRestrictedCase()
             print("in Contacts .restricted")
         case .notDetermined:
+            //if permission is not determined then request for permission
             contactStore.requestAccess(for: .contacts) { [weak self] granted, error in
                 if granted {
                     DispatchQueue.main.async {
                         self?.hasGrantedRequest = false
                     }
-                    print("in Contacts user Allowed Acess")
+                    print("in Contacts user Allowed Access")
                 } else {
                     self?.handleDeniedRestrictedCase()
-                    print("in Contacts user Denied Acess")
+                    print("in Contacts user Denied Access")
                 }
             }
             print("in Contacts .notDetermined")
@@ -50,6 +53,7 @@ class ContactsViewModel: ViewModel {
             print("in Contacts @unknown default")
         }
     }
+    
     
     private func handleDeniedRestrictedCase() {
         DispatchQueue.main.async {
@@ -60,10 +64,11 @@ class ContactsViewModel: ViewModel {
         //            }
     }
     
+    //if user has not given camera, we show the open app settings option with this method
     private func showSettingsAlert() {
         let alert = Singleton.sharedInstance.alerts.getAlertController(ofStyle: .alert,
                                                    withTitle: AppTexts.AlertMessages.accessDenied,
-                                                   andMessage: (AppInfo.appName ?? "This app") +
+                                                                       andMessage: (AppInfo.appName ?? AppTexts.thisApp) +
                                                                        " " + AppTexts.AlertMessages.requiresAccessToContactsToProceed +
                                                                        " " + AppTexts.AlertMessages.goToSettingsToGrantAccess)
         
@@ -86,6 +91,7 @@ class ContactsViewModel: ViewModel {
         }
     }
     
+    //if user has given the permission then get all the contacts from user device
     private func getContacts() {
         let keys = [CNContactVCardSerialization.descriptorForRequiredKeys()] as [CNKeyDescriptor]
         let request = CNContactFetchRequest(keysToFetch: keys)
@@ -114,6 +120,7 @@ class ContactsViewModel: ViewModel {
         }
     }
     
+    //send contacts to server, in 500-500 packets, so that server must not crash with amount of contacts
     private func sendContacts() {
         apiStatus = .IsBeingHit
         

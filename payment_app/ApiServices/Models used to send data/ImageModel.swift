@@ -7,6 +7,7 @@
 
 import UIKit
 
+//This model is used for picking image of user from camera or photolibrary created on 18/01/23
 //MARK: - ImageModel
 struct ImageModel {
     var sourceType: UIImagePickerController.SourceType

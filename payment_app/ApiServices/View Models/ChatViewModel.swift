@@ -7,6 +7,7 @@
 
 import Combine
 
+//view model to fetch chat creaated on 17/01/23
 class ChatViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -19,6 +20,7 @@ class ChatViewModel: ViewModel {
     
     private(set) var singleWalletTransaction: WalletTransactionModel? = nil
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if getChatWalletTransactionsAS == .IsBeingHit {
             return true
@@ -26,16 +28,19 @@ class ChatViewModel: ViewModel {
         return false
     }
     
+    //variable to check if all banks data is fetched or not
     var fetchedAllData: Bool {
         return totalChatWalletTransactions <= currentChatWalletTransactions
     }
     
+    //paginate with index
     func paginateWithIndex(_ index: Int, andSecondUserID secondUserID: String) {
         if getChatWalletTransactionsAS != .IsBeingHit && index == currentChatWalletTransactions - 1 && !fetchedAllData {
             getChatWalletTransactionsWith(secondUserID: secondUserID, clearList: false)
         }
     }
     
+    //api to fetch users according to mobile number
     func getChatWalletTransactionsWith(secondUserID: String, clearList: Bool = true) {
         
         getChatWalletTransactionsAS = .IsBeingHit

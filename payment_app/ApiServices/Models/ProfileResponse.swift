@@ -7,6 +7,7 @@
 
 import Foundation
 
+//User Get Profile Model created on 11/01/23
 //MARK: - LoginResponse
 struct ProfileResponse: Codable {
     let status: Int?

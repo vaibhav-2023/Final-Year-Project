@@ -10,13 +10,16 @@ import SwiftUI
 @main
 struct payment_appApp: App {
     
+    //set up app delegate with app
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    //set up app environment object with app
     @ObservedObject private var appEnvironmentObject = Singleton.sharedInstance.appEnvironmentObject
     
     var body: some Scene {
         WindowGroup {
             ZStack {
+                //handle content view changes acc. to app environment object's ContentView
                 if appEnvironmentObject.changeContentView {
                     ContentView()
                         .environmentObject(appEnvironmentObject)

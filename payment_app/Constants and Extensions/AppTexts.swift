@@ -24,6 +24,7 @@ class AppTexts {
     static let noTransactionsFound = "No Transactions Found"
     static let noBankAccountsAdded = "No Bank Accounts Added"
     static let willBeAddedSoon = "Will be Added Soon"
+    static let thisApp = "This app"
     
     //login
     static let enterYourMobileNumberToContinue = "Enter your mobile number to continue"

@@ -7,6 +7,7 @@
 
 import Combine
 
+//view model to fetch wallet transactions created on 13/01/23
 class WalletTransactionsViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -20,6 +21,7 @@ class WalletTransactionsViewModel: ViewModel {
     
     private(set) var singleWalletTransaction: WalletTransactionModel? = nil
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if getWalletTransactionsAS == .IsBeingHit || getWalletTransactionDetailsAS == .IsBeingHit {
             return true
@@ -27,16 +29,19 @@ class WalletTransactionsViewModel: ViewModel {
         return false
     }
     
+    //variable to check if all banks data is fetched or not
     var fetchedAllData: Bool {
         return totalWalletTransactions <= currentWalletTransactions
     }
     
+    //paginate with index
     func paginateWithIndex(_ index: Int) {
         if getWalletTransactionsAS != .IsBeingHit && index == currentWalletTransactions - 1 && !fetchedAllData {
             getWalletTransactions(clearList: false)
         }
     }
     
+    //api to fetch wallet transactions
     func getWalletTransactions(clearList: Bool = true) {
         
         getWalletTransactionsAS = .IsBeingHit

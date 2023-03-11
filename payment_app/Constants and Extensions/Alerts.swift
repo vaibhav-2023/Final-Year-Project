@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//Singleton Class for creating and presting alerts created on 31/12/22
 class Alerts {
     //MARK: - variables
     private let attributedTitleKey = "attributedTitle"
@@ -16,6 +17,7 @@ class Alerts {
     private let titleAttributes = [NSAttributedString.Key.font: UIFont.bitterMedium(size: 17), NSAttributedString.Key.foregroundColor: UIColor.blackColor]
     private let messageAttributes = [NSAttributedString.Key.font: UIFont.bitterRegular(size: 14), NSAttributedString.Key.foregroundColor: UIColor.blackColor]
     
+    //function to show alert as a toast
     func showToast(withMessage message: String, seconds: Double = 2.0) {
         let alert = getAlertController(ofStyle: .alert, withTitle: message, andMessage: nil)
         //alert.view.backgroundColor = UIColor.lightPrimaryColor
@@ -30,6 +32,7 @@ class Alerts {
         }
     }
     
+    //function get Alert Controller with only title and message
     func getAlertController(ofStyle style: UIAlertController.Style, withTitle title: String?, andMessage message: String?) -> UIAlertController {
         let alert = UIAlertController(title: "", message: "", preferredStyle: style)
         
@@ -46,10 +49,12 @@ class Alerts {
         return alert
     }
     
+    //create an error alert with error title and message
     func errorAlertWith(message: String){
         alertWith(title: AppTexts.AlertMessages.errorWithExclamation, message: message)
     }
 
+    //alert with 
     func alertWith(title: String, message: String?,
                    defaultButtonTitle: String = AppTexts.AlertMessages.ok,
                    defaultButtonAction: ((UIAlertAction) -> Void)? = nil) {

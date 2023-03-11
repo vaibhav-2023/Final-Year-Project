@@ -7,17 +7,20 @@
 
 import Foundation
 
+//Protocol for Endpoints used in the app created on 31/12/22
 //MARK: - Endpoints
 protocol EndpointsProtocol {
     func getURLString() -> String
 }
 
-//MARK: - AppEndpoints
+//MARK: - AppEndpoints created on 31/12/22
 enum AppEndpoints: String, EndpointsProtocol {
+    //generate URL String
     func getURLString() -> String {
         return AppURLs.getAPIURL() + self.rawValue
     }
     
+    //Endpoints
     case loginRegister = "loginRegister",
          resendOTP = "resendOTP",
          verifyOTP = "verifyOtp",

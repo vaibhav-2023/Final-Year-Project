@@ -439,7 +439,6 @@
 				528B592B29653C810076A88A /* LoginResponse.swift */,
 				526F1050296EBCA5000CF16C /* AllBanksResponse.swift */,
 				526F104C296E786D000CF16C /* VerifyOTPResponse.swift */,
-				52BC3FB7296935BD003A0B42 /* ContactsModel.swift */,
 				521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */,
 				52E0B9982970FE6A0022F0CE /* WalletTransactionsListResponse.swift */,
 				52E0B99C297100F00022F0CE /* SingleWalletTransactionResponse.swift */,
@@ -453,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				520660732960132B00D65347 /* FileModel.swift */,
+				52BC3FB7296935BD003A0B42 /* ContactsModel.swift */,
 				52A6F3A62977C774005951B4 /* ImageModel.swift */,
 				52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */,
 			);

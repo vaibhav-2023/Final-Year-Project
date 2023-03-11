@@ -7,12 +7,14 @@
 
 import Combine
 
+//view model to perform payment created on 13/01/23
 class PaymentViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
     
     @Published private(set) var addWalletTransactionAS: ApiStatus = .NotHitOnce
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if addWalletTransactionAS == .IsBeingHit {
             return true
@@ -20,6 +22,7 @@ class PaymentViewModel: ViewModel {
         return false
     }
     
+    //add new wallet transaction
     func addWalletTransactions(fromBankAccount: UserAddedBankAccountModel?,
                                toUser: UserModel?,
                                toBankAccount: UserAddedBankAccountModel?,
@@ -68,6 +71,7 @@ class PaymentViewModel: ViewModel {
             }
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
+                //when payment is added, send user to the payment details screen
                 Singleton.sharedInstance.appEnvironmentObject.walletTransactionDetails = response.data
                 Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
                 self?.addWalletTransactionAS = .ApiHit

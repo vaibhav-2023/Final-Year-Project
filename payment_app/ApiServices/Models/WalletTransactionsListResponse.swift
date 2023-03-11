@@ -7,6 +7,7 @@
 
 import Foundation
 
+//This Model is used when getting list of wallet transactions created on 13/01/23
 // MARK: - WalletTransactionsListResponse
 struct WalletTransactionsListResponse: Codable {
     let success: Bool?
@@ -19,6 +20,7 @@ struct WalletTransactionsListResponse: Codable {
     }
 }
 
+//This Model is used for storing single wallet transaction
 // MARK: - WalletTransactionModel
 struct WalletTransactionModel: Codable, Hashable {
     
@@ -49,6 +51,7 @@ struct WalletTransactionModel: Codable, Hashable {
         case toBankID = "toBankId"
     }
     
+    //used to fetch user model to whom payment is done
     var getPaidToUserModel: UserModel? {
         if let paidToUserID {
             return paidToUserID

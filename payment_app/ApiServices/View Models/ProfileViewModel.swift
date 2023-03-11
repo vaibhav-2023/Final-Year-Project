@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+//view model to perform actions related to logged in user details created on 04/01/23
 class ProfileViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -18,6 +19,7 @@ class ProfileViewModel: ViewModel {
     
     private(set) var userModel: UserModel? = Singleton.sharedInstance.generalFunctions.getUserModel()
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if fillDetailsAS == .IsBeingHit || profileAPIAS == .IsBeingHit {
             return true
@@ -25,6 +27,7 @@ class ProfileViewModel: ViewModel {
         return false
     }
     
+    //fill user details api
     func hitFillUserDetailsAPI(withName name: String, email: String, andImageModel imageModel: ImageModel?) {
         
         fillDetailsAS = .IsBeingHit
@@ -34,6 +37,7 @@ class ProfileViewModel: ViewModel {
                       "email": email] as JSONKeyPair
         
         var fileModel: [FileModel] = []
+        //if user has selected any image, only then send image details
         if let imageData = imageModel?.imageData {
             fileModel.append(contentsOf: [FileModel(file: imageData,
                                                     fileKeyName: "profilePic",
@@ -65,6 +69,7 @@ class ProfileViewModel: ViewModel {
             }.store(in: &cancellable)
     }
     
+    //function to fetch logged in user details
     func getProfile() {
         
         profileAPIAS = .IsBeingHit
@@ -96,6 +101,7 @@ class ProfileViewModel: ViewModel {
             }.store(in: &cancellable)
     }
     
+    //function to logout user
     func logoutUser() {
         
         logoutAS = .IsBeingHit

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+//Banks View Model created on 11/01/23
 class AllBanksViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -18,6 +19,7 @@ class AllBanksViewModel: ViewModel {
     private var currentBanksLength = 0
     private(set) var banks: [BankModel?] = []
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if getBanksAS == .IsBeingHit {
             return true
@@ -25,16 +27,19 @@ class AllBanksViewModel: ViewModel {
         return false
     }
     
+    //variable to check if all banks data is fetched or not
     var fetchedAllData: Bool {
         return totalBanks <= currentBanksLength
     }
     
+    //paginate with index
     func paginateWithIndex(_ index: Int) {
         if getBanksAS != .IsBeingHit && index == currentBanksLength - 1 && !fetchedAllData {
             getAllBanks(clearList: false)
         }
     }
     
+    //function to fetch bank details
     func getAllBanks(clearList: Bool = true) {
         
         getBanksAS = .IsBeingHit

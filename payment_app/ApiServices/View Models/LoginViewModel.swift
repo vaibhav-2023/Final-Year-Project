@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import UIKit
 
+//view model used for login/register and verify OTP Api's created on 04/01/23
 class LoginViewModel: ViewModel {
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -19,6 +20,7 @@ class LoginViewModel: ViewModel {
     
     //private(set) var loginModel: LoginModel? = nil
     
+    //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
         if loginAS == .IsBeingHit || resendOTPAS == .IsBeingHit || fillDetailsAS == .IsBeingHit {
             return true
@@ -26,11 +28,13 @@ class LoginViewModel: ViewModel {
         return false
     }
     
+    //save user information in device UserDefaults after login
     private func saveUserInformation(_ verifyOTPResponse: VerifyOTPResponse?) {
         UserDefaults.standard.set(verifyOTPResponse?.token, forKey: UserDefaultKeys.authToken)
         Singleton.sharedInstance.generalFunctions.saveUserModel(verifyOTPResponse?.data)
     }
     
+    //function to send OTP to mobile number
     func sendOTPTo(mobileNumber: String, withCountryCode countryCode: String) {
         
         loginAS = .IsBeingHit
@@ -68,6 +72,7 @@ class LoginViewModel: ViewModel {
         }.store(in: &cancellable)
     }
     
+    //function to resend OTP to mobile number
     func resendOTPTo(mobileNumber: String, withCountryCode countryCode: String) {
         let params = ["phone": mobileNumber,
                       "numericCountryCode": countryCode,
@@ -101,6 +106,7 @@ class LoginViewModel: ViewModel {
         }.store(in: &cancellable)
     }
     
+    //function to verify OTP
     func verifyOTP(_ otp: String, sendToMobileNumber mobileNumber: String, withCountryCode countryCode: String) {
         
         let token = UserDefaults.standard.string(forKey: UserDefaultKeys.firebaseToken) ?? ""
@@ -134,7 +140,9 @@ class LoginViewModel: ViewModel {
             }
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
+                //if user has verified OTP save user details and auth Token
                 self?.saveUserInformation(response)
+                //if user has filled personel details check if user has added bank accounts
                 if let name = response.data?.name, !name.isEmpty {
                     if let banks = response.data?.banks, !banks.isEmpty {
                         self?.loginAS = .LoggedIn
@@ -150,6 +158,7 @@ class LoginViewModel: ViewModel {
         }.store(in: &cancellable)
     }
     
+    //fill user details api
     func hitFillUserDetailsAPI(withName name: String, email: String, andImageModel imageModel: ImageModel?) {
         
         fillDetailsAS = .IsBeingHit
@@ -159,6 +168,7 @@ class LoginViewModel: ViewModel {
                       "email": email] as JSONKeyPair
         
         var fileModel: [FileModel] = []
+        //if user has selected any image, only then send image details
         if let imageData = imageModel?.imageData {
             fileModel.append(contentsOf: [FileModel(file: imageData,
                                                     fileKeyName: "profilePic",
@@ -181,6 +191,7 @@ class LoginViewModel: ViewModel {
             }
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
+                //save updated details of user in user details
                 Singleton.sharedInstance.generalFunctions.saveUserModel(response.data)
                 if let banks = response.data?.banks, !banks.isEmpty {
                     self?.loginAS = .LoggedIn

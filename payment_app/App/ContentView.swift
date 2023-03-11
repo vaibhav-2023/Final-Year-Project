@@ -23,18 +23,22 @@ struct ContentView: View {
 //        }
     }
     
-    var content: some View {
+    private var content: some View {
         Group {
+            //if user is logged in(condition added on 04/01/23)
             if Singleton.sharedInstance.generalFunctions.isUserLoggedIn() {
+                //if user is logged and details of banks are not filled, open fill bank details screen(condition added on 04/01/23)
                 if Singleton.sharedInstance.appEnvironmentObject.openFillBankDetailsScreen {
                     FillBankDetailsScreen(isUserFromContentView: true)
                         .onAppear {
                             Singleton.sharedInstance.appEnvironmentObject.openFillBankDetailsScreen = false
                         }
                 } else {
+                    //if user is logged and details of banks are filled, open home screen
                     HomeScreen()
                 }
             } else {
+                //if user is not logged in open login screen
                 LoginScreen()
             }
         }.navigationBarTitle("", displayMode: .inline)

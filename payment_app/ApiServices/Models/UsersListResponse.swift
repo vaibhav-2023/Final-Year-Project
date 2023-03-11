@@ -7,6 +7,7 @@
 
 import Foundation
 
+//This Model is used when getting list of users created on 12/01/23
 // MARK: - UsersListResponse
 struct UsersListResponse: Codable {
     let success: Bool?
