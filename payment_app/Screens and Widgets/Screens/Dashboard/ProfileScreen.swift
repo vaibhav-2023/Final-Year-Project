@@ -9,13 +9,17 @@ import SwiftUI
 
 struct ProfileScreen: View {
     
+    //For Handling View Model added on 06/01/23
     @StateObject private var profileVM = ProfileViewModel()
     
+    //variable used for navigation
     @State private var selection: Int? = nil
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //View to be shown
     var body: some View {
         ZStack {
             addNavigationLinks()
@@ -24,6 +28,7 @@ struct ProfileScreen: View {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
                         HStack(alignment: .bottom) {
+                            //updated on 06/01/23
                             let name = (profileVM.userModel?.name ?? "").capitalized
                             VStack(alignment: .leading, spacing: spacing) {
                                 Text(name)
@@ -81,6 +86,7 @@ struct ProfileScreen: View {
                             }
                             listTile(withTitle: AppTexts.logout) {
                                 Singleton.sharedInstance.alerts.alertWith(title: AppTexts.logout + "?", message: AppTexts.AlertMessages.areYouSureYouWantToLogoutFromApp + "?", defaultButtonTitle: AppTexts.logout, defaultButtonAction: {_ in
+                                    //updated on 06/01/23
                                     if !profileVM.isAnyApiBeingHit {
                                         profileVM.logoutUser()
                                     }
@@ -99,6 +105,7 @@ struct ProfileScreen: View {
             }
     }
     
+    //for navigation in the app
     @ViewBuilder
     private func addNavigationLinks() -> some View {
         NavigationLink(destination: ProfileInfoScreen(), tag: NavigationEnum.ProfileInfoScreen.rawValue, selection: $selection) {
@@ -114,6 +121,7 @@ struct ProfileScreen: View {
         }
     }
     
+    //to show options in the view
     @ViewBuilder
     private func listTile(withTitle title: String, iconPressed: @escaping () -> Void) -> some View {
         Button {

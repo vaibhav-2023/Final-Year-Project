@@ -1,12 +1,13 @@
 //
 //  BlurView.swift
-//  FittDroid
+//  payment_app
 //
-//  Created by MacBook Pro on 10/01/22.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//Used for getting Blur Effect from UIKit and use it in SwiftUI Views
 struct BlurView: UIViewRepresentable {
     typealias UIViewType = UIVisualEffectView
     

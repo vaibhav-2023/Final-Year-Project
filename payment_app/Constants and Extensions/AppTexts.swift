@@ -7,6 +7,7 @@
 
 import Foundation
 
+//All App Texts used in app are stored in this file created on 31/12/22
 class AppTexts {
     //common
     static let minute = "Minute"
@@ -116,6 +117,7 @@ class AppTexts {
     //qr code details
     static let selectedBank = "Selected Bank"
     
+    //messages to be shown in alerts
     class AlertMessages {
         //common
         static let successWithExclamation = "Success!"
@@ -181,6 +183,7 @@ class AppTexts {
         static let areYouSureYouWantToLogoutFromApp = "Are you sure you want to logout from app"
     }
     
+    //placeholders to be shown in textfields
     class TextFieldPlaceholders {
         static let search = "Search"
         

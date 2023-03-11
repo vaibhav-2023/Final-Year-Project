@@ -9,21 +9,27 @@ import SwiftUI
 
 struct HomeScreen: View {
     
+    //Environment Object for handling state of the app
     @EnvironmentObject var appEnvironmentObject: AppEnvironmentObject
     
+    //For Handling View Model added on 07/01/23
     @StateObject private var profileVM = ProfileViewModel()
     @StateObject private var cameraVM = CameraViewModel()
     
+    //Variables used for navigation and presentation
     @State private var selection: Int? = nil
     @State private var scanResult: String? = nil
     @State private var qrCodeScannedModel: QrCodeScannedModel? = nil
     
+    //constants for VGrid
     private let columns = [GridItem(.flexible()),
                            GridItem(.flexible()),
                            GridItem(.flexible())]
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //View to be shown
     var body: some View {
         ZStack {
             addNavigationLinks()
@@ -127,6 +133,7 @@ struct HomeScreen: View {
                     selection = NavigationEnum.PaymentDetailsScreen.rawValue
                 }
             }.onChange(of: scanResult) { scanResult in
+                //code added on 16/01/23 for qr code scanning
                 print("IMP scan Result =", scanResult ?? "no data received")
                 if let scanResult {
                     if let qrCodeToURL = URL(string: scanResult),
@@ -147,6 +154,7 @@ struct HomeScreen: View {
             .setNavigationBarTitle(title: AppTexts.home)
     }
     
+    //naivgation links in app
     @ViewBuilder
     private func addNavigationLinks() -> some View {
         Group {
@@ -197,6 +205,7 @@ struct HomeScreen: View {
         }
     }
     
+    //icon button
     @ViewBuilder
     private func icon(_ iconName: String, title: String, iconPressed: @escaping () -> Void) -> some View {
         Button {
@@ -216,6 +225,7 @@ struct HomeScreen: View {
         }
     }
     
+    //list tile options
     @ViewBuilder
     private func listTile(_ iconName: String, title: String, iconPressed: @escaping () -> Void) -> some View {
         let cornerRadius: CGFloat = 5

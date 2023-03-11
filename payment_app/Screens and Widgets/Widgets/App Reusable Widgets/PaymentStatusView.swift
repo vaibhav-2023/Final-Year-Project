@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Used when to show payment complete/error view
 struct PaymentStatusView: View {
     
     private let isPaymentSuccessfull: Bool

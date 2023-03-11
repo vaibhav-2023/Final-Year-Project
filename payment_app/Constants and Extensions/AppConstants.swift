@@ -8,12 +8,14 @@
 import Foundation
 import SwiftUI
 
+//Struct to get device width and height
 //MARK: - DeviceDimensions
 struct DeviceDimensions {
     static let width = UIScreen.main.bounds.size.width
     static let height = UIScreen.main.bounds.size.height
 }
 
+//Class to storing app urls
 class AppURLs {
     static let baseURL = "https://866d-2405-201-500b-1852-7428-7aea-aff5-6dcf.in.ngrok.io/"
     
@@ -26,6 +28,7 @@ class AppURLs {
     //    }
 }
 
+//struct related to app info
 //MARK: - AppInfo
 struct AppInfo {
     static let bundleIdentifier = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
@@ -34,6 +37,7 @@ struct AppInfo {
     static var appId = 0
 }
 
+//static keys used for storing data in device storage
 //MARK: - UserDefaultKeys
 struct UserDefaultKeys {
     static let apnDeviceToken = "apnDeviceToken"
@@ -44,6 +48,7 @@ struct UserDefaultKeys {
     static let userModelUserID = "userModelUserID"
 }
 
+//static Date Formats
 //MARK: - DateFormats
 struct DateFormats {
     // yyyy - year
@@ -64,14 +69,17 @@ struct DateFormats {
 }
 
 //MARK: - enums
+//enum for different API methods
 enum HTTPMethod: String {
     case GET, POST, PUT, DELETE
 }
 
+//enum for sending data in an API
 enum ParameterEncoding: String {
     case JSONBody, URLFormEncoded, FormData
 }
 
+//HTTP errors
 //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses
 //Informational responses (100-199)
 //Successful responses (200–299)
@@ -82,27 +90,33 @@ enum APIError: Error {
     case InternetNotConnected, UrlNotValid, MapError, InvalidHTTPURLResponse, InformationalError(Int), DecodingError, RedirectionalError(Int), ClientError(ClientErrorsEnum), ServerError(Int), Unknown(Int)
 }
 
+//Errors ranging between 400–499
 enum ClientErrorsEnum: Int {
     case BadRequest = 400, Unauthorized = 401, PaymentRequired = 402, Forbidden = 403, NotFound = 404, MethodNotAllowed = 405, NotAcceptable = 406, URITooLong = 414, Other
 }
 
+//For Handling Api Status
 enum ApiStatus {
     case NotHitOnce, IsBeingHit, ApiHit, ApiHitWithError
 }
 
+//For Handling Login Api Status
 enum LoginApiStatus {
     case NotHitOnce, IsBeingHit, OTPSent, FillDetails, FillBankDetails, LoggedIn, ApiHitWithError
 }
 
+//App Fonts Enum
 enum FontEnum {
     case Light, Regular, Medium, SemiBold, Bold
 }
 
+//App Navigation Enum
 enum NavigationEnum: Int {
     case Login, OTPVerify, FillDetails, FillBankDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToUPIIDScreen, PayToContactScreen, PayToNumberScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen, ChatScreen, PaymentDetailsScreen, FillDetailsBankTransferScreen
 }
 
 //MARK: - App Colors
+//For having static App Colors and using them for SwiftUI Framework
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Color {
     static let blackColor = Color(.blackColor)
@@ -122,6 +136,7 @@ extension Color {
     static let whiteColorForAllModes = Color(.whiteColorForAllModes)
 }
 
+//For having static App Colors and using them for UIKit Framework
 //MARK: - UIColor
 extension UIColor {
     static let blackColor = UIColor(named: "blackColor") ?? UIColor.clear
@@ -141,7 +156,8 @@ extension UIColor {
     static let whiteColorForAllModes = UIColor(named: "whiteColorForAllModes") ?? UIColor.clear
 }
 
-//MARK: Font
+//MARK: - Font
+//For having static App Fonts and using them for SwiftUI Framework
 extension Font {
     static func bitterLight(size: CGFloat) -> Font {
         return Font(UIFont.bitterLight(size: size) as CTFont)
@@ -165,6 +181,7 @@ extension Font {
 }
 
 //MARK: - UIFont
+//For having static App Fonts and using them for UIKit Framework
 extension UIFont {
     static func bitterLight(size: CGFloat) -> UIFont {
         return UIFont(name: "Bitter-Light", size: size) ?? .systemFont(ofSize: size)

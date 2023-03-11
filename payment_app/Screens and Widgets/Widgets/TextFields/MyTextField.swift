@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+//Custom made textfield with maxLength handling
 struct MyTextField: View {
     
     private let placeHolder: String

@@ -9,28 +9,35 @@ import SwiftUI
 
 struct PaymentDetailsScreen: View {
     
+    //Environment Object for handling state of the app
     @EnvironmentObject var appEnvironmentObject: AppEnvironmentObject
     
+    //For Handling View Model added on 13/01/23
     @StateObject private var walletVM = WalletTransactionsViewModel()
     
     private let walletTransactionsDetails: WalletTransactionModel?
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //Constructors
     init(walletTransactionsDetails: WalletTransactionModel?) {
         self.walletTransactionsDetails = walletTransactionsDetails
     }
     
+    //View to be shown
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 
+                //updated on 13/01/23
                 let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletVM.singleWalletTransaction?.paidByUserID?.id
                 let isPaymentSuccessfull = walletVM.singleWalletTransaction?.isPaymentSuccessful ?? false
                 
                 VStack(spacing: spacing) {
                     HStack(alignment: .top) {
+                        //updated on 13/01/23
                         let name = (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized
                         VStack(alignment: .leading, spacing: spacing) {
                             Text(isDebit ? AppTexts.to : AppTexts.from)
@@ -51,6 +58,7 @@ struct PaymentDetailsScreen: View {
 //                        }
                     }
                     
+                    //updated on 13/01/23
                     let mobileNumber = (walletVM.singleWalletTransaction?.getPaidToUserModel?.numericCountryCode ?? "") + " " + (walletVM.singleWalletTransaction?.getPaidToUserModel?.phone ?? "")
                     Text("\(AppTexts.mobileNumber):- \(mobileNumber)")
                         .fontCustom(.Medium, size: 16)
@@ -94,6 +102,7 @@ struct PaymentDetailsScreen: View {
                             .foregroundColor(.blackColor)
                             .fontCustom(.Medium, size: 16)
                         
+                        //updated on 13/01/23
                         userDetails(title: AppTexts.from, userDetails: (walletVM.singleWalletTransaction?.paidByUserID?.name ?? "").capitalized)
                         userDetails(title: AppTexts.to, userDetails: (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized)
                     }
@@ -102,6 +111,7 @@ struct PaymentDetailsScreen: View {
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .onAppear {
+                //updated on 13/01/23
                 if walletVM.singleWalletTransaction == nil, let walletTransactionsDetails {
                     walletVM.setWalletTransactionDetails(walletTransactionsDetails)
                 }
@@ -112,6 +122,7 @@ struct PaymentDetailsScreen: View {
             }
     }
     
+    //text view for showing dates
     @ViewBuilder
     private func textView(_ text: String) -> some View {
         Text(text)
@@ -119,6 +130,7 @@ struct PaymentDetailsScreen: View {
             .fontCustom(.Regular, size: 13)
     }
     
+    //show user details
     @ViewBuilder
     private func userDetails(title: String, userDetails: String) -> some View {
         CardView(backgroundColor: .lightBluishGrayColor) {

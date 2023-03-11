@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+//Image Picker View created using UIKit
 struct ImagePickerView: UIViewControllerRepresentable {
+    //value to be update in image model
     @Binding private var imageModel: ImageModel
     
     init(imageModel: Binding<ImageModel>) {
@@ -38,6 +40,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
             self.parent = parent
         }
         
+        //handle image picker callback here...
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             //            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let resizedImage = image.resizedTo1MB() {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

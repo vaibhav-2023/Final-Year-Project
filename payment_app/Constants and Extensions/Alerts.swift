@@ -54,7 +54,7 @@ class Alerts {
         alertWith(title: AppTexts.AlertMessages.errorWithExclamation, message: message)
     }
 
-    //alert with 
+    //alert with default button and action on it
     func alertWith(title: String, message: String?,
                    defaultButtonTitle: String = AppTexts.AlertMessages.ok,
                    defaultButtonAction: ((UIAlertAction) -> Void)? = nil) {
@@ -66,6 +66,7 @@ class Alerts {
         vc?.present(alert, animated: true, completion: nil)
     }
     
+    //alert with default and action button and action on both of them
     func alertWith(title: String, message: String?,
                    defaultButtonTitle: String = AppTexts.AlertMessages.ok,
                    defaultButtonAction: ((UIAlertAction) -> Void)? = nil,
@@ -80,6 +81,7 @@ class Alerts {
         vc?.present(alert, animated: true, completion: nil)
     }
     
+    //action sheet with 3 buttons and action on all of them
     func actionSheetWith(title: String, message: String?,
                          firstDefaultButtonTitle: String,
                          firstDefaultButtonAction: @escaping ((UIAlertAction) -> Void),
@@ -97,6 +99,7 @@ class Alerts {
         vc?.present(alert, animated: true, completion: nil)
     }
 
+    //alert for no internet found
     func internetNotConnectedAlert(outputBlock : @escaping () -> Void){
         let alert = getAlertController(ofStyle: .alert,
                                        withTitle: AppTexts.AlertMessages.networkUnreachableWithExclamation,
@@ -110,6 +113,7 @@ class Alerts {
         vc?.present(alert, animated: true, completion: nil)
     }
 
+    //alert for handling 401 status code added on 09/01/23
     func handle401StatueCode(){
         let alert = getAlertController(ofStyle: .alert,
                                        withTitle: AppTexts.AlertMessages.sessionExpiredWithExclamation,

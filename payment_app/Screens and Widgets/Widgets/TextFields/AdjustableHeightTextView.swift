@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Adjustable Height View created for message text view in chat screen
 struct AdjustableHeightTextView: UIViewRepresentable {
 
     @Binding private var height: CGFloat

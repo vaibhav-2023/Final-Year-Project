@@ -1,12 +1,13 @@
 //
 //  MinWidthButton.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 02/12/21.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//Button which will cover all only required horizontal space
 struct MinWidthButton: View {
     
     private let text: String

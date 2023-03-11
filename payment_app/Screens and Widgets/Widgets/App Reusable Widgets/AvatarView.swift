@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Avatar View, which will show first letter of name or the profile pic of the user
 struct AvatarView: View {
     
     private let character: String

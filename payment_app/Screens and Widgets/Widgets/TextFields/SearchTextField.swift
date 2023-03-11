@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Search Field created to perform search operations
 struct SearchTextField: View {
     
     @State private var showCancelButton: Bool = false

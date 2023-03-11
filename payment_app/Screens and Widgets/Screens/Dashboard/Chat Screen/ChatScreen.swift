@@ -9,27 +9,34 @@ import SwiftUI
 
 struct ChatScreen: View {
     
+    //environment variable to pop the screen
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    //For Observing View Model added on 17/01/23
     @StateObject private var userDetailsVM = UserDetailsViewModel()
     @StateObject private var chatVM = ChatViewModel()
     
+    //Variables used for view
     @State private var scrollViewReader: ScrollViewProxy?
     @State private var textViewHeight: CGFloat = 34
     @State private var messageText: String = ""
     @State private var selectedWalletTransaction: WalletTransactionModel? = nil
     
+    //variable used for navigation
     @State private var selection: Int? = nil
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //value received from previous screen
     private let payToUserModel: UserModel?
     
     init(payToUserModel: UserModel?) {
         self.payToUserModel = payToUserModel
     }
     
+    //View to be shown
     var body: some View {
         ZStack {
             NavigationLink(destination: PayToScreen(payToUserModel: userDetailsVM.userDetails), tag: NavigationEnum.PayToScreen.rawValue, selection: $selection) {
@@ -42,15 +49,18 @@ struct ChatScreen: View {
             
             VStack(spacing: spacing) {
                 let count = chatVM.chatWalletTransactions.count
+                //if api is hit and chat messages are empty show empty view
                 if chatVM.getChatWalletTransactionsAS == .ApiHit && count == 0 {
                     EmptyListView(text: AppTexts.noTransactionsFound)
                 } else if count != 0 {
+                    //if chat messages are not empty show all
                     ScrollViewReader { scrollViewReader in
                         List {
                             ForEach(Array((chatVM.chatWalletTransactions.reversed()).enumerated()), id: \.1) { index, chatWalletTransaction in
                                 let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  chatWalletTransaction?.paidByUserID?.id
                                 let isPayment = true
                                 Group {
+                                    //if the message invloves info related to payment, on click open transactions dettails
                                     if isPayment {
                                         Button {
                                             selection = NavigationEnum.PaymentDetailsScreen.rawValue
@@ -78,7 +88,9 @@ struct ChatScreen: View {
                             .onLongPressGesture(minimumDuration: 0.1) {
                                 return
                             }.onAppear {
+                                //update scroll view value in scroll view reader
                                 self.scrollViewReader = scrollViewReader
+                                //scroll to last index, i.e., at the bottom of the view
                                 self.scrollViewReader?.scrollTo(chatVM.chatWalletTransactions.count - 1)
                             }
                     }
@@ -117,14 +129,18 @@ struct ChatScreen: View {
             .navigationBarItems(leading: navigationBarLeadingView)
             .navigationBarBackButtonHidden(true)
             .onAppear {
+                //set user details to view model added on 17/01/23
                 if userDetailsVM.userDetails == nil, let payToUserModel {
                     userDetailsVM.setUserDetails(payToUserModel)
                 }
+                //get details of other user
                 userDetailsVM.getDetailsOfUser()
+                //get chat messages
                 chatVM.getChatWalletTransactionsWith(secondUserID: userDetailsVM.userDetails?.id ?? "")
             }
     }
     
+    //set user image view, name etc in app bar/nav bar
     private var navigationBarLeadingView: some View {
         HStack(spacing: spacing) {
             Button {

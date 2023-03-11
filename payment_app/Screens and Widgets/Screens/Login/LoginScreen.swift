@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+//Login Screen created on 04/01/23
 struct LoginScreen: View {
     
+    //For Observing View Model added on 05/01/23
     @StateObject private var loginVM = LoginViewModel()
     
+    //variable used for navigation
     @State private var selection: Int? = nil
     
+    //variables for storing details filled by user
     @State private var countryCode: String = Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice()
     @State private var mobileNumber: String = ""
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
@@ -64,7 +69,7 @@ struct LoginScreen: View {
             }
     }
     
-    
+    //button on click updated on 05/01/23
     private func onLoginPressed() {
         if mobileNumber.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterMobileNumber)

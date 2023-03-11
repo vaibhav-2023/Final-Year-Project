@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//loader of the app, to show when view is loading
 struct Loader: View {
     
     @Binding private var isPresenting: Bool

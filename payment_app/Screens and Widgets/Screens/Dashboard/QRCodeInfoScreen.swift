@@ -9,15 +9,19 @@ import SwiftUI
 
 struct QRCodeInfoScreen: View {
     
+    //For Handling View Model added on 14/01/23
     @StateObject private var profileVM = ProfileViewModel()
     
+    //Variables used for navigation and presentation
     @State private var selection: Int? = nil
     @State private var showSelectBankSheet: Bool = false
     @State private var selectedBankAccount: UserAddedBankAccountModel? = nil
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //View to be shown
     var body: some View {
         ZStack {
             
@@ -29,6 +33,7 @@ struct QRCodeInfoScreen: View {
                 VStack(spacing: 0) {
                     VStack(spacing: spacing) {
                         HStack(alignment: .bottom) {
+                            //updated on 14/01/23
                             let name = (profileVM.userModel?.name ?? "").capitalized
                             VStack(alignment: .leading, spacing: spacing) {
                                 Text(name)
@@ -113,6 +118,7 @@ struct QRCodeInfoScreen: View {
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .sheet(isPresented: $showSelectBankSheet) {
+                //updated on 14/01/23
                 SelectBankAccountSheet(profileVM: profileVM,
                                        isPresenting: $showSelectBankSheet,
                                        selectedBankAccount: $selectedBankAccount,
@@ -121,6 +127,7 @@ struct QRCodeInfoScreen: View {
             .onAppear {
                 profileVM.getProfile()
             }.onReceive(profileVM.$profileAPIAS) { apiStatus in
+                //updated on 14/01/23
                 if apiStatus == .ApiHit,
                    selectedBankAccount == nil,
                    let banks = profileVM.userModel?.banks,

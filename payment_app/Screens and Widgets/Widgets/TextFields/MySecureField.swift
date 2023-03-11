@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Custom made securefield/passwordfield with hide and show password option
 struct MySecureField: View {
     
     @State private var isTextHidden: Bool = true

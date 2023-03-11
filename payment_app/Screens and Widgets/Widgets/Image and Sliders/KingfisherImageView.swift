@@ -1,13 +1,14 @@
 //
 //  KingfisherImageView.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 17/11/21.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 import Kingfisher// as KF
 
+//to show image from network, using Kingfisher Library
 struct KingfisherImageView: View {
     
     private let urlString: String
@@ -36,6 +37,7 @@ struct KingfisherImageView: View {
         KFImage.url(URL(string: urlString))
             .fade(duration: 1)
             .placeholder {
+                //placeholder when image is not shown
                 Image("placeholder")
                     .resizable()
                     .aspectRatio(aspectRatio, contentMode: contentMode)

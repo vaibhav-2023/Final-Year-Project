@@ -12,19 +12,24 @@ import AVFoundation
 struct ScanQRScreen: View {
     
     //MARK: - Variables
+    //For Observing View Model sent from Previous Screen updated on 17/01/23
     @ObservedObject private var cameraVM: CameraViewModel
     
+    //Variables used for view
     @State private var showGrantAccessScreen: Bool = false
     @State private var showQRCodeScanner: Bool = false
     @State private var torchMode = AVCaptureDevice.TorchMode.off
     
+    //Values send from previous screen
     @Binding private var selection: Int?
     @Binding private var scanResult: String?
     
+    //constants for spacing and padding
     private let padding : CGFloat = 16
     private let spacing : CGFloat = 16
     
     //MARK: - init
+    //Constructor
     init(cameraVM: CameraViewModel,
          selection: Binding<Int?>,
          scanResult: Binding<String?>) {
@@ -34,6 +39,7 @@ struct ScanQRScreen: View {
     }
     
     //MARK: - Views
+    //main view
     var body: some View {
         ZStack {
             NavigationLink(isActive: $showGrantAccessScreen, destination: {
@@ -48,6 +54,7 @@ struct ScanQRScreen: View {
                 EmptyView()
             })
         }.onAppear {
+            //on appearing request for camera permission
             cameraVM.requestAccess()
         }.onChange(of: selection) { selection in
             if selection == NavigationEnum.ScanQRScreen.rawValue {
@@ -61,6 +68,7 @@ struct ScanQRScreen: View {
         }
     }
     
+    // request for camera access view
     private var provideCameraAccessView: some View {
         ZStack {
             VStack(spacing: spacing) {
@@ -81,11 +89,14 @@ struct ScanQRScreen: View {
             .setNavigationBarTitle(title: AppTexts.scanQR)
     }
     
+    //scan qr code screen
     private var scanQRView: some View {
         ZStack {
             let size = DeviceDimensions.width * 0.7
+            //dependency for scanning qr code
             CodeScannerView(codeTypes: [.qr], completion: handleScanResult(result:))
             
+            //updated on 19/01/23
             Rectangle()
                 .foregroundColor(Color.black.opacity(0.5))
                 .mask(SeeThroughShapeView(size: CGSize(width: size, height: size)).fill(style: FillStyle(eoFill: true)))
@@ -95,6 +106,7 @@ struct ScanQRScreen: View {
             .navigationBarItems(trailing: navigationBarTrailingView)
     }
     
+    //navigation bar trailing view
     private var navigationBarTrailingView: some View {
         Button {
             print(torchMode.rawValue)
@@ -112,6 +124,7 @@ struct ScanQRScreen: View {
         }
     }
     
+    //image for showing torch view
     @ViewBuilder
     private func imageView(_ imageName: String) -> some View {
         Image(imageName)
@@ -143,6 +156,7 @@ struct ScanQRScreen: View {
         }
     }
     
+    //for ON/OFF Flash
     private func toggleFlash() {
         let device = AVCaptureDevice.default(for: AVMediaType.video)
         if let device, device.hasTorch {

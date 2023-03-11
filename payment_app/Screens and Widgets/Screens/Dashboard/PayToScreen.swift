@@ -9,10 +9,13 @@ import SwiftUI
 
 struct PayToScreen: View {
     
+    //View Model added on 14/01/23
     @StateObject private var userDetailsVM = UserDetailsViewModel()
     @StateObject private var profileVM = ProfileViewModel()
+    //View Model added on 16/01/23
     @StateObject private var paymentVM = PaymentViewModel()
     
+    //Variables used for view
     @State private var qrCodeScannedModel: QrCodeScannedModel? = nil
     @State private var amount = ""
     @State private var note = ""
@@ -21,13 +24,16 @@ struct PayToScreen: View {
     @State private var selection: Int? = nil
     @State private var selectedBankAccount: UserAddedBankAccountModel? = nil
     
+    //Variables used from previous screen
     @Binding private var qrScannedResultFromPreviousScreen: QrCodeScannedModel?
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
     private let payToUserModel: UserModel?
     
+    //Constructors
     init(payToUserModel: UserModel? = nil,
          qrCodeScannedModel: Binding<QrCodeScannedModel?> = .constant(nil)) {
         self._qrScannedResultFromPreviousScreen = qrCodeScannedModel
@@ -183,6 +189,7 @@ struct PayToScreen: View {
             }
     }
     
+    //added button click on 16/01/23
     private func payBA() {
         let amountInInt = Int(amount) ?? 0
         let minimumAmountRequiredToRecharge = 1

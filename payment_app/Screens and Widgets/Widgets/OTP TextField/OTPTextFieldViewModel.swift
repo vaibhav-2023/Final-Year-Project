@@ -1,13 +1,14 @@
 //
 //  OTPTextFieldViewModel.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 24/01/22.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import Foundation
 import SwiftUI
 
+//View Model for handling String present in OTP Text Field
 class OTPTextFieldViewModel: ObservableObject {
     
     @Published private(set) var borderColor: Color = .blackColor

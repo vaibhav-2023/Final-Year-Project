@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//View with increasing and decreasing opacity, to show that the view is loading
 //https://medium.com/@Mary_Dort/shimmer-effect-with-swiftui-cbe02946c12f
 struct ShimmerView: View {
         
@@ -28,6 +29,7 @@ struct ShimmerView: View {
             .opacity(opacity)
             .transition(.opacity)
             .onAppear {
+                //start timer
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
                     let baseAnimation = Animation.easeInOut(duration: duration)
                     let repeated = baseAnimation.repeatForever(autoreverses: true)

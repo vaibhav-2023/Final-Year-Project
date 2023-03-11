@@ -158,7 +158,7 @@ class LoginViewModel: ViewModel {
         }.store(in: &cancellable)
     }
     
-    //fill user details api
+    //fill user details api added on 05/01/23
     func hitFillUserDetailsAPI(withName name: String, email: String, andImageModel imageModel: ImageModel?) {
         
         fillDetailsAS = .IsBeingHit

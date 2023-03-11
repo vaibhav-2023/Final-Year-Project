@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+//Custom Text View
 struct MyTextView: View {
     
     private let placeHolder: String

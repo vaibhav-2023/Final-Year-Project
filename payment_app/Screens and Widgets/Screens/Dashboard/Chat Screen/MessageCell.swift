@@ -9,15 +9,18 @@ import SwiftUI
 
 struct MessageCell: View {
     
+    //Values to be received updated on 17/01/23
     private let chatWalletTransaction: WalletTransactionModel?
     private let isSent: Bool
     private let isPayment: Bool
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 5
     private let padding: CGFloat = 16
     
-    let maxWidth = DeviceDimensions.width * 0.7
+    private let maxWidth = DeviceDimensions.width * 0.7
     
+    //Constructors
     init(chatWalletTransaction: WalletTransactionModel?,
          isSent: Bool,
          isPayment: Bool) {
@@ -26,8 +29,10 @@ struct MessageCell: View {
         self.isPayment = isPayment
     }
     
+    //View to be shown
     var body: some View {
         HStack {
+            //if message is sent space should be present in front
             if isSent {
                 Spacer(minLength: 1)
             }
@@ -106,6 +111,7 @@ struct MessageCell: View {
                 }
             }.frame(minWidth: 0, idealWidth: 0, maxWidth: maxWidth)
             
+            //if message is not sent, i.e., it is received space should be present in end
             if !isSent {
                 Spacer(minLength: 1)
             }

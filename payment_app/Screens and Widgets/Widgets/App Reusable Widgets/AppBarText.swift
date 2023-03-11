@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//used to show text in nav bar/app bar
 struct AppBarText: View {
     private let title: String
     private let textSize: CGFloat

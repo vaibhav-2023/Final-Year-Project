@@ -1,14 +1,16 @@
 //
 //  CardView.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 03/10/21.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//Card View used to create a crad view with dynamic content in it
 struct CardView<Content> : View where Content : View {
     
+    //Variables to hold values
     private let useMaxWidth: Bool
     private let backgroundColor: Color
     private let cornerRadius: CGFloat
@@ -19,6 +21,7 @@ struct CardView<Content> : View where Content : View {
     private let y: CGFloat
     private let content: Content
     
+    //Constructor
     init(useMaxWidth: Bool = true,
          backgroundColor: Color = .whiteColor,
          cornerRadius: CGFloat = 8,

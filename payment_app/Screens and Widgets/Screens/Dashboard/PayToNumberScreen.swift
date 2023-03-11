@@ -7,18 +7,23 @@
 
 import SwiftUI
 
+//Screen to search numbers and select user to give payment to
 struct PayToNumberScreen: View {
     
+    //For Handling View Model added on 12/01/23
     @StateObject private var usersVM = UsersViewModel()
     
+    //Variables used for view
     @State private var scrollViewReader: ScrollViewProxy?
     @State private var searchText: String = ""
     @State private var selection: Int? = nil
     @State private var selectedUser: UserModel? = nil
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //View to be shown
     var body: some View {
         ZStack {
             
@@ -30,11 +35,14 @@ struct PayToNumberScreen: View {
                 SearchTextField(searchText: $searchText, maxLength: 10, keyboardType: .numberPad)
                     .padding([.top, .horizontal], padding)
                 
+                //if api is hit and users list is empty show empty view updated on 12/01/23
                 if usersVM.getSearchedUsersAS == .ApiHit && usersVM.searchResultUsers.count == 0 {
                     EmptyListView(text: AppTexts.noUsersFound)
                 } else if usersVM.searchResultUsers.count != 0 {
+                    //if users list is not empty show all
                     ScrollViewReader { scrollViewReader in
                         List {
+                            //updated on 12/01/23
                             Section(footer: !usersVM.fetchedAllData ?
                                     ListFooterProgressView()
                                     : nil) {
@@ -71,12 +79,14 @@ struct PayToNumberScreen: View {
                 .setNavigationBarTitle(title: AppTexts.payToNumber)
                 .onChange(of: searchText) { text in
                     if searchText.count > 3 {
+                        //updated on 12/01/23
                         usersVM.searchUsers(withMobileNumber: searchText, clearList: true)
                     }
                 }
         }
     }
     
+    //contact Detail View
     @ViewBuilder
     private func contactDetail(userDetail: UserModel?) -> some View {
         let size = DeviceDimensions.width * 0.12

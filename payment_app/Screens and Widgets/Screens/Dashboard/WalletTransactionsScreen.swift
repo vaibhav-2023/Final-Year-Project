@@ -9,15 +9,19 @@ import SwiftUI
 
 struct WalletTransactionsScreen: View {
     
+    //for handling view model
     @StateObject private var walletTransactionsVM = WalletTransactionsViewModel()
     
+    //Variables used for view
     @State private var scrollViewReader: ScrollViewProxy?
     @State private var selection: Int? = nil
     @State private var selectedWalletTransaction: WalletTransactionModel? = nil
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //View to be shown
     var body: some View {
         ZStack {
             NavigationLink(destination: PaymentDetailsScreen(walletTransactionsDetails: selectedWalletTransaction), tag: NavigationEnum.PaymentDetailsScreen.rawValue, selection: $selection) {
@@ -25,9 +29,11 @@ struct WalletTransactionsScreen: View {
             }
             
             let count = walletTransactionsVM.walletTransactions.count
+            //if api is hit and wallet transactions are empty show empty view
             if walletTransactionsVM.getWalletTransactionsAS == .ApiHit && count == 0 {
                 EmptyListView(text: AppTexts.noTransactionsFound)
             } else if count != 0 {
+                //if wallet transactions are not empty show all
                 ScrollViewReader { scrollViewReader in
                     List {
                         Section(footer: !walletTransactionsVM.fetchedAllData ?
@@ -53,6 +59,7 @@ struct WalletTransactionsScreen: View {
                         .onLongPressGesture(minimumDuration: 0.1) {
                             return
                         }.onAppear {
+                            //update scroll view value in scroll view reader
                             self.scrollViewReader = scrollViewReader
                         }
                 }
@@ -66,6 +73,7 @@ struct WalletTransactionsScreen: View {
             }
     }
     
+    //Wallet Transaction Cell
     @ViewBuilder
     private func walletTransactionCell(withDetails walletTransaction: WalletTransactionModel?) -> some View {
         let size = DeviceDimensions.width * 0.12

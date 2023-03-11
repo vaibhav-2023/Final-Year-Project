@@ -9,17 +9,22 @@ import SwiftUI
 
 struct SelectBankAccountSheet: View {
     
+    //For Observing View Model sent from Previous Screen updated on 07/01/23
     @ObservedObject private var profileVM: ProfileViewModel
     
+    //Variables used for view
     @State private var scrollViewReader: ScrollViewProxy?
     
+    //Values received from previous screen
     @Binding private var isPresenting: Bool
     @Binding private var selectedBankAccount: UserAddedBankAccountModel?
     @Binding private var selection: Int?
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //Constructors
     init(profileVM: ProfileViewModel,
          isPresenting: Binding<Bool>,
          selectedBankAccount: Binding<UserAddedBankAccountModel?>,
@@ -30,6 +35,7 @@ struct SelectBankAccountSheet: View {
         self._selection = selection
     }
     
+    //View to be shown
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: spacing) {
@@ -39,9 +45,11 @@ struct SelectBankAccountSheet: View {
                     .padding([.top, .horizontal], padding)
                 
                 let count = profileVM.userModel?.banks?.count ?? 0
+                //if api is hit and user bank accounts are empty show empty view
                 if profileVM.profileAPIAS == .ApiHit && count == 0 {
                     EmptyListView(text: AppTexts.noBankAccountsAdded)
                 } else if count != 0 {
+                    //if user bank accounts are not empty show all
                     ScrollViewReader { scrollViewReader in
                         List {
                             ForEach(Array((profileVM.userModel?.banks ?? []).enumerated()), id: \.1) { index, bankAccountDetails in
@@ -71,6 +79,7 @@ struct SelectBankAccountSheet: View {
                             .onLongPressGesture(minimumDuration: 0.1) {
                                 return
                             }.onAppear {
+                                //update scroll view value in scroll view reader
                                 self.scrollViewReader = scrollViewReader
                             }
                     }
@@ -86,6 +95,7 @@ struct SelectBankAccountSheet: View {
         }.background(Color.whiteColor.ignoresSafeArea())
             .setNavigationBarTitle(title: AppTexts.bankAccounts)
             .onAppear {
+                //on appear hit profile api to fetch user bank accounts
                 profileVM.getProfile()
             }
         

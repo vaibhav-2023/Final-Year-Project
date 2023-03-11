@@ -9,8 +9,10 @@ import SwiftUI
 
 struct PayToUPIIDScreen: View {
     
+    //Variables used for view
     @State private var searchText: String = ""
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     

@@ -1,12 +1,13 @@
 //
 //  ImageView.swift
-//  k_brand
+//  payment_app
 //
-//  Created by MacBook Pro on 18/02/22.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//image view with is system image option
 struct ImageView: View {
     
     private let imageName: String

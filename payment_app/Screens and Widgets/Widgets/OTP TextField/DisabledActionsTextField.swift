@@ -1,12 +1,14 @@
 //
 //  DisabledActionsTextField.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 24/01/22.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//Text Field with no options like copy, cut, paste etc.
+//Created it using UIKit
 struct DisabledActionsTextField: UIViewRepresentable {
 
     private let placeholder: String

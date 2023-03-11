@@ -1,12 +1,13 @@
 //
 //  MaxWidthButton.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 01/10/21.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//Button which will cover all possible horizontal space
 struct MaxWidthButton: View {
     
     private let text: String

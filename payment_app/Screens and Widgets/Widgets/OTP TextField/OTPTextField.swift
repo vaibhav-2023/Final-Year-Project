@@ -1,13 +1,14 @@
 //
 //  OTPTextField.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 24/01/22.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 import Combine
 
+//OTP Text Field created using following links
 //https://stackoverflow.com/questions/69025986/creating-otp-page-for-swiftui-using-textfield
 //https://imthath.medium.com/swiftui-passcode-field-for-otp-and-pin-entry-b61ba663dc31
 struct OTPTextField: View {
@@ -52,6 +53,7 @@ struct OTPTextField: View {
                     .accentColor(.clear)
                     .background(Color.clear)
                     .onReceive(Just(viewModel.otpField)) { newValue in
+                        //enter only required characters in text field
                         let filtered = newValue.filter { "0123456789".contains($0) }
                         let maxLength = 4
                         if(filtered.count <= maxLength){
@@ -66,7 +68,9 @@ struct OTPTextField: View {
         }
     }
     
-    @ViewBuilder private func otpText(text: String) -> some View {
+    //Create Single OTP Text Field
+    @ViewBuilder
+    private func otpText(text: String) -> some View {
         Text(text)
                 .fontCustom(.Medium, size: 24)
                 .foregroundColor(.blackColorForAllModes)

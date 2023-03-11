@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PayToContactScreen: View {
     
+    //View Model used to send contacts
     @StateObject private var contactVM = ContactsViewModel()
     
     var body: some View {

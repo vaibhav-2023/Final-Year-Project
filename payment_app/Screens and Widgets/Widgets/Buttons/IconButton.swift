@@ -1,12 +1,13 @@
 //
 //  IconButton.swift
-//  gulati_handlom
+//  payment_app
 //
-//  Created by MacBook Pro on 04/10/21.
+//  Created by MacBook Pro on 31/12/22.
 //
 
 import SwiftUI
 
+//Button with Icon in it's Content View
 struct IconButton: View {
     
     private let imageName: String

@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+//This View is shown when no data is found, or when list is empty
 struct EmptyListView: View {
     
+    //image to show and text to show under image
     private let imageName: String
     private let text: String
     

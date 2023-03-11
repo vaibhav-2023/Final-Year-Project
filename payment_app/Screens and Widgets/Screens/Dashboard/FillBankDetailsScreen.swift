@@ -9,27 +9,34 @@ import SwiftUI
 
 struct FillBankDetailsScreen: View {
     
+    //environment variable to pop the screen
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    //For Handling View Model added on 11/01/23
     @StateObject private var allBanksVM = AllBanksViewModel()
     @StateObject private var userBanksVM = UserBanksViewModel()
     
+    //Variables used for navigation and presentation
     @State private var showBanksListSheet: Bool = false
     @State private var selection: Int? = nil
     
+    //Variables used for view
     @State private var selectedBank: BankModel? = nil
     @State private var bankAccount: String = ""
     @State private var ifsc: String = ""
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
     private let isUserFromContentView: Bool
     
+    //Constructors
     init(isUserFromContentView: Bool) {
         self.isUserFromContentView = isUserFromContentView
     }
     
+    //View to be shown
     var body: some View {
         ZStack {
             NavigationLink(destination: HomeScreen(), tag: NavigationEnum.HomeScreen.rawValue, selection: $selection) {
@@ -96,6 +103,7 @@ struct FillBankDetailsScreen: View {
             }.onAppear {
                 allBanksVM.getAllBanks()
             }.onReceive(userBanksVM.$addBankAS) { addBankAS in
+                //updated on 11/01/23
                 if addBankAS == .ApiHit {
                     if isUserFromContentView {
                         Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
@@ -106,6 +114,7 @@ struct FillBankDetailsScreen: View {
             }
     }
     
+    //button on click updated on 11/01/23
     private func onSaveTapped() {
         if selectedBank == nil {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.selectBank)

@@ -12,11 +12,14 @@ import SwiftUI
 
 typealias JSONKeyPair = [String: Any]
 
+//Class Created on 31/12/22
 class GeneralFunctions {
     
+    //default country and it's numeric code
     private let defaultCountryCode = "in"
     private let defaultNumericCountryCode = "91"
     
+    //get Top Window of the app
     func getTopWindow() -> UIWindow? {
         if #available(iOS 15, *) {
             return (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.keyWindow
@@ -25,6 +28,7 @@ class GeneralFunctions {
         }
     }
     
+    //get top view controller of the app
     func getTopViewController() -> UIViewController? {
         let rootViewController = getTopWindow()?.rootViewController
         if let navigationController = rootViewController as? UINavigationController {
@@ -36,6 +40,7 @@ class GeneralFunctions {
         return rootViewController
     }
     
+    //get height of the status bar
     func getStatusBarHeight() -> CGFloat {
         if let window = getTopWindow() {
             return window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
@@ -43,6 +48,7 @@ class GeneralFunctions {
         return 0
     }
     
+    //get height of the app bar/nav bar
     func getNavBarHeight() -> CGFloat {
         if let vc = getTopViewController() {
             return vc.navigationController?.navigationBar.bounds.height ?? 0
@@ -50,6 +56,7 @@ class GeneralFunctions {
         return 0
     }
     
+    //convert model/struct to data
     func structToData<T: Encodable>(_ model: T) -> Data? {
         do {
             let jsonData = try JSONEncoder().encode(model)
@@ -58,6 +65,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //convert model/struct to Json
     func structToJSON<T: Encodable>(_ model: T) -> Any? {
         do {
             let jsonData = try JSONEncoder().encode(model)
@@ -67,6 +75,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //convert model/struct to Json String
     func structToJSONString<T: Encodable>(_ model: T) -> String? {
         do {
             let jsonData = try JSONEncoder().encode(model)
@@ -76,6 +85,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //convert model/struct to Json to send in API
     func structToParameters<T: Encodable>(_ model: T) -> JSONKeyPair? {
         if let json = structToJSON(model) {
             if let parameter = json as? JSONKeyPair {
@@ -85,6 +95,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //convert Json to model/Struct
     func jsonToStruct<T: Decodable>(json: JSONKeyPair, decodingStruct: T.Type) -> T? {
         do {
             let realData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
@@ -96,6 +107,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //convert Json to String
     func jsonToString(json: AnyObject) -> String? {
         do {
             let data1 =  try JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.prettyPrinted) // first of all convert json to the data
@@ -106,6 +118,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //APN Token we receive is in form of Data convert it to String Format
     func convertApnTokenDataToString(_ deviceToken: Data) -> String {
         let bytes = [UInt8](deviceToken)
         var token = ""
@@ -117,62 +130,14 @@ class GeneralFunctions {
         return token
     }
     
-    func checkUpdateAvailable() {
-//        if let urlString = getAppStoreUrlString() {
-//            if let url = URL(string: urlString) {
-//                let urlRequest = URLRequest(url: url)
-//                if Singleton.sharedInstance.appEnvironmentObject.isConnectedToInternet {
-//                    URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-//
-//                        if let error = error {
-//                            print("Request error: ", error)
-//                            return
-//                        }
-//
-//                        guard let data = data else { return }
-//
-//                        let jsonConvert = try? JSONSerialization.jsonObject(with: data, options: [])
-//                        let json = jsonConvert as AnyObject
-//
-//                        if let results = json["results"] as? NSArray, let first = results.firstObject as? NSDictionary, let appStoreVersion = first["version"] as? String, let appVersion = AppConstants.AppInfo.appCurrentVersion {
-////                            if let trackId = first["trackId"] as? Int {
-////                                AppConstants.AppInfo.appId = trackId
-////                            }
-//                            DispatchQueue.main.async {
-//                                // callback(appStoreVersion > appVersion)
-//                                if appStoreVersion > appVersion {
-//                                    Singleton.sharedInstance.alerts.updateAvailableAlert(version: appStoreVersion)
-//                                }
-//                            }
-//                        }
-//
-//                    }.resume()
-//                } else {
-//                    let monitor = NWPathMonitor()
-//                    let queue = DispatchQueue(label: "AppUpdateMonitor")
-//                    monitor.pathUpdateHandler = { path in
-//                        DispatchQueue.main.async {
-//                            if path.status == .satisfied {
-//                                self.checkUpdateAvailable()
-//                                // self.checkUpdateAvailable(callback: callback)
-//                                monitor.cancel()
-//                            }
-//                        }
-//                    }
-//                    monitor.start(queue: queue)
-//                }
-//            }
-//        } else {
-//            print("not able to get app store url")
-//        }
-    }
-    
+    //open app settings
     func openAppSettings() {
         if let settings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settings) {
             UIApplication.shared.open(settings)
         }
     }
     
+    //get country code of Device
     func getCountryCodeOfDevice() -> String {
         ///to get country code with Locale
 //        if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
@@ -187,21 +152,25 @@ class GeneralFunctions {
         return defaultCountryCode
     }
     
+    //get numeric country code of Device
     func getNumericCountryCodeOfDevice() -> String {
         //getCountryCodeOfDevice()
         return defaultNumericCountryCode
     }
     
+    //get locale of device
     func getLocale() -> Locale {
         return Locale(identifier: "es_IN")
     }
     
+    //get currency symbol
     func getCurrencySymbol() -> String {
         //Example: $, ₹
         //https://stackoverflow.com/questions/31999748/get-currency-symbols-from-currency-code-with-swift
         return getLocale().currencySymbol ?? ""
     }
     
+    //get currency code
     func getCurrencyCode() -> String {
         //Example: USD, INR
         //https://stackoverflow.com/questions/31999748/get-currency-symbols-from-currency-code-with-swift
@@ -211,6 +180,7 @@ class GeneralFunctions {
         return getLocale().currencyCode ?? ""
     }
     
+    //save user details in device
     func saveUserModel(_ userModel: UserModel?) {
         if let userModel = userModel, let jsonUserModel = structToData(userModel) {
             UserDefaults.standard.set(jsonUserModel, forKey: UserDefaultKeys.userModel)
@@ -218,14 +188,17 @@ class GeneralFunctions {
         }
     }
     
+    //check if user logged in or not
     func isUserLoggedIn() -> Bool {
         return UserDefaults.standard.bool(forKey: UserDefaultKeys.isLoggedIn) == true
     }
     
+    //get user id
     func getUserID() -> String {
         return UserDefaults.standard.string(forKey: UserDefaultKeys.userModelUserID) ?? ""
     }
     
+    //get user model
     func getUserModel() -> UserModel? {
         if let jsonData = UserDefaults.standard.data(forKey: UserDefaultKeys.userModel) {
             do{
@@ -238,6 +211,7 @@ class GeneralFunctions {
         return nil
     }
     
+    //clear all user defaults variables except APN Token and firebase token
     func deinitilseAllVariables() {
         var apnDeviceToken = ""
         if let myToken = UserDefaults.standard.value(forKey: UserDefaultKeys.apnDeviceToken) as? String  {
@@ -253,6 +227,7 @@ class GeneralFunctions {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
         
+        //re-save APN Token and firebase token
         UserDefaults.standard.set(apnDeviceToken, forKey: UserDefaultKeys.apnDeviceToken)
         UserDefaults.standard.set(firebaseToken, forKey: UserDefaultKeys.firebaseToken)
         UserDefaults.standard.synchronize()

@@ -7,15 +7,19 @@
 
 import SwiftUI
 
+//View for handling OTP Screen and Fill Details Screen in one View
 struct VerifyOTPandFillDetailsScreen: View {
     
+    //For Observing View Model
     @StateObject private var loginVM = LoginViewModel()
     
+    //for showing otp screen or fill details screen
     @State private var showFillDetailsScreen: Bool = false
     
     private let countryCode: String
     private let mobileNumber: String
     
+    //Constructor
     init(countryCode: String,
          mobileNumber: String) {
         self.countryCode = countryCode
@@ -42,6 +46,7 @@ struct VerifyOTPandFillDetailsScreen: View {
             }
     }
     
+    //Handle Status of Api's, when user OTP verifies and when fill details
     private func handleStatus(_ apiStatus: LoginApiStatus) {
         switch apiStatus {
         case .FillBankDetails:
@@ -56,6 +61,7 @@ struct VerifyOTPandFillDetailsScreen: View {
         }
     }
     
+    //steps to perform when uer has logged in
     private func userLoggedIn() {
         UserDefaults.standard.set(true, forKey: UserDefaultKeys.isLoggedIn)
         Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()

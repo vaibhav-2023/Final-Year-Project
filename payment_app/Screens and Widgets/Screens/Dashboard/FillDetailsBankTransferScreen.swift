@@ -9,14 +9,17 @@ import SwiftUI
 
 struct FillDetailsBankTransferScreen: View {
     
+    //Variables used for handling user details
     @State private var accountNumber: String = ""
     @State private var reEnterAccountNumber: String = ""
     @State private var ifsc: String = ""
     @State private var recipientName: String = ""
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //View to be shown
     var body: some View {
         ZStack {
             ScrollView {
@@ -54,6 +57,7 @@ struct FillDetailsBankTransferScreen: View {
             .setNavigationBarTitle(title: AppTexts.bank + " " + AppTexts.transfer)
     }
     
+    //button on click
     private func onSaveTapped() {
         if accountNumber.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterAccountNumber)

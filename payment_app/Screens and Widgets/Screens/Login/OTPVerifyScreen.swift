@@ -7,19 +7,26 @@
 
 import SwiftUI
 
+//Used for verifying OTP created on 04/01/23
 struct OTPVerifyScreen: View {
+    
+    //OTP View Model
     @StateObject private var otpViewModel = OTPTextFieldViewModel()
     
+    //For Observing View Model sent from Previous Screen updated on 11/01/23
     @ObservedObject private var loginVM = LoginViewModel()
     
 //    @State private var selection: Int? = nil
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //details received from previous screen
     private let countryCode: String
     private let mobileNumber: String
     
+    //Constructor
     init(loginVM: LoginViewModel,
          countryCode: String,
          mobileNumber: String) {
@@ -83,7 +90,7 @@ struct OTPVerifyScreen: View {
         ).setNavigationBarTitle(title: AppTexts.verifyOTP)
     }
     
-    
+    //button on click updated on 05/01/23
     private func onVerifyOTPPressed() {
         if otpViewModel.otpField.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterOTP)

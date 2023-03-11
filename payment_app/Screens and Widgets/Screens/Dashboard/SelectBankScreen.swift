@@ -11,16 +11,20 @@ struct SelectBankScreen: View {
     
     @ObservedObject private var allBanksVM: AllBanksViewModel
     
+    //Variables used for view
     @State private var scrollViewReader: ScrollViewProxy?
     @State private var banksToShow: [BankModel?] = []
     @State private var searchText: String = ""
     
+    //Values from previous screens
     @Binding private var selectedBank: BankModel?
     @Binding private var isPresenting: Bool
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //Constructors
     init(allBanksVM: AllBanksViewModel,
          selectedBank: Binding<BankModel?>,
          isPresenting: Binding<Bool>) {
@@ -29,6 +33,7 @@ struct SelectBankScreen: View {
         self._isPresenting = isPresenting
     }
     
+    //View to be shown
     var body: some View {
         
         ZStack {
@@ -55,9 +60,11 @@ struct SelectBankScreen: View {
                     .padding(.horizontal, padding)
                 
                 let count = banksToShow.count
+                //if api is hit and banks list is empty show empty view
                 if allBanksVM.getBanksAS == ApiStatus.ApiHit && count == 0 {
                     EmptyListView(text: AppTexts.noBanksFound)
                 } else if allBanksVM.getBanksAS == ApiStatus.ApiHit || count != 0 {
+                    //if banks list is not empty show all
                     ScrollViewReader { scrollViewReader in
                         List {
                             Section(footer: !allBanksVM.fetchedAllData ?
@@ -90,6 +97,7 @@ struct SelectBankScreen: View {
                             }
                     }
                 } else {
+                    //if api is being hit, show shimmer view
                     ScrollView {
                         ForEach(0...14, id: \.self) { index in
                             ShimmerView()
@@ -109,6 +117,7 @@ struct SelectBankScreen: View {
             }
     }
     
+    //Bank Details View
     @ViewBuilder
     private func bankDetail(_ bank: BankModel?) -> some View {
         let size = DeviceDimensions.width * 0.12

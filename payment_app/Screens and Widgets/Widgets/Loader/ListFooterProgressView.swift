@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Loader to show in the footer of list view when list is loading
 struct ListFooterProgressView: View {
     var body: some View {
         HStack {

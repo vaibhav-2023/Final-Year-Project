@@ -7,21 +7,28 @@
 
 import SwiftUI
 
+//Screen to get details from user created on 04/01/23
 struct FillUserDetailsScreen: View {
     
+    //For Observing View Model sent from Previous Screen updated on 11/01/23
     @ObservedObject private var loginVM = LoginViewModel()
     
+    //variable used for navigation
     @State private var selection: Int? = nil
     
+    //variables for storing details filled by user
     @State private var name: String = ""
     @State private var email: String = ""
     
+    //variables used when picking image
     @State private var pickerImageModel: ImageModel = ImageModel(sourceType: .camera)
     @State private var showImagePicker: Bool = false
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
+    //Constructor
     init(loginVM: LoginViewModel) {
         self.loginVM = loginVM
     }
@@ -118,11 +125,13 @@ struct FillUserDetailsScreen: View {
             }
     }
     
+    //button to pick image from camera or photolibrary
     private func pickImageFrom(_ sourceType: UIImagePickerController.SourceType) {
         pickerImageModel.sourceType = sourceType
         showImagePicker = true
     }
     
+    //button on click updated on 05/01/23
     private func onSaveTapped() {
         if name.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterName)

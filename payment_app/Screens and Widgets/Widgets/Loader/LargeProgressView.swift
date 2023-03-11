@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Large Activity Indicator created using UIKit
 struct LargeProgressView: UIViewRepresentable {
 
     func makeUIView(context: UIViewRepresentableContext<LargeProgressView>) -> UIActivityIndicatorView {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Outer Border View For Text Fields used in the project
 struct LoginFieldsOuterView<Content> : View where Content : View  {
     
     private let title: String

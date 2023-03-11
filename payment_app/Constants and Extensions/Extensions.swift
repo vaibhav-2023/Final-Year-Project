@@ -13,6 +13,7 @@ import UniformTypeIdentifiers
 
 //MARK: - UIApplication
 extension UIApplication {
+    //used for hiding keyboard when on touching screen
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
@@ -36,6 +37,7 @@ extension UIApplication: UIGestureRecognizerDelegate {
 
 //MARK: - UIDevice
 extension UIDevice {
+    //to get device model Ex- iphone 12 Pro Max
     static var getDeviceModel: String {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -50,6 +52,7 @@ extension UIDevice {
 
 //MARK: - URL
 extension URL {
+    //get Image Mime Type, used when sending image to server
     func getMimeType() -> String {
         if #available(iOS 15, *) {
             if let mimeType = UTType(filenameExtension: self.pathExtension)?.preferredMIMEType {
@@ -69,12 +72,14 @@ extension URL {
 
 //MARK: - View
 extension View {
+    //used for adding if conditions in SwiftUI views
     @ViewBuilder
     func `if`<Transform: View>(_ condition: Bool, transform: (Self) -> Transform) -> some View {
         if condition { transform(self) }
         else { self }
     }
     
+    //used to show and hide loader
     func showLoader(isPresenting: Binding<Bool>) -> some View {
         ZStack {
             self.disabled(isPresenting.wrappedValue)
@@ -82,6 +87,7 @@ extension View {
         }
     }
     
+    //used to set Naviagtion Title
     func setNavigationBarTitle(title: String, textSize: CGFloat = 18) -> some View {
         self.navigationBarTitle(title, displayMode: .inline)
             //.navigationBarItems(leading: AppBarText(title: title, textSize: textSize))
@@ -90,6 +96,7 @@ extension View {
 
 //MARK: - Text
 extension Text {
+    //font extensions for setting font
     func fontCustom(_ font: FontEnum, size: CGFloat) -> Text {
         switch font {
         case .Light:
@@ -108,6 +115,7 @@ extension Text {
 
 //MARK: - UIColor
 extension UIColor {
+    //convert hexString of color to UIColor for UIKit
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()
@@ -126,6 +134,7 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
     
+    //convert UIColor to hex String in UIKit
     func toHexString() -> String {
         let components = self.cgColor.components
         let r: CGFloat = components?[0] ?? 0.0
@@ -140,7 +149,7 @@ extension UIColor {
 //MARK: - Color
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Color {
-    
+    //convert hexString of color to Color for SwiftUI
     init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
@@ -160,6 +169,7 @@ extension Color {
         self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255, opacity: Double(a) / 255)
     }
     
+    //convert Color to hex String in UIKit
     func toHexString() -> String {
         let components = self.cgColor?.components
         let r: CGFloat = components?[0] ?? 0.0
@@ -175,6 +185,7 @@ extension Color {
 typealias AnyCancellablesSet = Set<AnyCancellable>
 
 extension AnyCancellablesSet {
+    //to cancel all cancellables
     mutating func cancelAll() {
         forEach { $0.cancel() }
         removeAll()
@@ -183,13 +194,14 @@ extension AnyCancellablesSet {
 
 //MARK: - Data
 extension Data {
+    //to add string in data variable
     mutating func appendString(_ string: String) {
         if let data = string.data(using: .utf8) {
             append(data)
         }
     }
     
-    //to get extension of image
+    //to get extension of image in data format
     var format: String {
         let array = [UInt8](self)
         let ext: String
@@ -211,6 +223,7 @@ extension Data {
 
 //MARK: - Date
 extension Date {
+    //convert date to given format
     func convertDate(toFormat format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en")
@@ -218,6 +231,7 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    //get difference between two dates
     func getTimeDifferenceFrom(_ endTime: Date, withComponents components: Set<Calendar.Component>) -> DateComponents {
         return Calendar.current.dateComponents(components, from: self, to: endTime)
     }
@@ -225,36 +239,44 @@ extension Date {
 
 //MARK: - String
 extension String {
+    //remove front and back spaces
     func trim() -> Self {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
+    //remove characters
     func removeCharacter(_ character: String) -> String{
         return self.replacingOccurrences(of: character, with: "", options: NSString.CompareOptions.literal, range: nil)
     }
     
+    //check if email is valid
     var isValidEmail: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: self)
     }
     
+    //check if phone is valid
     var isValidPhone: Bool {
         return !self.isEmpty && self.trim().count >= 7 && self.trim().count <= 10
     }
     
+    //is Password valid
     func isValidPassword() -> Bool {
         return !self.isEmpty && self.count >= 6
     }
     
+    //if bank account valid added on 04/01/23
     var isValidBankAccount: Bool {
         return self.count >= 9 && self.count <= 18
     }
     
+    //if IFSC code is valid added on 04/01/23
     var isValidIFSC: Bool {
         return self.count == 11
     }
     
+    //check if the given string contains phone number in it
     func containsPhoneNumber() -> Bool {
         do {
             let patt = "1?([2-9][0-8][0-9])([2-9][0-9]{2})([0-9]{4})(x?t?())?"
@@ -286,6 +308,7 @@ extension String {
     }
     
     // MARK: - date and time related functions
+    //get Date from String given Format
     func getDateFromStringDate(withFormat format: String) -> Date {
         let olDateFormatter = DateFormatter()
         olDateFormatter.calendar = Calendar(identifier: .gregorian)
@@ -294,19 +317,23 @@ extension String {
         return olDateFormatter.date(from: self) ?? Date()
     }
     
+    //get Date from Server String Format
     func getDateFromServerStringDate() -> Date {
         return self.getDateFromStringDate(withFormat: DateFormats.serverDF)
     }
     
+    //convert date string from server to required format
     func convertServerStringDate(toFormat format: String) -> Self {
         return convertStringDate(withFormat: DateFormats.serverDF, toFormat: format)
     }
     
+    //convert date string with format to required format
     func convertStringDate(withFormat: String, toFormat: String) -> Self {
         let date = self.getDateFromStringDate(withFormat: withFormat)
         return date.convertDate(toFormat: toFormat)
     }
     
+    //get Date from Firebase String Format
     func convertStringDateFormatFromFirebase(withFormat: String = DateFormats.firebaseDF, toFormat: String) -> String {
         //E MMM d yyyy HH:mm:ss Z
         //EEE MMM dd yyyy HH:mm:ss
@@ -321,42 +348,14 @@ extension String {
 
 //MARK: - Double
 extension Double {
-    func secondsToHoursMinutesAndSecondsFormat(withTimeUnit: Bool) -> String {
-        guard !(self.isNaN || self.isInfinite) else {
-            return "00:00"
-        }
-        
-        let hour = Int(self) / 3600
-        let minute = Int(self) / 60 % 60
-        let second = Int(self) % 60
-        if hour == 0 {
-            let time = String(format: "%02i:%02i", minute, second)
-            if withTimeUnit {
-                let substring = minute > 1 ? AppTexts.minutes : AppTexts.minute
-                return time + " " + substring
-            }
-            return time
-        } else {
-            let time = String(format: "%02i:%02i:%02i", hour, minute, second)
-            if withTimeUnit {
-                let substring = hour > 1 ? AppTexts.hours : AppTexts.hour
-                return time + " " + substring
-            }
-            return time
-        }
-    }
-    
-    /// Rounds the double to decimal places value
+    // Rounds the double to decimal places value added on 05/01/23
     func round(toPlaces place: Int = 2) -> Double {
         //1.256 to 1.26
         let divisor = pow(10.0, Double(place))
         return (self * divisor).rounded() / divisor
     }
     
-    func calculateGST() -> Self {
-        return ((18 * self) / 100).round()
-    }
-    
+    // Format the double value to required maximum Digits format with option to add currency added on 06/01/23
     func format(withCurrency: Bool = false, withMaximumFractionDigits maximumFractionDigits: Int = 2) -> String {
         let formatter = NumberFormatter()
         if withCurrency {
@@ -371,10 +370,12 @@ extension Double {
         return formatter.string(from: price) ?? ""
     }
     
+    //convert double to string to show it in SwiftUI views
     func doubleToString(places: Int = 2) -> String {
         return String(format: "%.\(places)f", self)
     }
     
+    //get number in words added on 05/01/23
     func getNumberWords() -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut

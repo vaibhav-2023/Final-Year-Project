@@ -9,16 +9,20 @@ import SwiftUI
 
 struct ProfileInfoScreen: View {
     
+    //For Handling View Model
     @StateObject private var profileVM = ProfileViewModel()
     
+    //variables for storing details filled by user
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var countryCode: String = Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice()
     @State private var mobileNumber: String = ""
     
+    //variables for picking image from deevice
     @State private var pickerImageModel: ImageModel = ImageModel(sourceType: .camera)
     @State private var showImagePicker: Bool = false
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
@@ -38,11 +42,11 @@ struct ProfileInfoScreen: View {
                         Spacer()
                         
                         VStack(alignment: .center, spacing: spacing) {
-                            let isImageSeleted = pickerImageModel.uiImage != nil
+                            let isImageSelected = pickerImageModel.uiImage != nil
                             ZStack(alignment: .bottomTrailing) {
                                 let size = DeviceDimensions.width * 0.3
                                 Group {
-                                    if isImageSeleted {
+                                    if isImageSelected {
                                         Image(uiImage: pickerImageModel.uiImage ?? UIImage())
                                             .resizable()
                                     } else {
@@ -74,7 +78,7 @@ struct ProfileInfoScreen: View {
 //                                }
                             }
                             
-                            if isImageSeleted {
+                            if isImageSelected {
                                 Button {
                                     pickerImageModel.uiImage = nil
                                 } label: {
@@ -126,6 +130,7 @@ struct ProfileInfoScreen: View {
                 ImagePickerView(imageModel: $pickerImageModel)
             }
             .onAppear {
+                //on open screen set data of user in the text fields
                 let userModel = Singleton.sharedInstance.generalFunctions.getUserModel()
                 name = userModel?.name ?? ""
                 email = userModel?.email ?? ""
@@ -134,11 +139,13 @@ struct ProfileInfoScreen: View {
             }
     }
     
+    //button to pick image from camera or photolibrary
     private func pickImageFrom(_ sourceType: UIImagePickerController.SourceType) {
         pickerImageModel.sourceType = sourceType
         showImagePicker = true
     }
     
+    //on button tap
     private func onSaveTapped() {
         if name.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterName)

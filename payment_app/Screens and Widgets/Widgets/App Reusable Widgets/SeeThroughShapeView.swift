@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//View Created which will be transparent from the middle
 //https://stackoverflow.com/questions/61344676/how-to-create-a-see-through-rectangle-in-swiftui
 struct SeeThroughShapeView: Shape {
     let size: CGSize
