@@ -59,13 +59,13 @@ class LoginViewModel: ViewModel {
             }
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
-                #if DEBUG
+                //#if DEBUG
                 Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(response.otp ?? 0)") { _ in
                     self?.loginAS = .OTPSent
                 }
-                #else
-                self?.loginAS = .OTPSent
-                #endif
+                //#else
+//                self?.loginAS = .OTPSent
+//                #endif
             } else {
                 self?.loginAS = .ApiHitWithError
             }
@@ -96,9 +96,9 @@ class LoginViewModel: ViewModel {
             }
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
-                #if DEBUG
+                //#if DEBUG
                 Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(response.otp ?? 0)")
-                #endif
+                //#endif
                 self?.resendOTPAS = .ApiHit
             } else {
                 self?.resendOTPAS = .ApiHitWithError

@@ -17,7 +17,7 @@ struct DeviceDimensions {
 
 //Class to storing app urls
 class AppURLs {
-    static let baseURL = "https://866d-2405-201-500b-1852-7428-7aea-aff5-6dcf.in.ngrok.io/"
+    static let baseURL = "https://upi.checksample.in/"
     
     static func getAPIURL() -> String {
         return baseURL + "api/"

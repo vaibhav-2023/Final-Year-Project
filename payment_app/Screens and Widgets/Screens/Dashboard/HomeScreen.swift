@@ -91,7 +91,8 @@ struct HomeScreen: View {
                                     selection = NavigationEnum.ScanQRScreen.rawValue
                                 }
                                 icon("contactsIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.contact) {
-                                    selection = NavigationEnum.PayToContactScreen.rawValue
+                                    Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
+                                    //selection = NavigationEnum.PayToContactScreen.rawValue
                                 }
                                 icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
                                     selection = NavigationEnum.FillDetailsBankTransferScreen.rawValue

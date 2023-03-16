@@ -75,46 +75,64 @@ struct QRCodeInfoScreen: View {
                     
                 }
                 
-                
-                CardView(backgroundColor: .lightBluishGrayColor) {
-                    VStack(spacing: spacing) {
-                        HStack {
-                            Text(AppTexts.selectedBank + ":")
-                                .foregroundColor(.blackColor)
-                                .fontCustom(.Medium, size: 16)
-                            
-                            Spacer()
-                            
-                            Button {
-                                showSelectBankSheet = true
-                            } label: {
-                                Text(AppTexts.changeBank)
-                                    .foregroundColor(.primaryColor)
-                                    .fontCustom(.SemiBold, size: 16)
-                            }
-                        }
+                if profileVM.profileAPIAS == .ApiHit {
+                    if let selectedBankAccount {
+                        CardView(backgroundColor: .lightBluishGrayColor) {
+                            VStack(spacing: spacing) {
+                                HStack {
+                                    Text(AppTexts.selectedBank + ":")
+                                        .foregroundColor(.blackColor)
+                                        .fontCustom(.Medium, size: 16)
+                                    
+                                    Spacer()
+                                    
+                                    Button {
+                                        showSelectBankSheet = true
+                                    } label: {
+                                        Text(AppTexts.changeBank)
+                                            .foregroundColor(.primaryColor)
+                                            .fontCustom(.SemiBold, size: 16)
+                                    }
+                                }
+                                
+                                let bankName = selectedBankAccount.accountNumber ?? ""
+                                let size = DeviceDimensions.width * 0.12
+                                HStack(spacing: spacing) {
+                                    AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                                    
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        Text(bankName)
+                                            .fontCustom(.Medium, size: 16)
+                                            .foregroundColor(.blackColor)
+                                        
+                                        let bankAccountSuffix4: String = String((selectedBankAccount.accountNumber  ?? "").suffix(4))
+                                        Text("**** \(bankAccountSuffix4)")
+                                            .fontCustom(.Regular, size: 13)
+                                            .foregroundColor(.darkGrayColor)
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                
+                            }.padding(padding)
+                        }.padding(padding)
+                    } else {
+                        Text(AppTexts.noBanksFound)
+                            .fontCustom(.Regular, size: 18)
+                            .foregroundColor(.darkGrayColor)
+                            .padding(padding)
+                            .padding(.top, padding)
                         
-                        let bankName = selectedBankAccount?.accountNumber ?? ""
-                        let size = DeviceDimensions.width * 0.12
-                        HStack(spacing: spacing) {
-                            AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
-                            
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(bankName)
-                                    .fontCustom(.Medium, size: 16)
-                                    .foregroundColor(.blackColor)
-                         
-                                let bankAccountSuffix4: String = String((selectedBankAccount?.accountNumber  ?? "").suffix(4))
-                                Text("**** \(bankAccountSuffix4)")
-                                    .fontCustom(.Regular, size: 13)
-                                    .foregroundColor(.darkGrayColor)
-                            }
-                            
-                            Spacer()
+                        Button {
+                            selection = NavigationEnum.FillBankDetails.rawValue
+                        } label: {
+                            Text(AppTexts.addBankAccount)
+                                .fontCustom(.Medium, size: 18)
+                                .foregroundColor(.primaryColor)
+                                .padding(.horizontal, padding)
                         }
-                        
-                    }.padding(padding)
-                }.padding(padding)
+                    }
+                }
             }
         }.background(Color.whiteColor.ignoresSafeArea())
             .sheet(isPresented: $showSelectBankSheet) {
@@ -124,6 +142,7 @@ struct QRCodeInfoScreen: View {
                                        selectedBankAccount: $selectedBankAccount,
                                        selection: $selection)
             }.setNavigationBarTitle(title: AppTexts.qrCode)
+            .showLoader(isPresenting: .constant(profileVM.isAnyApiBeingHit))
             .onAppear {
                 profileVM.getProfile()
             }.onReceive(profileVM.$profileAPIAS) { apiStatus in

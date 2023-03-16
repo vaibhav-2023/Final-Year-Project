@@ -79,8 +79,15 @@ class GeneralFunctions {
     func structToJSONString<T: Encodable>(_ model: T) -> String? {
         do {
             let jsonData = try JSONEncoder().encode(model)
-            let json = String(data: jsonData, encoding: .utf8)
-            return json
+            return String(data: jsonData, encoding: .utf8)
+        } catch { print(error.localizedDescription) }
+        return nil
+    }
+    
+    func jsonString<T: Decodable>(_ jsonString: String, toStruct model: T.Type) -> T? {
+        do {
+            let data = Data(jsonString.utf8)
+            return try JSONDecoder().decode(model.self, from: data)
         } catch { print(error.localizedDescription) }
         return nil
     }
