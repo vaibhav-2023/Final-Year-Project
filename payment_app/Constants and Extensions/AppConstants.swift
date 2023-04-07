@@ -112,7 +112,7 @@ enum FontEnum {
 
 //App Navigation Enum
 enum NavigationEnum: Int {
-    case Login, OTPVerify, FillDetails, FillBankDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToUPIIDScreen, PayToContactScreen, PayToNumberScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen, ChatScreen, PaymentDetailsScreen, FillDetailsBankTransferScreen
+    case Login, OTPVerify, FillDetails, FillBankDetails, HomeScreen, ProfileScreen, ScanQRScreen, PayToVPAIDScreen, PayToContactScreen, PayToNumberScreen, QRCodeInfoScreen, WalletTransactionsScreen, BankAccountsScreen, PayToScreen, ProfileInfoScreen, ChatScreen, PaymentDetailsScreen, FillDetailsBankTransferScreen, RechargeWalletScreen, RequestTransferScreen, CheckWalletBalanceScreen
 }
 
 //MARK: - App Colors

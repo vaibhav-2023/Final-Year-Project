@@ -17,6 +17,7 @@ struct FillUserDetailsScreen: View {
     @State private var selection: Int? = nil
     
     //variables for storing details filled by user
+    @State private var vpaNumber: String
     @State private var name: String = ""
     @State private var email: String = ""
     
@@ -31,6 +32,7 @@ struct FillUserDetailsScreen: View {
     //Constructor
     init(loginVM: LoginViewModel) {
         self.loginVM = loginVM
+        self.vpaNumber = (loginVM.verifyOTPResponse?.data?.phone ?? "").removeString(AppTexts.atTheRateVPA)
     }
     
     var body: some View {
@@ -103,6 +105,17 @@ struct FillUserDetailsScreen: View {
                         Spacer()
                     }.padding(.top, spacing * 2)
                     
+                    //added on 06/04/23
+                    LoginFieldsOuterView(title: AppTexts.vpaNumber) {
+                        
+                        HStack(spacing: 0) {
+                            MyTextField(AppTexts.TextFieldPlaceholders.enterVPANumber, text: $vpaNumber, keyboardType: .namePhonePad)
+                            
+                            Text(AppTexts.atTheRateVPA)
+                                .fontCustom(.Regular, size: 15)
+                        }
+                    }
+                    
                     LoginFieldsOuterView(title: AppTexts.yourName) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourName, text: $name, keyboardType: .default)
                     }
@@ -133,12 +146,17 @@ struct FillUserDetailsScreen: View {
     
     //button on click updated on 05/01/23
     private func onSaveTapped() {
-        if name.isEmpty {
+        let vpaString = vpaNumber.trim() + AppTexts.atTheRateVPA
+        if vpaString.isEmpty {
+            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterVPA)
+        } else if !vpaString.isValidVPA {
+            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidVPA)
+        } else if name.isEmpty {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterName)
         } else if !email.isEmpty && !email.isValidEmail {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
         } else {
-            loginVM.hitFillUserDetailsAPI(withName: name, email: email, andImageModel: pickerImageModel)
+            loginVM.hitFillUserDetailsAPI(withVPANumber: vpaString, name: name, email: email, andImageModel: pickerImageModel)
         }
     }
 }

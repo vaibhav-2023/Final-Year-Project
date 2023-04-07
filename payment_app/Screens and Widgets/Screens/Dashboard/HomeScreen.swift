@@ -58,13 +58,13 @@ struct HomeScreen: View {
                             }
                         }
                         
-                        let upiID = "upiid"
+                        let vpaID = "vpaID"
                         Button {
-                            UIPasteboard.general.string = upiID
+                            UIPasteboard.general.string = vpaID
                             Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.AlertMessages.copiedToClipboard)
                         } label: {
                             HStack {
-                                Text("\(AppTexts.upiID):- \(upiID)")
+                                Text("\(AppTexts.vpaID):- \(vpaID)")
                                     .fontCustom(.Medium, size: 16)
                                     .foregroundColor(.blackColorForAllModes)
                                 
@@ -91,24 +91,26 @@ struct HomeScreen: View {
                                     selection = NavigationEnum.ScanQRScreen.rawValue
                                 }
                                 icon("contactsIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.contact) {
-                                    Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
-                                    //selection = NavigationEnum.PayToContactScreen.rawValue
+                                    //Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
+                                    selection = NavigationEnum.PayToContactScreen.rawValue
                                 }
-                                icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
-                                    selection = NavigationEnum.FillDetailsBankTransferScreen.rawValue
-                                }
-                                
-                                icon("creditCardIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.upiID) {
-                                    selection = NavigationEnum.PayToUPIIDScreen.rawValue
+                                icon("requestTransferIconTemplate", title: AppTexts.request + "\n" + AppTexts.transfer) {
+                                    selection = NavigationEnum.RequestTransferScreen.rawValue
                                 }
                                 
+                                icon("creditCardIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.vpaID) {
+                                    selection = NavigationEnum.PayToVPAIDScreen.rawValue
+                                }
                                 icon("phoneForwardedIconTemplate", title: AppTexts.payTo + "\n" + AppTexts.number) {
                                     selection = NavigationEnum.PayToNumberScreen.rawValue
                                 }
-                                
-                                icon("personPinIconTemplate", title: AppTexts.selfString + "\n" + AppTexts.transfer) {
+                                icon("accountBalanceIconTemplate", title: AppTexts.bank + "\n" + AppTexts.transfer) {
                                     Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
+                                    //selection = NavigationEnum.FillDetailsBankTransferScreen.rawValue
                                 }
+                                //icon("personPinIconTemplate", title: AppTexts.selfString + "\n" + AppTexts.transfer) {
+                                //    Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.willBeAddedSoon)
+                                //}
                             }.padding(.vertical, padding * 2)
                                 .padding(.horizontal, spacing)
                         }
@@ -122,8 +124,12 @@ struct HomeScreen: View {
                         }
                         
                         listTile("walletBalanceIconTemplate", title: AppTexts.checkBalance) {
-                            selection = NavigationEnum.BankAccountsScreen.rawValue
+                            selection = NavigationEnum.CheckWalletBalanceScreen.rawValue
                         }
+                        
+//                        listTile("walletBalanceIconTemplate", title: AppTexts.checkBalance) {
+//                            selection = NavigationEnum.BankAccountsScreen.rawValue
+//                        }
                     }.padding(padding)
                 }
             }
@@ -174,7 +180,11 @@ struct HomeScreen: View {
                 EmptyView()
             }
             
-            NavigationLink(destination: PayToUPIIDScreen(), tag: NavigationEnum.PayToUPIIDScreen.rawValue, selection: $selection) {
+            NavigationLink(destination: PayToVPAIDScreen(), tag: NavigationEnum.PayToVPAIDScreen.rawValue, selection: $selection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: RequestTransferScreen(), tag: NavigationEnum.RequestTransferScreen.rawValue, selection: $selection) {
                 EmptyView()
             }
         }
@@ -188,9 +198,13 @@ struct HomeScreen: View {
                 EmptyView()
             }
             
-            NavigationLink(destination: BankAccountsScreen(), tag: NavigationEnum.BankAccountsScreen.rawValue, selection: $selection) {
+            NavigationLink(destination: CheckWalletBalanceScreen(), tag: NavigationEnum.CheckWalletBalanceScreen.rawValue, selection: $selection) {
                 EmptyView()
             }
+            
+//            NavigationLink(destination: BankAccountsScreen(), tag: NavigationEnum.BankAccountsScreen.rawValue, selection: $selection) {
+//                EmptyView()
+//            }
             
             NavigationLink(destination: FillDetailsBankTransferScreen(), tag: NavigationEnum.FillDetailsBankTransferScreen.rawValue, selection: $selection) {
                 EmptyView()
@@ -259,7 +273,7 @@ struct HomeScreen: View {
                 
             }.padding(.horizontal, 14)
                 .padding(.vertical, 10)
-                .background(Color.lightPrimaryColor)
+                .background(Color.whiteColor)
                 .cornerRadius(cornerRadius)
                 .overlay(RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(Color.primaryColor, lineWidth: lineWidth))
