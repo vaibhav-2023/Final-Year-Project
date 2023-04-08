@@ -18,7 +18,7 @@ class LoginViewModel: ViewModel {
     @Published private(set) var resendOTPAS: ApiStatus = .NotHitOnce
     @Published private(set) var fillDetailsAS: LoginApiStatus = .NotHitOnce
     
-    //private(set) var loginModel: LoginModel? = nil
+    private(set) var verifyOTPResponse: VerifyOTPResponse? = nil
     
     //variable to check is any api request is in progress
     var isAnyApiBeingHit: Bool {
@@ -30,6 +30,7 @@ class LoginViewModel: ViewModel {
     
     //save user information in device UserDefaults after login
     private func saveUserInformation(_ verifyOTPResponse: VerifyOTPResponse?) {
+        self.verifyOTPResponse = verifyOTPResponse
         UserDefaults.standard.set(verifyOTPResponse?.token, forKey: UserDefaultKeys.authToken)
         Singleton.sharedInstance.generalFunctions.saveUserModel(verifyOTPResponse?.data)
     }
@@ -143,7 +144,7 @@ class LoginViewModel: ViewModel {
                 //if user has verified OTP save user details and auth Token
                 self?.saveUserInformation(response)
                 //if user has filled personel details check if user has added bank accounts
-                if let name = response.data?.name, !name.isEmpty {
+                if let name = response.data?.name, !name.isEmpty, let vpa = response.data?.vpa, !vpa.isEmpty {
                     if let banks = response.data?.banks, !banks.isEmpty {
                         self?.loginAS = .LoggedIn
                     } else {
@@ -159,12 +160,13 @@ class LoginViewModel: ViewModel {
     }
     
     //fill user details api added on 05/01/23
-    func hitFillUserDetailsAPI(withName name: String, email: String, andImageModel imageModel: ImageModel?) {
+    func hitFillUserDetailsAPI(withVPANumber vpaNumber: String, name: String, email: String, andImageModel imageModel: ImageModel?) {
         
         fillDetailsAS = .IsBeingHit
         
         let params = ["_id": Singleton.sharedInstance.generalFunctions.getUserID(),
                       "name": name,
+                      "vpa": vpaNumber,
                       "email": email] as JSONKeyPair
         
         var fileModel: [FileModel] = []
@@ -180,7 +182,7 @@ class LoginViewModel: ViewModel {
         urlRequest?.addHeaders(shouldAddAuthToken: true)
         urlRequest?.addParameters(params, withFileModel: fileModel, as: .FormData)
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: ProfileResponse.self) { [weak self] in
-            self?.hitFillUserDetailsAPI(withName: name, email: email, andImageModel: imageModel)
+            self?.hitFillUserDetailsAPI(withVPANumber: vpaNumber, name: name, email: email, andImageModel: imageModel)
         }.sink{ [weak self] completion in
             switch completion {
             case .finished:

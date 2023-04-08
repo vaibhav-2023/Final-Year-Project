@@ -18,8 +18,8 @@ struct FillUserDetailsScreen: View {
     
     //variables for storing details filled by user
     @State private var vpaNumber: String
-    @State private var name: String = ""
-    @State private var email: String = ""
+    @State private var name: String
+    @State private var email: String
     
     //variables used when picking image
     @State private var pickerImageModel: ImageModel = ImageModel(sourceType: .camera)
@@ -32,7 +32,13 @@ struct FillUserDetailsScreen: View {
     //Constructor
     init(loginVM: LoginViewModel) {
         self.loginVM = loginVM
-        self.vpaNumber = (loginVM.verifyOTPResponse?.data?.phone ?? "").removeString(AppTexts.atTheRateVPA)
+        if let vpaNumber = loginVM.verifyOTPResponse?.data?.vpa, !vpaNumber.isEmpty {
+            self.vpaNumber = vpaNumber.removeString(AppTexts.atTheRateVPA)
+        } else {
+            vpaNumber = loginVM.verifyOTPResponse?.data?.phone ?? ""
+        }
+        self.name = loginVM.verifyOTPResponse?.data?.name ?? ""
+        self.email = loginVM.verifyOTPResponse?.data?.email ?? ""
     }
     
     var body: some View {

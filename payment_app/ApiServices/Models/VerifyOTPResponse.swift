@@ -45,12 +45,14 @@ struct UserModel: Codable, Hashable {
     let status: Bool?
     let banks: [UserAddedBankAccountModel?]?
     let createdAt: String?
+    let vpa, qrCodeFile: String?
+    let walletAmount: Double?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case userAutoID = "userAutoId"
         case name, email, phone, otp, profilePic, countryCode, numericCountryCode, userType, isDelete, isBlocked
-        case firebaseToken, status, banks, createdAt
+        case firebaseToken, status, banks, createdAt, vpa, qrCodeFile, walletAmount
     }
 }
 

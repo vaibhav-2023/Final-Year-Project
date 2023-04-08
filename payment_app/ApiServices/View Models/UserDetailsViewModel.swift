@@ -64,8 +64,9 @@ class UserDetailsViewModel: ViewModel {
         
         userDetailsAS = .IsBeingHit
         
-        let mobileNumber = String(qrCodeScannedModel.pa?.prefix(10) ?? "")
-        let params = ["startpoint": 0, "search": mobileNumber] as JSONKeyPair
+        //let mobileNumber = String(qrCodeScannedModel.pa?.prefix(10) ?? "")
+        let vpa = String(qrCodeScannedModel.pa?.prefix(10) ?? "")
+        let params = ["startpoint": 0, "search": vpa] as JSONKeyPair
         var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userAll)
         urlRequest?.addHeaders(shouldAddAuthToken: true)
         urlRequest?.addParameters(params, as: .URLFormEncoded)
@@ -85,7 +86,43 @@ class UserDetailsViewModel: ViewModel {
                     if let userDetails = (response.data ?? []).first {
                         self?.userDetails = userDetails
                     } else {
-                        self?.userDetails = UserModel(id: nil, userAutoID: nil, name: qrCodeScannedModel.pn ?? "", email: nil, phone: mobileNumber, otp: nil, profilePic: nil, countryCode: Singleton.sharedInstance.generalFunctions.getCountryCodeOfDevice(), numericCountryCode: Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice(), userType: nil, isDelete: nil, isBlocked: nil, firebaseToken: nil, status: nil, banks: nil, createdAt: nil)
+                        //                        self?.userDetails = UserModel(id: nil, userAutoID: nil, name: qrCodeScannedModel.pn ?? "", email: nil, phone: mobileNumber, otp: nil, profilePic: nil, countryCode: Singleton.sharedInstance.generalFunctions.getCountryCodeOfDevice(), numericCountryCode: Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice(), userType: nil, isDelete: nil, isBlocked: nil, firebaseToken: nil, status: nil, banks: nil, createdAt: nil, vpa: nil, qrCodeFile: nil, walletAmount: nil)
+                    }
+                    self?.userDetailsAS = .ApiHit
+                } else {
+                    self?.userDetailsAS = .ApiHitWithError
+                }
+            }.store(in: &cancellable)
+    }
+    
+    //function to get details of user with contact model added on 08/04/2023
+    func getUser(withContactModel contactModel: ContactModel?) {
+        
+        userDetailsAS = .IsBeingHit
+        
+        //let mobileNumber = String(qrCodeScannedModel.pa?.prefix(10) ?? "")
+        let number = (contactModel?.number ?? "").removeString("+")
+        let params = ["startpoint": 0, "search": number] as JSONKeyPair
+        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userAll)
+        urlRequest?.addHeaders(shouldAddAuthToken: true)
+        urlRequest?.addParameters(params, as: .URLFormEncoded)
+        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: UsersListResponse.self) { [weak self] in
+            self?.getUser(withContactModel: contactModel)
+            }
+            .sink{ [weak self] completion in
+                switch completion {
+                    case .finished:
+                    break
+                    case .failure(_):
+                    self?.userDetailsAS = .ApiHitWithError
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                if let success = response.success, success {
+                    if let userDetails = (response.data ?? []).first {
+                        self?.userDetails = userDetails
+                    } else {
+                        Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.itSeemsLikeThisUserIsNotRegisteredWithOurApp)
                     }
                     self?.userDetailsAS = .ApiHit
                 } else {
