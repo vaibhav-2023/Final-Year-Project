@@ -41,13 +41,13 @@ struct ProfileScreen: View {
                             AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                         }
                         
-                        let upiID = "upiid"
+                        let vpaID = profileVM.userModel?.vpa ?? ""
                         Button {
-                            UIPasteboard.general.string = upiID
+                            UIPasteboard.general.string = vpaID
                             Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.AlertMessages.copiedToClipboard)
                         } label: {
                             HStack {
-                                Text("\(AppTexts.upiID):- \(upiID)")
+                                Text("\(AppTexts.vpaID):- \(vpaID)")
                                     .fontCustom(.Medium, size: 16)
                                     .foregroundColor(.blackColorForAllModes)
                                 
@@ -67,17 +67,47 @@ struct ProfileScreen: View {
                         .fill(Color.blackColor)
                         .frame(maxWidth: .infinity, maxHeight: 1)
                     
+                    if let decodedData = profileVM.userModel?.qrCodeFile?.removeString(AppTexts.extraTextInFrontOfbase64String).base64StringToData, let image = UIImage(data: decodedData) {
+                        let width = DeviceDimensions.width * 0.6
+                        Image(uiImage: image)
+                            .resizable()
+                            .foregroundColor(.blackColor)
+                            .aspectRatio(1, contentMode: .fit)
+                            .frame(width: width)
+                            .padding([.top, .horizontal], padding)
+                        
+                        Button {
+                            Singleton.sharedInstance.generalFunctions.share(items: [image])
+                        } label: {
+                            Text(AppTexts.shareQRCode)
+                                .fontCustom(.Medium, size: 17)
+                                .foregroundColor(.primaryColor)
+                                .padding(.vertical, padding/2)
+                                .padding(.horizontal, padding)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color.primaryColor, lineWidth: 1)
+                                )
+                        }.padding(padding)
+                    }
+                    
                     CardView(backgroundColor: .lightBluishGrayColor) {
                         VStack(spacing: spacing * 2) {
                             listTile(withTitle: AppTexts.profile) {
                                 selection = NavigationEnum.ProfileInfoScreen.rawValue
                             }
-                            listTile(withTitle: AppTexts.qrCode) {
-                                selection = NavigationEnum.QRCodeInfoScreen.rawValue
+                            listTile(withTitle: AppTexts.rechargeWallet) {
+                                selection = NavigationEnum.RechargeWalletScreen.rawValue
                             }
-                            listTile(withTitle: AppTexts.bankAccount) {
-                                selection = NavigationEnum.BankAccountsScreen.rawValue
+                            listTile(withTitle: AppTexts.checkBalance) {
+                                selection = NavigationEnum.CheckWalletBalanceScreen.rawValue
                             }
+                            //                            listTile(withTitle: AppTexts.qrCode) {
+                            //                                selection = NavigationEnum.QRCodeInfoScreen.rawValue
+                            //                            }
+                            //                            listTile(withTitle: AppTexts.bankAccount) {
+                            //                                selection = NavigationEnum.BankAccountsScreen.rawValue
+                            //                            }
                             listTile(withTitle: AppTexts.privacyPolicy) {
                                 
                             }
@@ -109,6 +139,14 @@ struct ProfileScreen: View {
     @ViewBuilder
     private func addNavigationLinks() -> some View {
         NavigationLink(destination: ProfileInfoScreen(), tag: NavigationEnum.ProfileInfoScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: CheckWalletBalanceScreen(), tag: NavigationEnum.CheckWalletBalanceScreen.rawValue, selection: $selection) {
+            EmptyView()
+        }
+        
+        NavigationLink(destination: RechargeWalletScreen(), tag: NavigationEnum.RechargeWalletScreen.rawValue, selection: $selection) {
             EmptyView()
         }
         

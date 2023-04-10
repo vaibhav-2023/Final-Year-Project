@@ -20,7 +20,7 @@ struct WalletTransactionsListResponse: Codable {
     }
 }
 
-//This Model is used for storing single wallet transaction
+//This Model is used for storing single wallet transaction, updated on 10/04/23
 // MARK: - WalletTransactionModel
 struct WalletTransactionModel: Codable, Hashable {
     
@@ -33,27 +33,43 @@ struct WalletTransactionModel: Codable, Hashable {
     }
     
     let id: String?
-    let autoID: Int?
-    let paidByUserID, paidToUserID, paidToUserData: UserModel?
+    let autoID, transactionType: Int?
+    let paidByUserID, paidToUserID, paidToUserData, userID, toUserID: UserModel?
     let amount: Double?
-    let remarks: String?
+    let remarks, fromComments, toComments: String?
     let isPaymentSuccessful, isDelete, isBlocked: Bool?
     let status: Bool?
-    let createdAt, fromBankID, toBankID: String?
-
+    let createdAt, fromBankID, toBankID, paymentTransactionID: String?
+    
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case autoID = "autoId"
+        case transactionType
         case paidByUserID = "paidByUserId"
         case paidToUserID = "paidToUserId"
-        case paidToUserData, amount, remarks, isPaymentSuccessful, isDelete, isBlocked, status, createdAt
+        case paidToUserData
+        case userID = "userId"
+        case toUserID = "toUserId"
+        case amount, remarks, fromComments, toComments, isPaymentSuccessful, isDelete, isBlocked, status, createdAt
         case fromBankID = "fromBankId"
         case toBankID = "toBankId"
+        case paymentTransactionID = "paymentTransactionId"
+    }
+    
+    //used to fetch user model to who did the payment
+    var getPaidByUserModel: UserModel? {
+        if let userID {
+            return userID
+        }
+        return paidByUserID
     }
     
     //used to fetch user model to whom payment is done
     var getPaidToUserModel: UserModel? {
-        if let paidToUserID {
+        //userID added on 10/04/23
+        if let toUserID {
+            return toUserID
+        } else if let paidToUserID {
             return paidToUserID
         }
         return paidToUserData

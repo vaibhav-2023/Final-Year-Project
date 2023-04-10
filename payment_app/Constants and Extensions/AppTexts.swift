@@ -9,6 +9,8 @@ import Foundation
 
 //All App Texts used in app are stored in this file created on 31/12/22
 class AppTexts {
+    static let extraTextInFrontOfbase64String = "data:image/png;base64,"
+    
     //common
     static let minute = "Minute"
     static let minutes = "Minutes"
@@ -26,6 +28,7 @@ class AppTexts {
     static let noBankAccountsAdded = "No Bank Accounts Added"
     static let willBeAddedSoon = "Will be Added Soon"
     static let thisApp = "This app"
+    static let atTheRateVPA = "@vpa"
     
     //login
     static let enterYourMobileNumberToContinue = "Enter your mobile number to continue"
@@ -44,6 +47,7 @@ class AppTexts {
     static let tellUsAboutYourself = "Tell us about yourself"
     static let yourName = "Your Name"
     static let yourEmail = "Your Email"
+    static let vpaNumber = "VPA Number"
     
     //fill bank details
     static let bankDetails = "Bank Details"
@@ -52,6 +56,7 @@ class AppTexts {
     static let changeBank = "Change Bank"
     static let selectBank = "Select Bank"
     static let selected = "Selected"
+    static let request = "Request"
     static let bank = "Bank"
     static let bankAccount = "Bank Account"
     static let ifsc = "IFSC"
@@ -64,7 +69,7 @@ class AppTexts {
     //home
     static let home = "Home"
     static let greetings = "Greetings"
-    static let upiID = "UPI ID"
+    static let vpaID = "VPA ID"
     static let payTo = "Pay to"
     static let scan = "Scan"
     static let qr = "QR"
@@ -74,15 +79,18 @@ class AppTexts {
     static let selfString = "Self"
     static let number = "Number"
     static let walletTransactions = "Wallet Transactions"
+    static let walletBalance = "Wallet Balance"
     static let checkBalance = "Check Balance"
     
     //wallet transaction
     static let failed = "Failed"
     
     //profile
+    static let shareQRCode = "Share QR Code"
     static let profile = "Profile"
     static let qrCode = "QR Code"
     static let bankAccounts = "Bank Accounts"
+    static let rechargeWallet = "Recharge Wallet"
     static let privacyPolicy = "Privacy Policy"
     static let termsAndConditions = "Terms & Conditions"
     static let logout = "Logout"
@@ -95,15 +103,20 @@ class AppTexts {
     
     //pay to screen
     static let payToNumber = "Pay to number"
-    static let payToUPIID = "Pay to UPI ID"
+    static let payToVPAID = "Pay to VPA ID"
     static let payFrom = "Pay from"
     static let pay = "Pay"
     static let addBankAccount = "Add Bank Account"
+    
+    //pay to contact
+    static let payToContact = "Pay to contact"
+    static let grantContactAccessToViewContactsOnThisApp = "Grant Contact Access to view contacts on this app"
     
     //payment details
     static let to = "To"
     static let from = "From"
     static let received = "Received"
+    static let walletRecharged = "Wallet Recharged"
     static let sent = "Sent"
     static let transactionID = "Transaction ID"
     static let ruppees = "Ruppees"
@@ -116,6 +129,12 @@ class AppTexts {
     
     //qr code details
     static let selectedBank = "Selected Bank"
+    
+    //recharge wallet
+    static let recharge = "Recharge"
+    
+    //card payment
+    static let fillCardDetails = "Fill Card Details"
     
     //messages to be shown in alerts
     class AlertMessages {
@@ -139,8 +158,8 @@ class AppTexts {
         
         //permission alerts
         static let accessDenied = "Access Denied"
-        static let requiresAccessToContactsToProceed = "requires access to Contacts to proceed."
         static let requiresAccessToCameraToProceed = "requires access to Camera to proceed."
+        static let requiresAccessToContactsToProceed = "requires access to Contacts to proceed."
         static let goToSettingsToGrantAccess = "Go to Settings to grant access."
         static let openSettings = "Open Settings"
         
@@ -153,6 +172,8 @@ class AppTexts {
         static let enterValidOTP = "Enter Valid OTP"
         
         //fill details
+        static let enterVPA = "Enter VPA"
+        static let enterValidVPA = "Enter Valid VPA"
         static let enterName = "Enter Name"
         static let enterEmail = "Enter Email"
         static let enterValidEmail = "Enter Valid Email"
@@ -181,6 +202,16 @@ class AppTexts {
         
         //logout
         static let areYouSureYouWantToLogoutFromApp = "Are you sure you want to logout from app"
+        
+        //recharge wallet
+        static let paymentIsCanceledTryAgain = "Payment is canceled. Try! Again"
+        static let paymentIsFailedTryAgain = "Payment is failed. Try! Again"
+        
+        //pay to
+        static let itSeemsLikeThisUserIsNotRegisteredWithOurApp = "It seems like this user is not registered with our app"
+        
+        //
+        static let invalidCardDetails = "Invalid Card Details"
     }
     
     //placeholders to be shown in textfields
@@ -190,6 +221,7 @@ class AppTexts {
         static let enterMobileNumber = "Enter Mobile Number"
         static let enterYourName = "Enter your Name"
         static let enterYourEmail = "Enter your Email"
+        static let enterVPANumber = "Enter your VPA Number"
         
         static let selectBank = "Select Bank"
         static let enterBankAccount = "Enter Bank Account"

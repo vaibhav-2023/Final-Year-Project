@@ -17,7 +17,8 @@ struct DeviceDimensions {
 
 //Class to storing app urls
 class AppURLs {
-    static let baseURL = "https://upi.checksample.in/"
+    //static let baseURL = "https://upi.checksample.in/"
+    static let baseURL = "http://192.168.1.118:6001/"
     
     static func getAPIURL() -> String {
         return baseURL + "api/"
@@ -26,6 +27,16 @@ class AppURLs {
     //    func updateAPIURL(_ urlString: String) {
     //        apiURL = urlString
     //    }
+    
+    static func getImageURL() -> String {
+        return baseURL
+    }
+}
+
+//struct added on 10/04/23
+//MARK: - AppKeys
+struct AppKeys {
+    static let stripeKey = "pk_test_51IXUkzSDJYiI36iU1g88Tmker1LPdaNDxqKClKcOi5fmiPsyYqwTZnmxI5GLdJC6m2TvBq2PwFCfgaEcEtFGeqcL000teouPjn"
 }
 
 //struct related to app info
@@ -108,6 +119,11 @@ enum LoginApiStatus {
 //App Fonts Enum
 enum FontEnum {
     case Light, Regular, Medium, SemiBold, Bold
+}
+
+//wallet transaction enum, created on on 10/04/23
+enum WalletTransactionEnum: Int {
+    case debit = 1, credit, walletRecharge
 }
 
 //App Navigation Enum

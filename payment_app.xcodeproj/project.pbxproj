@@ -78,6 +78,8 @@
 		528B594A296563C30076A88A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5949296563C30076A88A /* SearchTextField.swift */; };
 		528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594B29656B290076A88A /* FillBankDetailsScreen.swift */; };
 		528B595029658BDB0076A88A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594F29658BDB0076A88A /* CardView.swift */; };
+		52A31AB629E437DB002CBA63 /* RechargeWalletScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A31AB529E437DA002CBA63 /* RechargeWalletScreen.swift */; };
+		52A31AB829E4384A002CBA63 /* RechargeWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A31AB729E4384A002CBA63 /* RechargeWalletViewModel.swift */; };
 		52A6F39C297540E9005951B4 /* QrCodeScannedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */; };
 		52A6F39E29767753005951B4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39D29767753005951B4 /* ChatViewModel.swift */; };
 		52A6F3A02976A7A8005951B4 /* FillDetailsBankTransferScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */; };
@@ -205,6 +207,8 @@
 		528B5949296563C30076A88A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		528B594B29656B290076A88A /* FillBankDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBankDetailsScreen.swift; sourceTree = "<group>"; };
 		528B594F29658BDB0076A88A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		52A31AB529E437DA002CBA63 /* RechargeWalletScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeWalletScreen.swift; sourceTree = "<group>"; };
+		52A31AB729E4384A002CBA63 /* RechargeWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeWalletViewModel.swift; sourceTree = "<group>"; };
 		52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannedModel.swift; sourceTree = "<group>"; };
 		52A6F39D29767753005951B4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillDetailsBankTransferScreen.swift; sourceTree = "<group>"; };
@@ -421,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */,
+				52A31AB729E4384A002CBA63 /* RechargeWalletViewModel.swift */,
 				528B592929653BF60076A88A /* LoginViewModel.swift */,
 				526F104E296EBC2A000CF16C /* AllBanksViewModel.swift */,
 				521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */,
@@ -590,6 +595,7 @@
 				52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */,
 				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
 				52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */,
+				52A31AB529E437DA002CBA63 /* RechargeWalletScreen.swift */,
 				52BC3FBD29697488003A0B42 /* QRCodeInfoScreen.swift */,
 				528B594329654F920076A88A /* HomeScreen.swift */,
 				520C4FF029E045DC0032B5A2 /* CheckWalletBalanceScreen.swift */,
@@ -876,6 +882,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A31AB829E4384A002CBA63 /* RechargeWalletViewModel.swift in Sources */,
 				526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */,
 				528B5928296539250076A88A /* OTPVerifyScreen.swift in Sources */,
 				528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */,
@@ -947,6 +954,7 @@
 				52A6F39C297540E9005951B4 /* QrCodeScannedModel.swift in Sources */,
 				528B594A296563C30076A88A /* SearchTextField.swift in Sources */,
 				52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */,
+				52A31AB629E437DB002CBA63 /* RechargeWalletScreen.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
 				52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */,
