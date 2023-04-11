@@ -12,12 +12,14 @@ import Combine
 //View Model to handle contacts permissions created on 07/01/23
 class ContactsViewModel: ViewModel {
     
-    @Published var hasGrantedRequest: Bool = false
+    @Published var cnAuthorizationStatus: CNAuthorizationStatus = .notDetermined
+    @Published var hasFetchedAddContacts: Bool = false
     @Published var hasSharedContacts: Bool = false
+    @Published var contactsToShow: [ContactModel] = []
     
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    var contacts: [ContactsModel] = []
+    private var contacts: [ContactModel] = []
     var count: Int = 0
     var apiStatus: ApiStatus = .NotHitOnce
     
@@ -27,24 +29,22 @@ class ContactsViewModel: ViewModel {
         
         switch CNContactStore.authorizationStatus(for: .contacts) {
         case .authorized:
-            handleAllowedCase()
             print("in Contacts .authorized")
+            handleCaseForAuthorizationStatus(.authorized)
         case .denied:
-            handleDeniedRestrictedCase()
             print("in Contacts .denied")
+            handleCaseForAuthorizationStatus(.denied)
         case .restricted:
-            handleDeniedRestrictedCase()
             print("in Contacts .restricted")
+            handleCaseForAuthorizationStatus(.restricted)
         case .notDetermined:
             //if permission is not determined then request for permission
             contactStore.requestAccess(for: .contacts) { [weak self] granted, error in
                 if granted {
-                    DispatchQueue.main.async {
-                        self?.hasGrantedRequest = false
-                    }
+                    self?.handleCaseForAuthorizationStatus(.authorized)
                     print("in Contacts user Allowed Access")
                 } else {
-                    self?.handleDeniedRestrictedCase()
+                    self?.handleCaseForAuthorizationStatus(.denied)
                     print("in Contacts user Denied Access")
                 }
             }
@@ -55,17 +55,155 @@ class ContactsViewModel: ViewModel {
     }
     
     
-    private func handleDeniedRestrictedCase() {
-        DispatchQueue.main.async {
-            self.hasGrantedRequest = false
+    private func handleCaseForAuthorizationStatus(_ cnAuthorizationStatus :CNAuthorizationStatus) {
+            self.cnAuthorizationStatus = cnAuthorizationStatus
+            if self.cnAuthorizationStatus == .authorized {
+                self.getContacts()
+            }
+    }
+    
+    //if user has given the permission then get all the contacts from user device
+    private func getContacts() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey] as [CNKeyDescriptor]
+            let request = CNContactFetchRequest(keysToFetch: keys)
+            let contactStore = CNContactStore()
+            
+            self.contacts.removeAll()
+            
+            let userNumber = Singleton.sharedInstance.generalFunctions.getUserModel()?.phone ?? ""
+
+            do {
+                try contactStore.enumerateContacts(with: request) { (contact, stop) in
+                    
+                        for phoneNumber in contact.phoneNumbers {
+                            if let phoneNumberAsString = (phoneNumber.value).value(forKey: "digits") as? String, !phoneNumberAsString.contains(userNumber) {
+                                let name = "\(contact.givenName) \(contact.familyName)".trim()
+                                let contactModel = ContactModel(name: name, number: phoneNumberAsString)
+                                self.contacts.append(contactModel)
+                                //print("The \(phoneNumber.label ?? "") number of \(name) is: \(phoneNumberAsString)")
+                            }
+                        }
+                    }
+                
+                DispatchQueue.main.async {
+                    self.contacts = self.contacts.sorted { $0.name < $1.name }
+                    self.hasFetchedAddContacts = true
+                }
+                
+                
+                //self.sendContacts()
+            } catch {
+                print("unable to fetch contacts in \(#function)")
+            }
         }
-        //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-        //                self.showSettingsAlert()
-        //            }
+    }
+    
+    //send contacts to server, in 500-500 packets, so that server must not crash with amount of contacts
+//    private func sendContacts() {
+//        apiStatus = .IsBeingHit
+//
+//        let range = 500
+//        var contactsToSend: [ContactModel] = []
+//
+//        if contacts.count > (range - 1) {
+//            let startIndex = range * count
+//            let endIndex = (range * (count + 1)) - 1
+//            if contacts.count > endIndex {
+//                contactsToSend.append(contentsOf: Array(contacts[startIndex...endIndex]))
+//            } else {
+//                contactsToSend.append(contentsOf: Array(contacts[startIndex...(contacts.count - 1)]))
+//            }
+//        } else {
+//            contactsToSend.append(contentsOf: contacts)
+//        }
+//
+//        if let contactModel = Singleton.sharedInstance.generalFunctions.structToJSON(contactsToSend) {
+//            let params = ["contacts": contactModel] as JSONKeyPair
+//
+//            var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .sendContacts)
+//            urlRequest?.addHeaders(shouldAddAuthToken: true)
+//            urlRequest?.addParameters(params, as: .URLFormEncoded)
+//            Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: BaseResponse.self) { [weak self] in
+//                    self?.sendContacts()
+//                }
+//                .sink{ [weak self] completion in
+//                    switch completion {
+//                        case .finished:
+//                        break
+//                        case .failure(_):
+//                        self?.apiStatus = .ApiHitWithError
+//                        break
+//                    }
+//                } receiveValue: { [weak self] baseResponse in
+//                    guard let self = self else { return }
+//                    if baseResponse.success == true {
+//                        if self.contacts.count > (range * (self.count + 1)) - 1 {
+//                            self.count += 1
+//                            self.sendContacts()
+//                        } else {
+//                            self.count = 0
+//                            self.hasSharedContacts = true
+//                        }
+//                        self.apiStatus = .ApiHit
+//                    } else {
+//                        self.apiStatus = .ApiHitWithError
+//                    }
+//                }.store(in: &cancellable)
+//        }
+//    }
+    
+    func paginateContactWithIndex(_ index: Int, andSearchText searchText: String) {
+        if index >= (contactsToShow.count - 6) {
+            getContactsToShow(withSearchText: searchText, clearList: false)
+        }
+    }
+    
+    func getContactsToShow(withSearchText searchText: String, clearList: Bool = true) {
+        let range = 50
+        if clearList {
+            count = 0
+            contactsToShow.removeAll()
+        }
+        print("All Contacts = \(contacts.count)")
+        print("Contacts To Show Before = \(contactsToShow.count)")
+        if contactsToShow.count < contacts.count {
+            if searchText.isEmpty {
+                if contacts.count > (range - 1) {
+                    let startIndex = range * count
+                    let endIndex = (range * (count + 1)) - 1
+                    if contacts.count > endIndex {
+                        contactsToShow.append(contentsOf: Array(contacts[startIndex...endIndex]))
+                    } else {
+                        contactsToShow.append(contentsOf: Array(contacts[startIndex...(contacts.count - 1)]))
+                    }
+                } else {
+                    contactsToShow.append(contentsOf: contacts)
+                }
+            } else {
+                let filteredContacts = contacts.filter({ $0.name.contains(searchText) || $0.number.contains(searchText) })
+                if filteredContacts.count > (range - 1) {
+                    let startIndex = range * count
+                    let endIndex = (range * (count + 1)) - 1
+                    if filteredContacts.count > endIndex {
+                        contactsToShow = Array(filteredContacts[startIndex...endIndex])
+                    } else {
+                        contactsToShow = Array(filteredContacts[startIndex...(filteredContacts.count - 1)])
+                    }
+                } else {
+                    contactsToShow.append(contentsOf: filteredContacts)
+                }
+            }
+            
+            if self.contacts.count > (range * (self.count + 1)) - 1 {
+                self.count += 1
+            }
+        }
+        print("Contacts To Show After = \(contactsToShow.count)")
     }
     
     //if user has not given camera, we show the open app settings option with this method
-    private func showSettingsAlert() {
+    func showSettingsAlert() {
         let alert = Singleton.sharedInstance.alerts.getAlertController(ofStyle: .alert,
                                                    withTitle: AppTexts.AlertMessages.accessDenied,
                                                                        andMessage: (AppInfo.appName ?? AppTexts.thisApp) +
@@ -80,100 +218,6 @@ class ContactsViewModel: ViewModel {
         let vc = Singleton.sharedInstance.generalFunctions.getTopViewController()
         vc?.present(alert, animated: true, completion: nil)
     }
-    
-    private func handleAllowedCase() {
-        //if sendContacts && self.apiStatus == .NotHitOnce {
-        if self.apiStatus == .NotHitOnce {
-            self.getContacts()
-        }
-        DispatchQueue.main.async {
-            self.hasGrantedRequest = true
-        }
-    }
-    
-    //if user has given the permission then get all the contacts from user device
-    private func getContacts() {
-        let keys = [CNContactVCardSerialization.descriptorForRequiredKeys()] as [CNKeyDescriptor]
-        let request = CNContactFetchRequest(keysToFetch: keys)
-        let contactStore = CNContactStore()
-        
-        self.contacts.removeAll()
-        
-        do {
-            try contactStore.enumerateContacts(with: request) {
-                (contact, stop) in
-                for phoneNumber in contact.phoneNumbers {
-                    if let phoneNumberAsString = (phoneNumber.value).value(forKey: "digits") as? String {
-                        let name = "\(contact.givenName) \(contact.familyName)".trim()
-                        let contactModel = ContactsModel(name: name, number: phoneNumberAsString)
-                        self.contacts.append(contactModel)
-                        print("The \(phoneNumber.label ?? "") number of \(name) is: \(phoneNumberAsString)")
-                    }
-                }
-            }
-            print("completed")
-            
-            self.sendContacts()
-        }
-        catch {
-            print("unable to fetch contacts in \(#function)")
-        }
-    }
-    
-    //send contacts to server, in 500-500 packets, so that server must not crash with amount of contacts
-    private func sendContacts() {
-        apiStatus = .IsBeingHit
-        
-        let range = 500
-        var contactsToSend: [ContactsModel] = []
-        
-        if contacts.count > (range - 1) {
-            let startIndex = range * count
-            let endIndex = (range * (count + 1)) - 1
-            if contacts.count > endIndex {
-                contactsToSend = Array(contacts[startIndex...endIndex])
-            } else {
-                contactsToSend = Array(contacts[startIndex...(contacts.count - 1)])
-            }
-        } else {
-            contactsToSend = contacts
-        }
-        
-        if let contactModel = Singleton.sharedInstance.generalFunctions.structToJSON(contactsToSend) {
-            let params = ["contacts": contactModel] as JSONKeyPair
-            
-            var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .sendContacts)
-            urlRequest?.addHeaders(shouldAddAuthToken: true)
-            urlRequest?.addParameters(params, as: .URLFormEncoded)
-            Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: BaseResponse.self) { [weak self] in
-                    self?.sendContacts()
-                }
-                .sink{ [weak self] completion in
-                    switch completion {
-                        case .finished:
-                        break
-                        case .failure(_):
-                        self?.apiStatus = .ApiHitWithError
-                        break
-                    }
-                } receiveValue: { [weak self] baseResponse in
-                    guard let self = self else { return }
-                    if baseResponse.success == true {
-                        if self.contacts.count > (range * (self.count + 1)) - 1 {
-                            self.count += 1
-                            self.sendContacts()
-                        } else {
-                            self.count = 0
-                            self.hasSharedContacts = true
-                        }
-                        self.apiStatus = .ApiHit
-                    } else {
-                        self.apiStatus = .ApiHitWithError
-                    }
-                }.store(in: &cancellable)
-        }
-    }
-    
     func cancelAllCancellables() {
         cancellable.cancelAll()
     }

@@ -40,6 +40,7 @@
 		5209C1BB296BC6BB00399ADE /* AppBarText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209C1BA296BC6BB00399ADE /* AppBarText.swift */; };
 		5209C1BD296BCCF200399ADE /* ProfileInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */; };
 		520C4FF229E045DF0032B5A2 /* CheckWalletBalanceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FF029E045DC0032B5A2 /* CheckWalletBalanceScreen.swift */; };
+		520E835529E58BF000B61670 /* RequestTransferResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520E835429E58BF000B61670 /* RequestTransferResponse.swift */; };
 		521DEAD1296FC69700FC47D3 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */; };
 		521DEAD3296FC77000FC47D3 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */; };
 		521DEAD5296FF4E400FC47D3 /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DEAD4296FF4E400FC47D3 /* UserDetailsViewModel.swift */; };
@@ -169,6 +170,7 @@
 		5209C1BA296BC6BB00399ADE /* AppBarText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBarText.swift; sourceTree = "<group>"; };
 		5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoScreen.swift; sourceTree = "<group>"; };
 		520C4FF029E045DC0032B5A2 /* CheckWalletBalanceScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckWalletBalanceScreen.swift; sourceTree = "<group>"; };
+		520E835429E58BF000B61670 /* RequestTransferResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTransferResponse.swift; sourceTree = "<group>"; };
 		521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
 		521DEAD4296FF4E400FC47D3 /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				526F1050296EBCA5000CF16C /* AllBanksResponse.swift */,
 				526F104C296E786D000CF16C /* VerifyOTPResponse.swift */,
 				521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */,
+				520E835429E58BF000B61670 /* RequestTransferResponse.swift */,
 				52E0B9982970FE6A0022F0CE /* WalletTransactionsListResponse.swift */,
 				52E0B99C297100F00022F0CE /* SingleWalletTransactionResponse.swift */,
 				528B592D29653E5F0076A88A /* BaseResponse.swift */,
@@ -957,6 +960,7 @@
 				52A31AB629E437DB002CBA63 /* RechargeWalletScreen.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
+				520E835529E58BF000B61670 /* RequestTransferResponse.swift in Sources */,
 				52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */,
 				521DEAD1296FC69700FC47D3 /* UsersViewModel.swift in Sources */,
 				526F1049296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift in Sources */,

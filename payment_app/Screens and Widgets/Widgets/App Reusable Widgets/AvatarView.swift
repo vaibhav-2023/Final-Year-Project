@@ -10,6 +10,7 @@ import SwiftUI
 //Avatar View, which will show first letter of name or the profile pic of the user
 struct AvatarView: View {
     
+    private let imageURL: String
     private let character: String
     private let textSize: CGFloat
     private let width: CGFloat
@@ -17,11 +18,13 @@ struct AvatarView: View {
     private let strokeColor: Color
     private let lineWidth: CGFloat
     
-    init(character: String,
+    init(imageURL: String = "",
+         character: String,
          textSize: CGFloat = 22,
          size: CGFloat = DeviceDimensions.width * 0.12,
          strokeColor: Color = Color.clear,
          lineWidth: CGFloat = 0) {
+        self.imageURL = imageURL
         self.character = character
         self.textSize = textSize
         self.width = size
@@ -31,10 +34,15 @@ struct AvatarView: View {
     }
     
     var body: some View {
-        Text(character)
-            .fontCustom(.Medium, size: textSize)
-            .foregroundColor(.whiteColorForAllModes)
-            .frame(width: width, height: width)
+        Group {
+            if imageURL.isEmpty || imageURL == "user/default.jpg" {
+                Text(character)
+                    .fontCustom(.Medium, size: textSize)
+                    .foregroundColor(.whiteColorForAllModes)
+            } else {
+                KingfisherImageView(urlString: AppURLs.getImageURL() + imageURL, maxDimensionsGiven: false, width: width, height: height)
+            }
+        }.frame(width: width, height: width)
             .background(Color.primaryColor)
             .clipShape(Circle())
             .if (lineWidth > 0) { $0.overlay(Circle().stroke(strokeColor, lineWidth: lineWidth)).padding(lineWidth) }
