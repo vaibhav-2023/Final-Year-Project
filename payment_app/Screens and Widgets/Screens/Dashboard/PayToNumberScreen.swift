@@ -75,15 +75,15 @@ struct PayToNumberScreen: View {
                 } else {
                     Spacer()
                 }
-            }.background(Color.whiteColor.ignoresSafeArea())
-                .setNavigationBarTitle(title: AppTexts.payToNumber)
-                .onChange(of: searchText) { text in
-                    if searchText.count > 3 {
-                        //updated on 12/01/23
-                        usersVM.searchUsers(withMobileNumber: searchText, clearList: true)
-                    }
+            }
+        }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.payToNumber)
+            .onChange(of: searchText) { text in
+                if searchText.count > 3 {
+                    //updated on 12/01/23
+                    usersVM.searchUsers(withMobileNumber: searchText, clearList: true)
                 }
-        }
+            }
     }
     
     //contact Detail View
@@ -93,7 +93,8 @@ struct PayToNumberScreen: View {
         VStack(spacing: spacing) {
             HStack(spacing: spacing) {
                 let name = (userDetail?.name ?? "").capitalized
-                AvatarView(character: String(name.first ?? " "), size: size)
+                AvatarView(imageURL: (userDetail?.profilePic ?? ""),
+                    character: String(name.first ?? " "), size: size)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(name)

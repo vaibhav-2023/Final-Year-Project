@@ -53,6 +53,7 @@
 		526F1055296ECA7D000CF16C /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1054296ECA7D000CF16C /* ShimmerView.swift */; };
 		526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1056296ECAD7000CF16C /* EmptyListView.swift */; };
 		526F1059296ECB90000CF16C /* ListFooterProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1058296ECB90000CF16C /* ListFooterProgressView.swift */; };
+		5279F27429E6DCC100C0B6A0 /* StripePaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5279F27329E6DCC100C0B6A0 /* StripePaymentController.swift */; };
 		5289A499297969A2006AF03E /* SeeThroughShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289A498297969A2006AF03E /* SeeThroughShapeView.swift */; };
 		528B5915296531140076A88A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5914296531140076A88A /* LoginScreen.swift */; };
 		528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59172965352E0076A88A /* LoginFieldsOuterView.swift */; };
@@ -183,6 +184,7 @@
 		526F1054296ECA7D000CF16C /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		526F1056296ECAD7000CF16C /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		526F1058296ECB90000CF16C /* ListFooterProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterProgressView.swift; sourceTree = "<group>"; };
+		5279F27329E6DCC100C0B6A0 /* StripePaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentController.swift; sourceTree = "<group>"; };
 		5289A498297969A2006AF03E /* SeeThroughShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeThroughShapeView.swift; sourceTree = "<group>"; };
 		528B5914296531140076A88A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		528B59172965352E0076A88A /* LoginFieldsOuterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFieldsOuterView.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			children = (
 				520660672960107B00D65347 /* Alerts.swift */,
 				52066069296010B700D65347 /* AppConstants.swift */,
+				5279F27329E6DCC100C0B6A0 /* StripePaymentController.swift */,
 				5206606B2960111600D65347 /* AppTexts.swift */,
 				52066071296011AF00D65347 /* Extensions.swift */,
 				5206606D2960115300D65347 /* GeneralFunctions.swift */,
@@ -893,6 +896,7 @@
 				52A6F3A52976B606005951B4 /* ImagePickerView.swift in Sources */,
 				528B5946296558860076A88A /* SelectBankScreen.swift in Sources */,
 				520C4FF229E045DF0032B5A2 /* CheckWalletBalanceScreen.swift in Sources */,
+				5279F27429E6DCC100C0B6A0 /* StripePaymentController.swift in Sources */,
 				52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */,
 				526F104F296EBC2A000CF16C /* AllBanksViewModel.swift in Sources */,
 				528B5933296542F30076A88A /* OTPTextFieldViewModel.swift in Sources */,

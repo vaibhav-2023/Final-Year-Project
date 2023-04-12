@@ -54,11 +54,13 @@ struct HomeScreen: View {
                             Button {
                                 selection = NavigationEnum.ProfileScreen.rawValue
                             } label: {
-                                AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                                AvatarView(imageURL: (profileVM.userModel?.profilePic ?? ""),
+                                    character: "\(name.capitalized.first ?? " ")",
+                                    strokeColor: .whiteColorForAllModes, lineWidth: 1)
                             }
                         }
                         
-                        let vpaID = "vpaID"
+                        let vpaID = profileVM.userModel?.vpa ?? ""
                         Button {
                             UIPasteboard.general.string = vpaID
                             Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.AlertMessages.copiedToClipboard)
@@ -116,7 +118,8 @@ struct HomeScreen: View {
                         }
                         
                         listTile("qrCodeIconTemplate", title: AppTexts.qrCode) {
-                            selection = NavigationEnum.QRCodeInfoScreen.rawValue
+                            //selection = NavigationEnum.QRCodeInfoScreen.rawValue
+                            selection = NavigationEnum.ProfileScreen.rawValue
                         }
                         
                         listTile("clockIconTemplate", title: AppTexts.walletTransactions) {
@@ -146,7 +149,8 @@ struct HomeScreen: View {
                     if let qrCodeToURL = URL(string: scanResult),
                        let queryParameters = qrCodeToURL.queryParameters {
                         let qrCodeScannedModel = Singleton.sharedInstance.generalFunctions.jsonToStruct(json: queryParameters, decodingStruct: QrCodeScannedModel.self)
-                        if String(qrCodeScannedModel?.pa?.prefix(10) ?? "").containsPhoneNumber() {
+                        //if String(qrCodeScannedModel?.pa?.prefix(10) ?? "").containsPhoneNumber() {
+                        if let pa = qrCodeScannedModel?.pa, !pa.isEmpty {
                             self.qrCodeScannedModel = qrCodeScannedModel
                             selection = NavigationEnum.PayToScreen.rawValue
                         } else {
@@ -261,7 +265,7 @@ struct HomeScreen: View {
                 
                 Text(title)
                     .fontCustom(.Regular, size: 15)
-                    .foregroundColor(.blackColorForAllModes)
+                    .foregroundColor(.blackColor)
                 
                 Spacer()
                 
@@ -273,7 +277,7 @@ struct HomeScreen: View {
                 
             }.padding(.horizontal, 14)
                 .padding(.vertical, 10)
-                .background(Color.whiteColor)
+                .background(Color.clear)
                 .cornerRadius(cornerRadius)
                 .overlay(RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(Color.primaryColor, lineWidth: lineWidth))

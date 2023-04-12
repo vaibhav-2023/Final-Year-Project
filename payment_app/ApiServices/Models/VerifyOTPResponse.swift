@@ -22,7 +22,7 @@ struct VerifyOTPResponse: Codable {
     }
 }
 
-//This is the model of the user details
+//This is the model of the user details, updated on 10/04/23
 // MARK: - UserModel
 struct UserModel: Codable, Hashable {
     
@@ -46,13 +46,13 @@ struct UserModel: Codable, Hashable {
     let banks: [UserAddedBankAccountModel?]?
     let createdAt: String?
     let vpa, qrCodeFile: String?
-    let walletAmount: Double?
+    let walletAmount, walletBalance: Double?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case userAutoID = "userAutoId"
         case name, email, phone, otp, profilePic, countryCode, numericCountryCode, userType, isDelete, isBlocked
-        case firebaseToken, status, banks, createdAt, vpa, qrCodeFile, walletAmount
+        case firebaseToken, status, banks, createdAt, vpa, qrCodeFile, walletAmount, walletBalance
     }
 }
 
