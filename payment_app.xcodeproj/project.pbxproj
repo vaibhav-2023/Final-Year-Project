@@ -101,7 +101,7 @@
 		52BB13822966E87500ADB832 /* PayToScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13812966E87500ADB832 /* PayToScreen.swift */; };
 		52BB13842966EEFC00ADB832 /* PaymentDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */; };
 		52BC3FB229692AEF003A0B42 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 52BC3FB129692AEF003A0B42 /* CodeScanner */; };
-		52BC3FB429692E36003A0B42 /* PayToUPIIDScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */; };
+		52BC3FB429692E36003A0B42 /* PayToVPAIDScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB329692E36003A0B42 /* PayToVPAIDScreen.swift */; };
 		52BC3FB629693131003A0B42 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB529693131003A0B42 /* ContactsViewModel.swift */; };
 		52BC3FB8296935BD003A0B42 /* ContactsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB7296935BD003A0B42 /* ContactsModel.swift */; };
 		52BC3FBA29694B2D003A0B42 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */; };
@@ -232,7 +232,7 @@
 		52BB137F2966ABE200ADB832 /* PayToNumberScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToNumberScreen.swift; sourceTree = "<group>"; };
 		52BB13812966E87500ADB832 /* PayToScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToScreen.swift; sourceTree = "<group>"; };
 		52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailsScreen.swift; sourceTree = "<group>"; };
-		52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToUPIIDScreen.swift; sourceTree = "<group>"; };
+		52BC3FB329692E36003A0B42 /* PayToVPAIDScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToVPAIDScreen.swift; sourceTree = "<group>"; };
 		52BC3FB529693131003A0B42 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		52BC3FB7296935BD003A0B42 /* ContactsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsModel.swift; sourceTree = "<group>"; };
 		52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
@@ -609,7 +609,7 @@
 				52BB137F2966ABE200ADB832 /* PayToNumberScreen.swift */,
 				52BB13812966E87500ADB832 /* PayToScreen.swift */,
 				52A6F3A22976B200005951B4 /* PayToContactScreen.swift */,
-				52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */,
+				52BC3FB329692E36003A0B42 /* PayToVPAIDScreen.swift */,
 				52BB137829669BDB00ADB832 /* ProfileScreen.swift */,
 				5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */,
 				52BC3FBB29694DCE003A0B42 /* ScanQRScreen.swift */,
@@ -916,7 +916,7 @@
 				528B592A29653BF60076A88A /* LoginViewModel.swift in Sources */,
 				52BC3FB8296935BD003A0B42 /* ContactsModel.swift in Sources */,
 				528B594829655F6D0076A88A /* AvatarView.swift in Sources */,
-				52BC3FB429692E36003A0B42 /* PayToUPIIDScreen.swift in Sources */,
+				52BC3FB429692E36003A0B42 /* PayToVPAIDScreen.swift in Sources */,
 				528B5935296542F30076A88A /* DisabledActionsTextField.swift in Sources */,
 				52BB13772966939400ADB832 /* WalletTransactionsScreen.swift in Sources */,
 				5206602D2960088D00D65347 /* ContentView.swift in Sources */,

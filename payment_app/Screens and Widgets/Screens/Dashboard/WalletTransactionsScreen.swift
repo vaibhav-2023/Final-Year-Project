@@ -77,16 +77,21 @@ struct WalletTransactionsScreen: View {
     @ViewBuilder
     private func walletTransactionCell(withDetails walletTransaction: WalletTransactionModel?) -> some View {
         let size = DeviceDimensions.width * 0.12
-        let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletTransaction?.paidByUserID?.id
-        let isPaymentSuccessfull = walletTransaction?.isPaymentSuccessful ?? false
+        let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletTransaction?.getPaidByUserModel?.id
+        //let isPaymentSuccessfull = walletTransaction?.isPaymentSuccessful ?? false
         VStack(spacing: spacing) {
             Button {
                 selectedWalletTransaction = walletTransaction
                 selection = NavigationEnum.PaymentDetailsScreen.rawValue
             } label: {
                 HStack(spacing: spacing) {
-                    let toPaidUserName = (walletTransaction?.getPaidToUserModel?.name ?? "").capitalized
-                    AvatarView(character: String(toPaidUserName.first ?? " "), size: size)
+                    //condition updated on 10/04/23
+                    let isWalletTransaction = walletTransaction?.transactionType == WalletTransactionEnum.walletRecharge.rawValue
+                    let userDataToShow = isDebit ? walletTransaction?.getPaidToUserModel : walletTransaction?.getPaidByUserModel
+                    let toPaidUserName = isWalletTransaction ? (walletTransaction?.fromComments ?? "") : (userDataToShow?.name ?? "").capitalized
+                                         
+                    AvatarView(imageURL: isWalletTransaction ? "" : (userDataToShow?.profilePic ?? ""),
+                               character: isWalletTransaction ? Singleton.sharedInstance.generalFunctions.getCurrencySymbol() : String(toPaidUserName.first ?? " "), size: size)
                     
                     VStack(spacing: 2) {
                         HStack(spacing: spacing) {
@@ -109,11 +114,12 @@ struct WalletTransactionsScreen: View {
                             
                             Spacer()
                             
-                            if !isPaymentSuccessfull {
-                                Text(AppTexts.failed)
-                                    .fontCustom(.Regular, size: 15)
-                                    .foregroundColor(.redColor)
-                            }
+                        //commented on 10/04/23
+//                            if !isPaymentSuccessfull {
+//                                Text(AppTexts.failed)
+//                                    .fontCustom(.Regular, size: 15)
+//                                    .foregroundColor(.redColor)
+//                            }
                         }
                         
                     }
