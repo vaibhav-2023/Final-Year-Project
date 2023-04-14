@@ -57,7 +57,8 @@ struct ChatScreen: View {
                     ScrollViewReader { scrollViewReader in
                         List {
                             ForEach(Array((chatVM.chatWalletTransactions.reversed()).enumerated()), id: \.1) { index, chatWalletTransaction in
-                                let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  chatWalletTransaction?.paidByUserID?.id
+                                //updated on 10/04/23
+                                let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() == chatWalletTransaction?.getPaidByUserModel?.id
                                 let isPayment = true
                                 Group {
                                     //if the message invloves info related to payment, on click open transactions dettails
@@ -151,7 +152,9 @@ struct ChatScreen: View {
             }
             
             let name = (userDetailsVM.userDetails?.name ?? "").capitalized
-            AvatarView(character: String(name.first ?? " "), size: 35)
+            AvatarView(imageURL: userDetailsVM.userDetails?.profilePic ?? "",
+                       character: String(name.first ?? " "),
+                       size: 35)
             VStack(alignment: .leading, spacing: 5) {
                 Text(name)
                     .fontCustom(.Medium, size: 16)
@@ -162,7 +165,8 @@ struct ChatScreen: View {
                     .fontCustom(.Medium, size: 16)
                     .foregroundColor(.blackColor)
             }
-        }
+            Spacer(minLength: 1)
+        }.frame(width: DeviceDimensions.width * 0.6)
     }
 }
 

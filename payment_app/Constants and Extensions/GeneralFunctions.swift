@@ -56,6 +56,14 @@ class GeneralFunctions {
         return 0
     }
     
+    //for sharing items
+    func share(items: [Any]) {
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        if let vc = getTopViewController() {
+            vc.present(ac, animated: true, completion: nil)
+        }
+    }
+    
     //convert model/struct to data
     func structToData<T: Encodable>(_ model: T) -> Data? {
         do {

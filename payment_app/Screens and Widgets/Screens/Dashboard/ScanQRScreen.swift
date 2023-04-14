@@ -103,7 +103,7 @@ struct ScanQRScreen: View {
                 .overlay(RoundedRectangle(cornerRadius: 3).stroke(Color.white, lineWidth: 2)
                     .frame(width: size, height: size))
         }.setNavigationBarTitle(title: AppTexts.scanQR)
-            .navigationBarItems(trailing: navigationBarTrailingView)
+            //.navigationBarItems(trailing: navigationBarTrailingView)
     }
     
     //navigation bar trailing view
@@ -169,6 +169,7 @@ struct ScanQRScreen: View {
                     device.torchMode = AVCaptureDevice.TorchMode.on
 //                    do {
 //                        try device.setTorchModeOn(level: 1.0)
+//                        try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
 //                    } catch {
 //                        print("error in \(#function)", error)
 //                    }

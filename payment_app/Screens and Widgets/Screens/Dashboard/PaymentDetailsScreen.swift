@@ -31,16 +31,18 @@ struct PaymentDetailsScreen: View {
         ScrollView {
             VStack(spacing: 0) {
                 
-                //updated on 13/01/23
-                let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() ==  walletVM.singleWalletTransaction?.paidByUserID?.id
-                let isPaymentSuccessfull = walletVM.singleWalletTransaction?.isPaymentSuccessful ?? false
+                //updated on 13/01/23 and again updated added on 10/04/23
+                let isDebit = Singleton.sharedInstance.generalFunctions.getUserID() == walletVM.singleWalletTransaction?.getPaidByUserModel?.id
+                let isPaymentSuccessfull = true//walletVM.singleWalletTransaction?.isPaymentSuccessful ?? false
+                let isWalletRecharge = (walletVM.singleWalletTransaction?.transactionType ?? -1) == WalletTransactionEnum.walletRecharge.rawValue
+                let paidToUser = isWalletRecharge ? walletVM.singleWalletTransaction?.getPaidByUserModel : walletVM.singleWalletTransaction?.getPaidToUserModel
                 
                 VStack(spacing: spacing) {
                     HStack(alignment: .top) {
                         //updated on 13/01/23
-                        let name = (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized
+                        let name = (paidToUser?.name ?? "").capitalized
                         VStack(alignment: .leading, spacing: spacing) {
-                            Text(isDebit ? AppTexts.to : AppTexts.from)
+                            Text(isWalletRecharge ? AppTexts.recharge : isDebit ? AppTexts.to : AppTexts.from)
                                 .fontCustom(.Medium, size: 16)
                                 .foregroundColor(.blackColorForAllModes)
                             
@@ -54,12 +56,13 @@ struct PaymentDetailsScreen: View {
 //                        Button {
 //
 //                        } label: {
-                            AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                            AvatarView(imageURL: (paidToUser?.profilePic ?? ""),
+                                character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
 //                        }
                     }
                     
                     //updated on 13/01/23
-                    let mobileNumber = (walletVM.singleWalletTransaction?.getPaidToUserModel?.numericCountryCode ?? "") + " " + (walletVM.singleWalletTransaction?.getPaidToUserModel?.phone ?? "")
+                    let mobileNumber = (paidToUser?.numericCountryCode ?? "") + " " + (paidToUser?.phone ?? "")
                     Text("\(AppTexts.mobileNumber):- \(mobileNumber)")
                         .fontCustom(.Medium, size: 16)
                         .foregroundColor(.blackColorForAllModes)
@@ -90,7 +93,8 @@ struct PaymentDetailsScreen: View {
                     textView((price.getNumberWords() + " " + prefix + " " + AppTexts.only).capitalized)
                         .padding(.bottom, padding)
                     
-                    PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isDebit: isDebit)
+                    PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull,
+                                      walletTransactionEnum: WalletTransactionEnum(rawValue: walletTransactionsDetails?.transactionType ?? 0) ?? .debit)
                         .padding(.top, padding)
                     
                     let date = walletVM.singleWalletTransaction?.createdAt?.convertServerStringDate(toFormat: DateFormats.ddMMMYYYYathhmmaa) ?? ""
@@ -98,13 +102,18 @@ struct PaymentDetailsScreen: View {
                         .padding(.bottom, padding)
                     
                     VStack(spacing: padding) {
-                        Text("\(AppTexts.transactionID):")
-                            .foregroundColor(.blackColor)
-                            .fontCustom(.Medium, size: 16)
+                        //updated on 10/04/23
+                        if let paymentTransactionID = walletVM.singleWalletTransaction?.paymentTransactionID {
+                            Text("\(AppTexts.transactionID): \(paymentTransactionID)")
+                                .foregroundColor(.blackColor)
+                                .fontCustom(.Medium, size: 16)
+                        }
                         
-                        //updated on 13/01/23
-                        userDetails(title: AppTexts.from, userDetails: (walletVM.singleWalletTransaction?.paidByUserID?.name ?? "").capitalized)
-                        userDetails(title: AppTexts.to, userDetails: (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized)
+                        //updated on 13/01/23 again condition updated on 10/04/23
+                        if !isWalletRecharge {
+                            userDetails(title: AppTexts.from, userDetails: (walletVM.singleWalletTransaction?.getPaidByUserModel?.name ?? "").capitalized)
+                            userDetails(title: AppTexts.to, userDetails: (walletVM.singleWalletTransaction?.getPaidToUserModel?.name ?? "").capitalized)
+                        }
                     }
                     
                 }.padding(padding)

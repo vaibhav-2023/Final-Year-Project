@@ -10,7 +10,10 @@ import SwiftUI
 //screen to show wallet balance
 struct CheckWalletBalanceScreen: View {
     
+    //added on 10/04/23, for handling view model
+    @StateObject private var profilevM = ProfileViewModel()
     
+    //constants for spacing and padding
     private let spacing: CGFloat = 10
     private let padding: CGFloat = 16
     
@@ -26,10 +29,16 @@ struct CheckWalletBalanceScreen: View {
                 }
                 
                 let currencySymbol = Singleton.sharedInstance.generalFunctions.getCurrencySymbol()
-                Text(currencySymbol + " ")
+                Text(currencySymbol + " \(profilevM.userModel?.walletBalance ?? 0.0)")
+                    .fontCustom(.Regular, size: 17)
+                    .foregroundColor(.darkGrayColor)
             }.padding(padding)
-        }.setNavigationBarTitle(title: AppTexts.walletBalance)
-            //.showLoader(isPresenting: <#T##Binding<Bool>#>)
+        }.background(Color.whiteColor.ignoresSafeArea())
+            .setNavigationBarTitle(title: AppTexts.walletBalance)
+            .showLoader(isPresenting: .constant(profilevM.isAnyApiBeingHit))
+            .onAppear {
+                profilevM.getProfile()
+            }
     }
 }
 

@@ -50,7 +50,7 @@ struct VerifyOTPandFillDetailsScreen: View {
     private func handleStatus(_ apiStatus: LoginApiStatus) {
         switch apiStatus {
         case .FillBankDetails:
-            Singleton.sharedInstance.appEnvironmentObject.openFillBankDetailsScreen = true
+            //Singleton.sharedInstance.appEnvironmentObject.openFillBankDetailsScreen = true
             userLoggedIn()
         case .FillDetails:
             showFillDetailsScreen = true

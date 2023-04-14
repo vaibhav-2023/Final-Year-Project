@@ -22,31 +22,32 @@ class PaymentViewModel: ViewModel {
         return false
     }
     
-    //add new wallet transaction
-    func addWalletTransactions(fromBankAccount: UserAddedBankAccountModel?,
+    //add new wallet transaction, updated on 10/04/23
+    func addWalletTransactions(//fromBankAccount: UserAddedBankAccountModel?,
                                toUser: UserModel?,
-                               toBankAccount: UserAddedBankAccountModel?,
+                               //toBankAccount: UserAddedBankAccountModel?,
                                withAmount amount: String,
                                andNote note: String,
                                isSuccessfull: Bool) {
         
         addWalletTransactionAS = .IsBeingHit
         
-        var params = ["paidByUserId": Singleton.sharedInstance.generalFunctions.getUserID(),
-                      "fromBankId": fromBankAccount?.id ?? "",
+        var params = ["userId": Singleton.sharedInstance.generalFunctions.getUserID(),
+                      //"fromBankId": fromBankAccount?.id ?? "",
                       "amount": amount,
-                      "isPaymentSuccessful": true,
+                      "transactionType": WalletTransactionEnum.debit.rawValue,
+                      //"isPaymentSuccessful": true,
                       "remarks": note] as JSONKeyPair
         
         if let toUserId = toUser?.id {
-            params["paidToUserId"] = toUserId
+            params["toUserId"] = toUserId
         } else if let json = Singleton.sharedInstance.generalFunctions.structToJSONString(toUser) {
-            params["paidToUserData"] = json
+            params["toUserData"] = json
         }
         
-        if let toBankAccountID = toBankAccount?.id {
-            params["toBankId"] = toBankAccountID
-        }
+        //        if let toBankAccountID = toBankAccount?.id {
+        //            params["toBankId"] = toBankAccountID
+        //        }
         
         print(params)
         
@@ -54,9 +55,9 @@ class PaymentViewModel: ViewModel {
         urlRequest?.addHeaders(shouldAddAuthToken: true)
         urlRequest?.addParameters(params, as: .URLFormEncoded)
         Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: SingleWalletTransactionResponse.self) { [weak self] in
-            self?.addWalletTransactions(fromBankAccount: fromBankAccount,
+            self?.addWalletTransactions(//fromBankAccount: fromBankAccount,
                                         toUser: toUser,
-                                        toBankAccount: toBankAccount,
+                                        //toBankAccount: toBankAccount,
                                         withAmount: amount,
                                         andNote: note,
                                         isSuccessfull: isSuccessfull)

@@ -43,16 +43,18 @@ struct QRCodeInfoScreen: View {
                             
                             Spacer()
                             
-                            AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                            AvatarView(imageURL: (profileVM.userModel?.profilePic ?? ""),
+                                    character: "\(name.capitalized.first ?? " ")",
+                                    strokeColor: .whiteColorForAllModes, lineWidth: 1)
                         }
                         
-                        let upiID = "upiid"
+                        let vpaID = profileVM.userModel?.vpa ?? ""
                         Button {
-                            UIPasteboard.general.string = upiID
+                            UIPasteboard.general.string = vpaID
                             Singleton.sharedInstance.alerts.showToast(withMessage: AppTexts.AlertMessages.copiedToClipboard)
                         } label: {
                             HStack {
-                                Text("\(AppTexts.upiID):- \(upiID)")
+                                Text("\(AppTexts.vpaID):- \(vpaID)")
                                     .fontCustom(.Medium, size: 16)
                                     .foregroundColor(.blackColorForAllModes)
                                 
@@ -98,7 +100,8 @@ struct QRCodeInfoScreen: View {
                                 let bankName = selectedBankAccount.accountNumber ?? ""
                                 let size = DeviceDimensions.width * 0.12
                                 HStack(spacing: spacing) {
-                                    AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                                    AvatarView(imageURL: (profileVM.userModel?.profilePic ?? ""),
+                                        character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
                                     
                                     VStack(alignment: .leading, spacing: 5) {
                                         Text(bankName)

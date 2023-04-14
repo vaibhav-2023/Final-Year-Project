@@ -83,6 +83,16 @@ struct MyTextField: View {
     
     private func onReceive(newValue: String) {
         switch keyboardType {
+        case .namePhonePad:
+            do {
+                let regex = try NSRegularExpression(pattern: ".*[^A-Za-z0-9 ].*", options: [])
+                let newValueMS = NSMutableString(string: newValue)
+                regex.replaceMatches(in: newValueMS, options: [], range: NSMakeRange(0, newValueMS.length), withTemplate: "")
+                updateValue(withFiltered: String(newValueMS), andNewValue: newValue)
+            }
+            catch {
+                print("ERROR in \(#function))")
+            }
         case .numberPad, .phonePad:
             let filtered = newValue.filter { "0123456789".contains($0) }
             updateValue(withFiltered: filtered, andNewValue: newValue)

@@ -39,8 +39,14 @@
 		5206609129601FF800D65347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5206609029601FF800D65347 /* LaunchScreen.storyboard */; };
 		5209C1BB296BC6BB00399ADE /* AppBarText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209C1BA296BC6BB00399ADE /* AppBarText.swift */; };
 		5209C1BD296BCCF200399ADE /* ProfileInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */; };
-		520C4FF229E045DF0032B5A2 /* CheckWalletBalanceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FF029E045DC0032B5A2 /* CheckWalletBalanceScreen.swift */; };
-		520E835529E58BF000B61670 /* RequestTransferResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520E835429E58BF000B61670 /* RequestTransferResponse.swift */; };
+		520C4FE129DFF9090032B5A2 /* RechargeWalletScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FE029DFF9090032B5A2 /* RechargeWalletScreen.swift */; };
+		520C4FE329DFFF5B0032B5A2 /* RequestTransferScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FE229DFFF5A0032B5A2 /* RequestTransferScreen.swift */; };
+		520C4FE529E0004B0032B5A2 /* RequestTransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FE429E0004B0032B5A2 /* RequestTransferViewModel.swift */; };
+		520C4FE729E0013B0032B5A2 /* RequestTransferResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FE629E0013B0032B5A2 /* RequestTransferResponse.swift */; };
+		520C4FE929E003CA0032B5A2 /* StripeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FE829E003CA0032B5A2 /* StripeCardView.swift */; };
+		520C4FEB29E0158F0032B5A2 /* RechargeWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FEA29E0158F0032B5A2 /* RechargeWalletViewModel.swift */; };
+		520C4FED29E016530032B5A2 /* StripePaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FEC29E016530032B5A2 /* StripePaymentController.swift */; };
+		520C4FEF29E039370032B5A2 /* CheckWalletBalanceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520C4FEE29E039370032B5A2 /* CheckWalletBalanceScreen.swift */; };
 		521DEAD1296FC69700FC47D3 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */; };
 		521DEAD3296FC77000FC47D3 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */; };
 		521DEAD5296FF4E400FC47D3 /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521DEAD4296FF4E400FC47D3 /* UserDetailsViewModel.swift */; };
@@ -53,7 +59,6 @@
 		526F1055296ECA7D000CF16C /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1054296ECA7D000CF16C /* ShimmerView.swift */; };
 		526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1056296ECAD7000CF16C /* EmptyListView.swift */; };
 		526F1059296ECB90000CF16C /* ListFooterProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F1058296ECB90000CF16C /* ListFooterProgressView.swift */; };
-		5279F27429E6DCC100C0B6A0 /* StripePaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5279F27329E6DCC100C0B6A0 /* StripePaymentController.swift */; };
 		5289A499297969A2006AF03E /* SeeThroughShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289A498297969A2006AF03E /* SeeThroughShapeView.swift */; };
 		528B5915296531140076A88A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5914296531140076A88A /* LoginScreen.swift */; };
 		528B59182965352E0076A88A /* LoginFieldsOuterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B59172965352E0076A88A /* LoginFieldsOuterView.swift */; };
@@ -80,8 +85,6 @@
 		528B594A296563C30076A88A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B5949296563C30076A88A /* SearchTextField.swift */; };
 		528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594B29656B290076A88A /* FillBankDetailsScreen.swift */; };
 		528B595029658BDB0076A88A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B594F29658BDB0076A88A /* CardView.swift */; };
-		52A31AB629E437DB002CBA63 /* RechargeWalletScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A31AB529E437DA002CBA63 /* RechargeWalletScreen.swift */; };
-		52A31AB829E4384A002CBA63 /* RechargeWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A31AB729E4384A002CBA63 /* RechargeWalletViewModel.swift */; };
 		52A6F39C297540E9005951B4 /* QrCodeScannedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */; };
 		52A6F39E29767753005951B4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39D29767753005951B4 /* ChatViewModel.swift */; };
 		52A6F3A02976A7A8005951B4 /* FillDetailsBankTransferScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */; };
@@ -101,9 +104,9 @@
 		52BB13822966E87500ADB832 /* PayToScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13812966E87500ADB832 /* PayToScreen.swift */; };
 		52BB13842966EEFC00ADB832 /* PaymentDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */; };
 		52BC3FB229692AEF003A0B42 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 52BC3FB129692AEF003A0B42 /* CodeScanner */; };
-		52BC3FB429692E36003A0B42 /* PayToVPAIDScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB329692E36003A0B42 /* PayToVPAIDScreen.swift */; };
+		52BC3FB429692E36003A0B42 /* PayToUPIIDScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */; };
 		52BC3FB629693131003A0B42 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB529693131003A0B42 /* ContactsViewModel.swift */; };
-		52BC3FB8296935BD003A0B42 /* ContactsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB7296935BD003A0B42 /* ContactsModel.swift */; };
+		52BC3FB8296935BD003A0B42 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB7296935BD003A0B42 /* ContactModel.swift */; };
 		52BC3FBA29694B2D003A0B42 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */; };
 		52BC3FBC29694DCE003A0B42 /* ScanQRScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FBB29694DCE003A0B42 /* ScanQRScreen.swift */; };
 		52BC3FBE29697488003A0B42 /* QRCodeInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BC3FBD29697488003A0B42 /* QRCodeInfoScreen.swift */; };
@@ -170,8 +173,14 @@
 		520660922960205800D65347 /* payment-app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "payment-app-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5209C1BA296BC6BB00399ADE /* AppBarText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBarText.swift; sourceTree = "<group>"; };
 		5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoScreen.swift; sourceTree = "<group>"; };
-		520C4FF029E045DC0032B5A2 /* CheckWalletBalanceScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckWalletBalanceScreen.swift; sourceTree = "<group>"; };
-		520E835429E58BF000B61670 /* RequestTransferResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTransferResponse.swift; sourceTree = "<group>"; };
+		520C4FE029DFF9090032B5A2 /* RechargeWalletScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeWalletScreen.swift; sourceTree = "<group>"; };
+		520C4FE229DFFF5A0032B5A2 /* RequestTransferScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTransferScreen.swift; sourceTree = "<group>"; };
+		520C4FE429E0004B0032B5A2 /* RequestTransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTransferViewModel.swift; sourceTree = "<group>"; };
+		520C4FE629E0013B0032B5A2 /* RequestTransferResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTransferResponse.swift; sourceTree = "<group>"; };
+		520C4FE829E003CA0032B5A2 /* StripeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCardView.swift; sourceTree = "<group>"; };
+		520C4FEA29E0158F0032B5A2 /* RechargeWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeWalletViewModel.swift; sourceTree = "<group>"; };
+		520C4FEC29E016530032B5A2 /* StripePaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentController.swift; sourceTree = "<group>"; };
+		520C4FEE29E039370032B5A2 /* CheckWalletBalanceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckWalletBalanceScreen.swift; sourceTree = "<group>"; };
 		521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
 		521DEAD4296FF4E400FC47D3 /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -184,7 +193,6 @@
 		526F1054296ECA7D000CF16C /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		526F1056296ECAD7000CF16C /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		526F1058296ECB90000CF16C /* ListFooterProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterProgressView.swift; sourceTree = "<group>"; };
-		5279F27329E6DCC100C0B6A0 /* StripePaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentController.swift; sourceTree = "<group>"; };
 		5289A498297969A2006AF03E /* SeeThroughShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeThroughShapeView.swift; sourceTree = "<group>"; };
 		528B5914296531140076A88A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		528B59172965352E0076A88A /* LoginFieldsOuterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFieldsOuterView.swift; sourceTree = "<group>"; };
@@ -211,8 +219,6 @@
 		528B5949296563C30076A88A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		528B594B29656B290076A88A /* FillBankDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBankDetailsScreen.swift; sourceTree = "<group>"; };
 		528B594F29658BDB0076A88A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		52A31AB529E437DA002CBA63 /* RechargeWalletScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeWalletScreen.swift; sourceTree = "<group>"; };
-		52A31AB729E4384A002CBA63 /* RechargeWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeWalletViewModel.swift; sourceTree = "<group>"; };
 		52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannedModel.swift; sourceTree = "<group>"; };
 		52A6F39D29767753005951B4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillDetailsBankTransferScreen.swift; sourceTree = "<group>"; };
@@ -232,9 +238,9 @@
 		52BB137F2966ABE200ADB832 /* PayToNumberScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToNumberScreen.swift; sourceTree = "<group>"; };
 		52BB13812966E87500ADB832 /* PayToScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToScreen.swift; sourceTree = "<group>"; };
 		52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailsScreen.swift; sourceTree = "<group>"; };
-		52BC3FB329692E36003A0B42 /* PayToVPAIDScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToVPAIDScreen.swift; sourceTree = "<group>"; };
+		52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToUPIIDScreen.swift; sourceTree = "<group>"; };
 		52BC3FB529693131003A0B42 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
-		52BC3FB7296935BD003A0B42 /* ContactsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsModel.swift; sourceTree = "<group>"; };
+		52BC3FB7296935BD003A0B42 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		52BC3FBB29694DCE003A0B42 /* ScanQRScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRScreen.swift; sourceTree = "<group>"; };
 		52BC3FBD29697488003A0B42 /* QRCodeInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeInfoScreen.swift; sourceTree = "<group>"; };
@@ -396,8 +402,8 @@
 			isa = PBXGroup;
 			children = (
 				520660672960107B00D65347 /* Alerts.swift */,
+				520C4FEC29E016530032B5A2 /* StripePaymentController.swift */,
 				52066069296010B700D65347 /* AppConstants.swift */,
-				5279F27329E6DCC100C0B6A0 /* StripePaymentController.swift */,
 				5206606B2960111600D65347 /* AppTexts.swift */,
 				52066071296011AF00D65347 /* Extensions.swift */,
 				5206606D2960115300D65347 /* GeneralFunctions.swift */,
@@ -430,9 +436,10 @@
 			isa = PBXGroup;
 			children = (
 				52BC3FB929694B2D003A0B42 /* CameraViewModel.swift */,
-				52A31AB729E4384A002CBA63 /* RechargeWalletViewModel.swift */,
 				528B592929653BF60076A88A /* LoginViewModel.swift */,
 				526F104E296EBC2A000CF16C /* AllBanksViewModel.swift */,
+				520C4FE429E0004B0032B5A2 /* RequestTransferViewModel.swift */,
+				520C4FEA29E0158F0032B5A2 /* RechargeWalletViewModel.swift */,
 				521DEAD0296FC69700FC47D3 /* UsersViewModel.swift */,
 				52A6F39D29767753005951B4 /* ChatViewModel.swift */,
 				52E0B99A2970FF530022F0CE /* WalletTransactionsViewModel.swift */,
@@ -449,10 +456,10 @@
 			isa = PBXGroup;
 			children = (
 				528B592B29653C810076A88A /* LoginResponse.swift */,
+				520C4FE629E0013B0032B5A2 /* RequestTransferResponse.swift */,
 				526F1050296EBCA5000CF16C /* AllBanksResponse.swift */,
 				526F104C296E786D000CF16C /* VerifyOTPResponse.swift */,
 				521DEAD2296FC77000FC47D3 /* UsersListResponse.swift */,
-				520E835429E58BF000B61670 /* RequestTransferResponse.swift */,
 				52E0B9982970FE6A0022F0CE /* WalletTransactionsListResponse.swift */,
 				52E0B99C297100F00022F0CE /* SingleWalletTransactionResponse.swift */,
 				528B592D29653E5F0076A88A /* BaseResponse.swift */,
@@ -465,7 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				520660732960132B00D65347 /* FileModel.swift */,
-				52BC3FB7296935BD003A0B42 /* ContactsModel.swift */,
+				52BC3FB7296935BD003A0B42 /* ContactModel.swift */,
 				52A6F3A62977C774005951B4 /* ImageModel.swift */,
 				52A6F39B297540E9005951B4 /* QrCodeScannedModel.swift */,
 			);
@@ -601,15 +608,17 @@
 				52B029522967D56A000FC386 /* SelectBankAccountSheet.swift */,
 				528B594B29656B290076A88A /* FillBankDetailsScreen.swift */,
 				52A6F39F2976A7A8005951B4 /* FillDetailsBankTransferScreen.swift */,
-				52A31AB529E437DA002CBA63 /* RechargeWalletScreen.swift */,
 				52BC3FBD29697488003A0B42 /* QRCodeInfoScreen.swift */,
+				520C4FE029DFF9090032B5A2 /* RechargeWalletScreen.swift */,
+				520C4FE829E003CA0032B5A2 /* StripeCardView.swift */,
+				520C4FE229DFFF5A0032B5A2 /* RequestTransferScreen.swift */,
+				520C4FEE29E039370032B5A2 /* CheckWalletBalanceScreen.swift */,
 				528B594329654F920076A88A /* HomeScreen.swift */,
-				520C4FF029E045DC0032B5A2 /* CheckWalletBalanceScreen.swift */,
 				52BB13832966EEFC00ADB832 /* PaymentDetailsScreen.swift */,
 				52BB137F2966ABE200ADB832 /* PayToNumberScreen.swift */,
 				52BB13812966E87500ADB832 /* PayToScreen.swift */,
 				52A6F3A22976B200005951B4 /* PayToContactScreen.swift */,
-				52BC3FB329692E36003A0B42 /* PayToVPAIDScreen.swift */,
+				52BC3FB329692E36003A0B42 /* PayToUPIIDScreen.swift */,
 				52BB137829669BDB00ADB832 /* ProfileScreen.swift */,
 				5209C1BC296BCCF200399ADE /* ProfileInfoScreen.swift */,
 				52BC3FBB29694DCE003A0B42 /* ScanQRScreen.swift */,
@@ -888,15 +897,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A31AB829E4384A002CBA63 /* RechargeWalletViewModel.swift in Sources */,
 				526F1057296ECAD7000CF16C /* EmptyListView.swift in Sources */,
 				528B5928296539250076A88A /* OTPVerifyScreen.swift in Sources */,
 				528B594C29656B290076A88A /* FillBankDetailsScreen.swift in Sources */,
 				528B59252965377E0076A88A /* ImageView.swift in Sources */,
 				52A6F3A52976B606005951B4 /* ImagePickerView.swift in Sources */,
 				528B5946296558860076A88A /* SelectBankScreen.swift in Sources */,
-				520C4FF229E045DF0032B5A2 /* CheckWalletBalanceScreen.swift in Sources */,
-				5279F27429E6DCC100C0B6A0 /* StripePaymentController.swift in Sources */,
 				52BB137929669BDB00ADB832 /* ProfileScreen.swift in Sources */,
 				526F104F296EBC2A000CF16C /* AllBanksViewModel.swift in Sources */,
 				528B5933296542F30076A88A /* OTPTextFieldViewModel.swift in Sources */,
@@ -914,9 +920,9 @@
 				5206605B29600EEC00D65347 /* ApiServices.swift in Sources */,
 				5206606C2960111600D65347 /* AppTexts.swift in Sources */,
 				528B592A29653BF60076A88A /* LoginViewModel.swift in Sources */,
-				52BC3FB8296935BD003A0B42 /* ContactsModel.swift in Sources */,
+				52BC3FB8296935BD003A0B42 /* ContactModel.swift in Sources */,
 				528B594829655F6D0076A88A /* AvatarView.swift in Sources */,
-				52BC3FB429692E36003A0B42 /* PayToVPAIDScreen.swift in Sources */,
+				52BC3FB429692E36003A0B42 /* PayToUPIIDScreen.swift in Sources */,
 				528B5935296542F30076A88A /* DisabledActionsTextField.swift in Sources */,
 				52BB13772966939400ADB832 /* WalletTransactionsScreen.swift in Sources */,
 				5206602D2960088D00D65347 /* ContentView.swift in Sources */,
@@ -936,6 +942,7 @@
 				5206605D29600F2300D65347 /* Endpoints.swift in Sources */,
 				52BB137B2966A34400ADB832 /* BankAccountsScreen.swift in Sources */,
 				528B59242965377E0076A88A /* KingfisherImageView.swift in Sources */,
+				520C4FED29E016530032B5A2 /* StripePaymentController.swift in Sources */,
 				526F104D296E786D000CF16C /* VerifyOTPResponse.swift in Sources */,
 				52BC3FBE29697488003A0B42 /* QRCodeInfoScreen.swift in Sources */,
 				528B593C296549300076A88A /* BlurView.swift in Sources */,
@@ -958,17 +965,20 @@
 				52BC3FB629693131003A0B42 /* ContactsViewModel.swift in Sources */,
 				520660742960132B00D65347 /* FileModel.swift in Sources */,
 				521DEAD3296FC77000FC47D3 /* UsersListResponse.swift in Sources */,
+				520C4FE929E003CA0032B5A2 /* StripeCardView.swift in Sources */,
 				52A6F39C297540E9005951B4 /* QrCodeScannedModel.swift in Sources */,
+				520C4FEF29E039370032B5A2 /* CheckWalletBalanceScreen.swift in Sources */,
 				528B594A296563C30076A88A /* SearchTextField.swift in Sources */,
 				52B029562967D948000FC386 /* PaymentStatusView.swift in Sources */,
-				52A31AB629E437DB002CBA63 /* RechargeWalletScreen.swift in Sources */,
 				5206602B2960088D00D65347 /* payment_appApp.swift in Sources */,
 				528B593E29654BFC0076A88A /* FillUserDetailsScreen.swift in Sources */,
-				520E835529E58BF000B61670 /* RequestTransferResponse.swift in Sources */,
 				52A6F3A32976B200005951B4 /* PayToContactScreen.swift in Sources */,
 				521DEAD1296FC69700FC47D3 /* UsersViewModel.swift in Sources */,
 				526F1049296E73C7000CF16C /* VerifyOTPandFillDetailsScreen.swift in Sources */,
+				520C4FE729E0013B0032B5A2 /* RequestTransferResponse.swift in Sources */,
 				520660682960107B00D65347 /* Alerts.swift in Sources */,
+				520C4FEB29E0158F0032B5A2 /* RechargeWalletViewModel.swift in Sources */,
+				520C4FE329DFFF5B0032B5A2 /* RequestTransferScreen.swift in Sources */,
 				52B029582967D9DD000FC386 /* MessageCell.swift in Sources */,
 				5206608C29601F1600D65347 /* AppDelegate.swift in Sources */,
 				528B593A296549160076A88A /* LargeProgressView.swift in Sources */,
@@ -976,9 +986,11 @@
 				528B5915296531140076A88A /* LoginScreen.swift in Sources */,
 				52B0295A2968097C000FC386 /* AdjustableHeightTextView.swift in Sources */,
 				52B029532967D56A000FC386 /* SelectBankAccountSheet.swift in Sources */,
+				520C4FE129DFF9090032B5A2 /* RechargeWalletScreen.swift in Sources */,
 				5209C1BD296BCCF200399ADE /* ProfileInfoScreen.swift in Sources */,
 				52A6F3A02976A7A8005951B4 /* FillDetailsBankTransferScreen.swift in Sources */,
 				5206605F29600F5800D65347 /* InternetConnectivityViewModel.swift in Sources */,
+				520C4FE529E0004B0032B5A2 /* RequestTransferViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

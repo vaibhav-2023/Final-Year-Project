@@ -73,7 +73,7 @@ struct OTPTextField: View {
     private func otpText(text: String) -> some View {
         Text(text)
                 .fontCustom(.Medium, size: 24)
-                .foregroundColor(.blackColorForAllModes)
+                .foregroundColor(.blackColor)
                 .frame(width: textBoxWidth, height: textBoxHeight)
                 .padding(paddingOfBox)
                 .background(backgroundColor)

@@ -66,7 +66,8 @@ struct PayToScreen: View {
 //                        Button {
 //
 //                        } label: {
-                            AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                        AvatarView(imageURL: (userDetailsVM.userDetails?.profilePic ?? ""),
+                                character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
 //                        }
                     }
                     
@@ -105,52 +106,55 @@ struct PayToScreen: View {
                     Spacer()
                     
                     CardView(backgroundColor: .lightBluishGrayColor) {
-                        VStack {
-                            if profileVM.userModel?.banks?.isEmpty == true {
-                                MaxWidthButton(text: AppTexts.addBankAccount, fontEnum: .Medium) {
-                                    selection = NavigationEnum.FillBankDetails.rawValue
-                                }
-                            } else {
-                                HStack {
-                                    Text(AppTexts.payFrom + ":")
-                                        .foregroundColor(.blackColor)
-                                        .fontCustom(.Medium, size: 16)
-                                    
-                                    Spacer()
-                                    
-                                    Button {
-                                        showSelectBankSheet = true
-                                    } label: {
-                                        Text(AppTexts.changeBank)
-                                            .foregroundColor(.primaryColor)
-                                            .fontCustom(.SemiBold, size: 16)
-                                    }
-                                }
-                                
-                                let bankName = selectedBankAccount?.accountNumber ?? ""
-                                let size = DeviceDimensions.width * 0.12
-                                HStack(spacing: spacing) {
-                                    AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
-                                    
-                                    VStack(alignment: .leading, spacing: 5) {
-                                        Text(bankName)
-                                            .fontCustom(.Medium, size: 16)
-                                            .foregroundColor(.blackColor)
-                                        
-                                        let bankAccountSuffix4: String = String((selectedBankAccount?.accountNumber  ?? "").suffix(4))
-                                        Text("**** \(bankAccountSuffix4)")
-                                            .fontCustom(.Regular, size: 13)
-                                            .foregroundColor(.darkGrayColor)
-                                    }
-                                    
-                                    Spacer()
-                                }.padding(.vertical, padding/2)
-                                
-                                MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
-                                    payBA()
-                                }
-                            }
-                        }.padding()
+                        MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
+                            payBA()
+                        }
+//                        VStack {
+//                            if profileVM.userModel?.banks?.isEmpty == true {
+//                                MaxWidthButton(text: AppTexts.addBankAccount, fontEnum: .Medium) {
+//                                    selection = NavigationEnum.FillBankDetails.rawValue
+//                                }
+//                            } else {
+//                                HStack {
+//                                    Text(AppTexts.payFrom + ":")
+//                                        .foregroundColor(.blackColor)
+//                                        .fontCustom(.Medium, size: 16)
+//
+//                                    Spacer()
+//
+//                                    Button {
+//                                        showSelectBankSheet = true
+//                                    } label: {
+//                                        Text(AppTexts.changeBank)
+//                                            .foregroundColor(.primaryColor)
+//                                            .fontCustom(.SemiBold, size: 16)
+//                                    }
+//                                }
+//
+//                                let bankName = selectedBankAccount?.accountNumber ?? ""
+//                                let size = DeviceDimensions.width * 0.12
+//                                HStack(spacing: spacing) {
+//                                    AvatarView(character: String(bankName.capitalized.first ?? " "), size: size, strokeColor: .whiteColorForAllModes, lineWidth: 1)
+//
+//                                    VStack(alignment: .leading, spacing: 5) {
+//                                        Text(bankName)
+//                                            .fontCustom(.Medium, size: 16)
+//                                            .foregroundColor(.blackColor)
+//
+//                                        let bankAccountSuffix4: String = String((selectedBankAccount?.accountNumber  ?? "").suffix(4))
+//                                        Text("**** \(bankAccountSuffix4)")
+//                                            .fontCustom(.Regular, size: 13)
+//                                            .foregroundColor(.darkGrayColor)
+//                                    }
+//
+//                                    Spacer()
+//                                }.padding(.vertical, padding/2)
+//
+//                                MaxWidthButton(text: AppTexts.pay, fontEnum: .Medium) {
+//                                    payBA()
+//                                }
+//                            }
+//                        }.padding()
                     }
                     
                 }.padding(padding)
@@ -170,6 +174,9 @@ struct PayToScreen: View {
                 }
                 if let scannedResult = qrScannedResultFromPreviousScreen {
                     self.qrCodeScannedModel = scannedResult
+                    if let amount = qrCodeScannedModel?.amount {
+                        self.amount = amount
+                    }
                 }
                 qrScannedResultFromPreviousScreen = nil
                 if let qrCodeScannedModel {
@@ -196,16 +203,21 @@ struct PayToScreen: View {
         if amountInInt < minimumAmountRequiredToRecharge {
             Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.amountShouldBeAtleast + " " + Singleton.sharedInstance.generalFunctions.getCurrencyCode() + "\(minimumAmountRequiredToRecharge)")
         } else {
-            let toBankAccount: UserAddedBankAccountModel?
-            if let banks = userDetailsVM.userDetails?.banks,
-               !banks.isEmpty, let toBankAccountFirst = banks.first {
-                toBankAccount = toBankAccountFirst
-            } else {
-                toBankAccount = nil
-            }
-            paymentVM.addWalletTransactions(fromBankAccount: selectedBankAccount,
-                                            toUser: userDetailsVM.userDetails,
-                                            toBankAccount: toBankAccount,
+            //updated on 10/04/23
+            //            let toBankAccount: UserAddedBankAccountModel?
+            //            if let banks = userDetailsVM.userDetails?.banks,
+            //               !banks.isEmpty, let toBankAccountFirst = banks.first {
+            //                toBankAccount = toBankAccountFirst
+            //            } else {
+            //                toBankAccount = nil
+            //            }
+            //            paymentVM.addWalletTransactions(fromBankAccount: selectedBankAccount,
+            //                                            toUser: userDetailsVM.userDetails,
+            //                                            toBankAccount: toBankAccount,
+            //                                            withAmount: amount,
+            //                                            andNote: note,
+            //                                            isSuccessfull: true)
+            paymentVM.addWalletTransactions(toUser: userDetailsVM.userDetails,
                                             withAmount: amount,
                                             andNote: note,
                                             isSuccessfull: true)

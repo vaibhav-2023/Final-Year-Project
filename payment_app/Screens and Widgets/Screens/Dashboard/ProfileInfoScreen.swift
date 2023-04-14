@@ -50,7 +50,8 @@ struct ProfileInfoScreen: View {
                                         Image(uiImage: pickerImageModel.uiImage ?? UIImage())
                                             .resizable()
                                     } else {
-                                        AvatarView(character: String(name.capitalized.first ?? "A"),
+                                        AvatarView(imageURL: (profileVM.userModel?.profilePic ?? ""),
+                                                   character: String(name.capitalized.first ?? "A"),
                                                    textSize: 35,
                                                    size: size)
                                     }
@@ -58,24 +59,24 @@ struct ProfileInfoScreen: View {
                                     .overlay(Circle().stroke(Color.blackColor))
                                     .clipShape(Circle())
                                 
-//                                Button {
-//                                    Singleton.sharedInstance
-//                                        .alerts
-//                                        .actionSheetWith(title: AppTexts.AlertMessages.selectImageFrom,
-//                                                         message: nil,
-//                                                         firstDefaultButtonTitle: AppTexts.AlertMessages.camera,
-//                                                         firstDefaultButtonAction: { _ in
-//                                            pickImageFrom(.camera)
-//                                        },
-//                                                         secondDefaultButtonTitle: AppTexts.AlertMessages.photoLibrary,
-//                                                         secondDefaultButtonAction: { _ in
-//                                            pickImageFrom(.photoLibrary)
-//                                        })
-//                                } label: {
-//                                    Image(systemName: "square.and.pencil")
-//                                        .foregroundColor(.blackColor)
-//                                        .padding(.trailing, size / 10)
-//                                }
+                                Button {
+                                    Singleton.sharedInstance
+                                        .alerts
+                                        .actionSheetWith(title: AppTexts.AlertMessages.selectImageFrom,
+                                                         message: nil,
+                                                         firstDefaultButtonTitle: AppTexts.AlertMessages.camera,
+                                                         firstDefaultButtonAction: { _ in
+                                            pickImageFrom(.camera)
+                                        },
+                                                         secondDefaultButtonTitle: AppTexts.AlertMessages.photoLibrary,
+                                                         secondDefaultButtonAction: { _ in
+                                            pickImageFrom(.photoLibrary)
+                                        })
+                                } label: {
+                                    Image(systemName: "square.and.pencil")
+                                        .foregroundColor(.blackColor)
+                                        .padding(.trailing, size / 10)
+                                }
                             }
                             
                             if isImageSelected {
@@ -93,11 +94,11 @@ struct ProfileInfoScreen: View {
                     
                     LoginFieldsOuterView(title: AppTexts.name) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourName, text: $name, keyboardType: .default)
-                    }
+                    }.disabled(true)
                     
                     LoginFieldsOuterView(title: AppTexts.email) {
                         MyTextField(AppTexts.TextFieldPlaceholders.enterYourEmail, text: $email, keyboardType: .emailAddress)
-                    }
+                    }.disabled(true)
                     
                     VStack(alignment: .leading, spacing: spacing/2) {
                         Text(AppTexts.mobileNumber)
@@ -109,18 +110,17 @@ struct ProfileInfoScreen: View {
                                 Text(countryCode)
                                     .fontCustom(.Regular, size: 15)
                                     .foregroundColor(.blackColor)
-                            }
+                            }.disabled(true)
                             LoginFieldsOuterView {
                                 MyTextField(AppTexts.TextFieldPlaceholders.enterMobileNumber, text: $mobileNumber, maxLength: 10, keyboardType: .numberPad)
-                            }
+                            }.disabled(true)
                         }.padding(.bottom, spacing)
                     }
                     
                     
-                    //                MaxWidthButton(text: AppTexts.save.uppercased(), fontEnum: .Medium) {
-                    //                    onSaveTapped()
-                    //                }
-                    //            }.padding(padding)
+                    MaxWidthButton(text: AppTexts.save.uppercased(), fontEnum: .Medium) {
+                        onSaveTapped()
+                    }
                 }.padding(padding)
             }
         }.background(
@@ -128,15 +128,19 @@ struct ProfileInfoScreen: View {
         ).setNavigationBarTitle(title: AppTexts.yourDetails)
             .sheet(isPresented: $showImagePicker) {
                 ImagePickerView(imageModel: $pickerImageModel)
-            }
-            .onAppear {
-                //on open screen set data of user in the text fields
-                let userModel = Singleton.sharedInstance.generalFunctions.getUserModel()
-                name = userModel?.name ?? ""
-                email = userModel?.email ?? ""
-                countryCode = userModel?.numericCountryCode ?? ""
-                mobileNumber = userModel?.phone ?? ""
-            }
+            }.showLoader(isPresenting: .constant(profileVM.isAnyApiBeingHit))
+                .onAppear {
+                    //on open screen set data of user in the text fields
+                    let userModel = Singleton.sharedInstance.generalFunctions.getUserModel()
+                    name = userModel?.name ?? ""
+                    email = userModel?.email ?? ""
+                    countryCode = userModel?.numericCountryCode ?? ""
+                    mobileNumber = userModel?.phone ?? ""
+                }.onReceive(profileVM.$fillDetailsAS) { apiStatus in
+                    if apiStatus == .ApiHit {
+                        pickerImageModel = ImageModel(sourceType: .camera)
+                    }
+                }
     }
     
     //button to pick image from camera or photolibrary
@@ -147,13 +151,15 @@ struct ProfileInfoScreen: View {
     
     //on button tap
     private func onSaveTapped() {
-        if name.isEmpty {
-            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterName)
-        } else if !email.isEmpty && !email.isValidEmail {
-            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidOTP)
-        } else {
+//        if name.isEmpty {
+//            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterName)
+//        } else if !email.isEmpty && !email.isValidEmail {
+//            Singleton.sharedInstance.alerts.errorAlertWith(message: AppTexts.AlertMessages.enterValidEmail)
+//        } else {
+        if pickerImageModel.imageData != nil {
             profileVM.hitFillUserDetailsAPI(withName: name, email: email, andImageModel: pickerImageModel)
         }
+//        }
     }
 }
 

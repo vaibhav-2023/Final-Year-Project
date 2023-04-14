@@ -43,7 +43,7 @@ struct MessageCell: View {
                     VStack(alignment: alignment, spacing: spacing) {
                         
                         if isPayment {
-                            let isPaymentSuccessfull = chatWalletTransaction?.isPaymentSuccessful ?? false
+                            let isPaymentSuccessfull = true//chatWalletTransaction?.isPaymentSuccessful ?? false
                             HStack {
                                 if isSent {
                                     Spacer(minLength: 1)
@@ -70,7 +70,8 @@ struct MessageCell: View {
                             
                             HStack(spacing: spacing) {
                                 
-                                PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull, isDebit: isSent)
+                                PaymentStatusView(isPaymentSuccessfull: isPaymentSuccessfull,
+                                                  walletTransactionEnum: isSent ? .debit : .credit)
                                 
                                 Spacer(minLength: 1)
                                 

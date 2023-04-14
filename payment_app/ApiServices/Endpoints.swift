@@ -34,7 +34,10 @@ enum AppEndpoints: String, EndpointsProtocol {
          walletAdd = "wallet/add",
          walletAllClient = "wallet/allClient",
          walletSingle = "wallet/single",
-         walletChatTransactions = "wallet/chatTransactions"
+         walletChatTransactions = "wallet/chatTransactions",
+         userGetQRWithAmount = "user/getQrWithAmount",
+         walletRechargeWallet = "wallet/rechargeWallet",
+         walletTranferAmount = "wallet/tranferAmount"
 }
 
 ////MARK: - AppEndpointsWithParamters

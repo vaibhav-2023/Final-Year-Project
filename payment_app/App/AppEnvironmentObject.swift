@@ -15,7 +15,7 @@ final class AppEnvironmentObject: ObservableObject {
     // for internet status, connected or not
     @Published var isConnectedToInternet: Bool = true
     //used to show add bank screen from ContentView added on created on 13/01/23
-    var openFillBankDetailsScreen: Bool = false
+    //var openFillBankDetailsScreen: Bool = false
     //used to show paymentDetails Screen from home screen  added on created on 13/01/23
     var walletTransactionDetails: WalletTransactionModel? = nil
 }

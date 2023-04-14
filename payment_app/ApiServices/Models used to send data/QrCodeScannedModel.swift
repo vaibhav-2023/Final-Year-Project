@@ -12,4 +12,5 @@ import Foundation
 struct QrCodeScannedModel: Codable {
     let pa: String?
     let pn: String?
+    let amount: String?
 }

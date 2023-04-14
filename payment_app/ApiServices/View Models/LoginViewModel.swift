@@ -61,7 +61,11 @@ class LoginViewModel: ViewModel {
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
                 //#if DEBUG
-                Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(response.otp ?? 0)") { _ in
+                if let otp = response.otp {
+                    Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(otp)") { _ in
+                        self?.loginAS = .OTPSent
+                    }
+                } else {
                     self?.loginAS = .OTPSent
                 }
                 //#else
@@ -98,7 +102,9 @@ class LoginViewModel: ViewModel {
         } receiveValue: { [weak self] response in
             if let success = response.success, success {
                 //#if DEBUG
-                Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(response.otp ?? 0)")
+                if let otp = response.otp {
+                    Singleton.sharedInstance.alerts.alertWith(title: "OTP", message: "\(otp)")
+                }
                 //#endif
                 self?.resendOTPAS = .ApiHit
             } else {
@@ -173,7 +179,7 @@ class LoginViewModel: ViewModel {
         //if user has selected any image, only then send image details
         if let imageData = imageModel?.imageData {
             fileModel.append(contentsOf: [FileModel(file: imageData,
-                                                    fileKeyName: "profilePic",
+                                                    fileKeyName: "user_profilePic",
                                                     fileName: "profilePic",
                                                     mimeType: imageModel?.mimeType ?? "image")])
         }

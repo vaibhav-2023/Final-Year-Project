@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Stripe
 import Firebase
 
 //AppDelegate of the App created on 31/12/22
@@ -21,6 +22,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
+        //added on 10/04/23
+        StripeAPI.defaultPublishableKey = AppKeys.stripeKey
+        
         //set up nav bar color
         UINavigationBar.appearance().tintColor = .primaryColor
         // UINavigationBar.appearance().isTranslucent = false

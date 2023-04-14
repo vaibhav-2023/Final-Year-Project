@@ -40,7 +40,7 @@ class ProfileViewModel: ViewModel {
         //if user has selected any image, only then send image details
         if let imageData = imageModel?.imageData {
             fileModel.append(contentsOf: [FileModel(file: imageData,
-                                                    fileKeyName: "profilePic",
+                                                    fileKeyName: "user_profilePic",
                                                     fileName: "profilePic",
                                                     mimeType: imageModel?.mimeType ?? "image")])
         }
@@ -74,19 +74,21 @@ class ProfileViewModel: ViewModel {
         
         profileAPIAS = .IsBeingHit
         
-        let params = ["_id": Singleton.sharedInstance.generalFunctions.getUserID()] as JSONKeyPair
-        
-        var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userSingle)
-        urlRequest?.addHeaders(shouldAddAuthToken: true)
-        urlRequest?.addParameters(params, as: .URLFormEncoded)
-        Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: ProfileResponse.self) { [weak self] in
-            self?.getProfile()
+        let id = Singleton.sharedInstance.generalFunctions.getUserID()
+        if !id.isEmpty {
+            let params = ["_id": id] as JSONKeyPair
+            
+            var urlRequest = Singleton.sharedInstance.apiServices.getURL(ofHTTPMethod: .POST, forAppEndpoint: .userSingle)
+            urlRequest?.addHeaders(shouldAddAuthToken: true)
+            urlRequest?.addParameters(params, as: .URLFormEncoded)
+            Singleton.sharedInstance.apiServices.hitApi(withURLRequest: urlRequest, decodingStruct: ProfileResponse.self) { [weak self] in
+                self?.getProfile()
             }
             .sink{ [weak self] completion in
                 switch completion {
-                    case .finished:
+                case .finished:
                     break
-                    case .failure(_):
+                case .failure(_):
                     self?.profileAPIAS = .ApiHitWithError
                     break
                 }
@@ -99,6 +101,7 @@ class ProfileViewModel: ViewModel {
                     self?.profileAPIAS = .ApiHitWithError
                 }
             }.store(in: &cancellable)
+        }
     }
     
     //function to logout user

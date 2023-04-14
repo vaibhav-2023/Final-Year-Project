@@ -245,8 +245,8 @@ extension String {
     }
     
     //remove characters
-    func removeCharacter(_ character: String) -> String{
-        return self.replacingOccurrences(of: character, with: "", options: NSString.CompareOptions.literal, range: nil)
+    func removeString(_ string: String) -> String{
+        return self.replacingOccurrences(of: string, with: "", options: NSString.CompareOptions.literal, range: nil)
     }
     
     //check if email is valid
@@ -266,6 +266,13 @@ extension String {
         return !self.isEmpty && self.count >= 6
     }
     
+    //check if vpa is valid on 06/04/23
+    var isValidVPA: Bool {
+        let vpaRegex = ".*[^A-Za-z0-9].*"
+        let vpaTest = NSPredicate(format: "SELF MATCHES %@", vpaRegex)
+        return vpaTest.evaluate(with: self)
+    }
+    
     //if bank account valid added on 04/01/23
     var isValidBankAccount: Bool {
         return self.count >= 9 && self.count <= 18
@@ -274,6 +281,10 @@ extension String {
     //if IFSC code is valid added on 04/01/23
     var isValidIFSC: Bool {
         return self.count == 11
+    }
+    
+    var base64StringToData: Data? {
+        Data(base64Encoded: self, options: .ignoreUnknownCharacters)
     }
     
     //check if the given string contains phone number in it

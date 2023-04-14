@@ -86,7 +86,7 @@ class UserDetailsViewModel: ViewModel {
                     if let userDetails = (response.data ?? []).first {
                         self?.userDetails = userDetails
                     } else {
-                        //                        self?.userDetails = UserModel(id: nil, userAutoID: nil, name: qrCodeScannedModel.pn ?? "", email: nil, phone: mobileNumber, otp: nil, profilePic: nil, countryCode: Singleton.sharedInstance.generalFunctions.getCountryCodeOfDevice(), numericCountryCode: Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice(), userType: nil, isDelete: nil, isBlocked: nil, firebaseToken: nil, status: nil, banks: nil, createdAt: nil, vpa: nil, qrCodeFile: nil, walletAmount: nil)
+                        //                        self?.userDetails = UserModel(id: nil, userAutoID: nil, name: qrCodeScannedModel.pn ?? "", email: nil, phone: mobileNumber, otp: nil, profilePic: nil, countryCode: Singleton.sharedInstance.generalFunctions.getCountryCodeOfDevice(), numericCountryCode: Singleton.sharedInstance.generalFunctions.getNumericCountryCodeOfDevice(), userType: nil, isDelete: nil, isBlocked: nil, firebaseToken: nil, status: nil, banks: nil, createdAt: nil, vpa: nil, qrCodeFile: nil, walletAmount: nil, walletBalance: nil)
                     }
                     self?.userDetailsAS = .ApiHit
                 } else {

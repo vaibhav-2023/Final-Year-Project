@@ -38,7 +38,8 @@ struct ProfileScreen: View {
                             
                             Spacer()
                             
-                            AvatarView(character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
+                            AvatarView(imageURL: (profileVM.userModel?.profilePic ?? ""),
+                                character: "\(name.capitalized.first ?? " ")", strokeColor: .whiteColorForAllModes, lineWidth: 1)
                         }
                         
                         let vpaID = profileVM.userModel?.vpa ?? ""

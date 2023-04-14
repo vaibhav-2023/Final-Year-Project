@@ -11,12 +11,12 @@ import SwiftUI
 struct PaymentStatusView: View {
     
     private let isPaymentSuccessfull: Bool
-    private let isDebit: Bool
+    private let walletTransactionEnum: WalletTransactionEnum
     
     init(isPaymentSuccessfull: Bool,
-         isDebit: Bool) {
+         walletTransactionEnum: WalletTransactionEnum) {
         self.isPaymentSuccessfull = isPaymentSuccessfull
-        self.isDebit = isDebit
+        self.walletTransactionEnum = walletTransactionEnum
     }
     
     var body: some View {
@@ -24,10 +24,13 @@ struct PaymentStatusView: View {
         let text: String
         if isPaymentSuccessfull {
             icon = "tickRoundIconTemplate"
-            if isDebit {
+            switch walletTransactionEnum {
+            case .debit:
                 text = AppTexts.sent
-            } else {
+            case .credit:
                 text = AppTexts.received
+            case .walletRecharge:
+                text = AppTexts.walletRecharged
             }
         } else {
             icon = "errorIconTemplate"
@@ -50,6 +53,6 @@ struct PaymentStatusView: View {
 
 struct PaymentStatusView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentStatusView(isPaymentSuccessfull: true, isDebit: true)
+        PaymentStatusView(isPaymentSuccessfull: true, walletTransactionEnum: .debit)
     }
 }
