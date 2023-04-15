@@ -18,6 +18,7 @@ struct DeviceDimensions {
 //Class to storing app urls
 class AppURLs {
     static let baseURL = "https://fluffy-singlet-yak.cyclic.app/"
+    //static let baseURL = "https://upi.checksample.in/"
     //static let baseURL = "http://192.168.1.118:6001/"
     
     static func getAPIURL() -> String {

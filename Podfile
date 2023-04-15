@@ -19,7 +19,7 @@ target 'payment_app' do
 pod 'Firebase/Analytics'
 pod 'Firebase/Messaging'
 pod 'Firebase/Crashlytics'
-pod 'Kingfisher'
+pod 'Kingfisher', '~> 7.0'
 pod 'Stripe'
 
   post_install do |installer|
