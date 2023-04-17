@@ -38,7 +38,7 @@ struct KingfisherImageView: View {
             .fade(duration: 1)
             .placeholder {
                 //placeholder when image is not shown
-                Image("placeholder")
+                Image("placeholderImage")
                     .resizable()
                     .aspectRatio(aspectRatio, contentMode: contentMode)
                     .if (!maxDimensionsGiven) { $0.frame(width: width, height: height) }

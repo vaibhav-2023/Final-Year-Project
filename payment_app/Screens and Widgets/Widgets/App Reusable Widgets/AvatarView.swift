@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 //Avatar View, which will show first letter of name or the profile pic of the user
 struct AvatarView: View {
@@ -36,16 +37,29 @@ struct AvatarView: View {
     var body: some View {
         Group {
             if imageURL.isEmpty || imageURL == "user/default.jpg" {
-                Text(character)
-                    .fontCustom(.Medium, size: textSize)
-                    .foregroundColor(.whiteColorForAllModes)
+                characterText
             } else {
-                KingfisherImageView(urlString: AppURLs.getImageURL() + imageURL, maxDimensionsGiven: false, width: width, height: height)
+                KFImage.url(URL(string: AppURLs.getImageURL() + imageURL))
+                    .fade(duration: 1)
+                    .placeholder {
+                        //placeholder when image is not shown
+                        characterText
+                    }
+                    .cacheOriginalImage()
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: width, height: height)
             }
         }.frame(width: width, height: width)
             .background(Color.primaryColor)
             .clipShape(Circle())
             .if (lineWidth > 0) { $0.overlay(Circle().stroke(strokeColor, lineWidth: lineWidth)).padding(lineWidth) }
+    }
+    
+    private var characterText: some View {
+        Text(character)
+            .fontCustom(.Medium, size: textSize)
+            .foregroundColor(.whiteColorForAllModes)
     }
 }
 

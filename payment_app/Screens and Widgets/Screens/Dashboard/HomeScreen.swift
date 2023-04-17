@@ -140,7 +140,9 @@ struct HomeScreen: View {
             .onAppear {
                 profileVM.getProfile()
                 if let _ = appEnvironmentObject.walletTransactionDetails {
-                    selection = NavigationEnum.PaymentDetailsScreen.rawValue
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        selection = NavigationEnum.PaymentDetailsScreen.rawValue
+                    }
                 }
             }.onChange(of: scanResult) { scanResult in
                 //code added on 16/01/23 for qr code scanning
@@ -150,7 +152,7 @@ struct HomeScreen: View {
                        let queryParameters = qrCodeToURL.queryParameters {
                         let qrCodeScannedModel = Singleton.sharedInstance.generalFunctions.jsonToStruct(json: queryParameters, decodingStruct: QrCodeScannedModel.self)
                         //if String(qrCodeScannedModel?.pa?.prefix(10) ?? "").containsPhoneNumber() {
-                        if let pa = qrCodeScannedModel?.pa, !pa.isEmpty {
+                        if let pa = qrCodeScannedModel?.pa, !pa.isEmpty, pa.contains(Singleton.sharedInstance.generalFunctions.getUserModel()?.vpa ?? "") != true {
                             self.qrCodeScannedModel = qrCodeScannedModel
                             selection = NavigationEnum.PayToScreen.rawValue
                         } else {

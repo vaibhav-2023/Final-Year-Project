@@ -49,19 +49,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         //Messaging.messaging().delegate = self
 
         //notification set up
-        UNUserNotificationCenter.current().delegate = self
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: { [weak self] (granted,error) in
-                if !granted {
-                    let alert = UIAlertController(title: "Notification Access", message: "In order to use this application, turn on notification permissions.", preferredStyle: .alert)
-                    let alertAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-                    alert.addAction(alertAction)
-
-                    self?.window?.rootViewController?.present(alert , animated: true, completion: nil)
-                }
-            })
+        //        UNUserNotificationCenter.current().delegate = self
+        //        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        //        UNUserNotificationCenter.current().requestAuthorization(
+        //            options: authOptions,
+        //            completionHandler: { [weak self] (granted,error) in
+        //                if !granted {
+        //                    let alert = UIAlertController(title: "Notification Access", message: "In order to use this application, turn on notification permissions.", preferredStyle: .alert)
+        //                    let alertAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        //                    alert.addAction(alertAction)
+        //
+        //                    self?.window?.rootViewController?.present(alert , animated: true, completion: nil)
+        //                }
+        //            })
 
         //check for app update
         //Singleton.sharedInstance.generalFunctions.checkUpdateAvailable()

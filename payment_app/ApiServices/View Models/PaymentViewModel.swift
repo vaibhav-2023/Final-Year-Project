@@ -74,7 +74,6 @@ class PaymentViewModel: ViewModel {
             if let success = response.success, success {
                 //when payment is added, send user to the payment details screen
                 Singleton.sharedInstance.appEnvironmentObject.walletTransactionDetails = response.data
-                Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
                 self?.addWalletTransactionAS = .ApiHit
             } else {
                 self?.addWalletTransactionAS = .ApiHitWithError

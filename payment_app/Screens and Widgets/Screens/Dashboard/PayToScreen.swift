@@ -193,6 +193,10 @@ struct PayToScreen: View {
                    let defaultBank = banks.first as? UserAddedBankAccountModel {
                     selectedBankAccount = defaultBank
                 }
+            }.onReceive(paymentVM.$addWalletTransactionAS) { apiStatus in
+                if apiStatus == .ApiHit {
+                    Singleton.sharedInstance.appEnvironmentObject.changeContentView.toggle()
+                }
             }
     }
     
