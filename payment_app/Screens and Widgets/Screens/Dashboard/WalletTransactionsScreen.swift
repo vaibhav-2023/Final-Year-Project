@@ -102,9 +102,9 @@ struct WalletTransactionsScreen: View {
                             Spacer()
                             
                             let amount = Singleton.sharedInstance.generalFunctions.getCurrencySymbol() + (walletTransaction?.amount?.format() ?? "")
-                            Text((isDebit ? "-" : "+") + " " + amount)
+                            Text((isWalletTransaction || !isDebit ? "+" : "-") + " " + amount)
                                 .fontCustom(.SemiBold, size: 16)
-                                .foregroundColor(isDebit ? .redColor : .greenColor)
+                                .foregroundColor(isWalletTransaction || !isDebit ? .greenColor : .redColor)
                         }
                         
                         HStack(spacing: spacing) {

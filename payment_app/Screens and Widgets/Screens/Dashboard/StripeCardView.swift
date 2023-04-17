@@ -83,8 +83,6 @@ struct StripeCardView: View {
     
     //function added on 10/04/23
     private func createStripeToken() {
-            
-        isLoading = true
         
         let params = STPCardParams()
         params.number = stpPaymentMethodsParams.card?.number ?? ""
@@ -96,6 +94,9 @@ struct StripeCardView: View {
             
             
         if STPCardValidator.validationState(forCard: params) == .valid {
+            
+            isLoading = true
+            
             STPAPIClient.shared.createToken(withCard: params) { (token: STPToken?, error: Error?) in
                 
                 isLoading = false
@@ -124,4 +125,4 @@ struct StripeCardView_Previews: PreviewProvider {
             
         }
     }
-}    
+}

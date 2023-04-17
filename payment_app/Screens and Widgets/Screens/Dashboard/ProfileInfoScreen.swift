@@ -51,7 +51,7 @@ struct ProfileInfoScreen: View {
                                             .resizable()
                                     } else {
                                         AvatarView(imageURL: (profileVM.userModel?.profilePic ?? ""),
-                                                   character: String(name.capitalized.first ?? "A"),
+                                                   character: String(name.capitalized.first ?? " "),
                                                    textSize: 35,
                                                    size: size)
                                     }
